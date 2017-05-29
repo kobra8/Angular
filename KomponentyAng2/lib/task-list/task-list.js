@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Inject } from '@angular/core';
 import template from './task-list.html !text';
+import { TaskListService } from './task-list-service'
 
 @Component({
   selector: 'ngc-task-list',
@@ -7,19 +8,32 @@ import template from './task-list.html !text';
     class: 'task-list'
   },
   template,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [TaskListService]
 })
 
 export class TaskList {
-  constructor() {
-    this.tasks = [
-      {title: 'Zadanie 1', done: false},
-      {title: 'Zadanie 2', done: true}
-    ];
+  constructor(@Inject(TaskListService)taskListService) {
+    this.taskListService = taskListService;
+    this.taskFilterList = ['wszystkie','otwarte','wykonane'];
+    this.selectedTaskFilter = 'wszystkie'
   }
+  getFilteredTasks() {
+    return this.taskListService.tasks ? this.taskListService.tasks.filter((task) =>{
+      if (this.selectedTaskFilter === 'wszystkie') {
+        return true;
+      } else if (this.selectedTaskFilter === 'otwarte') {
+        return !task.done;
+      } else {
+        return task.done;
+      }
+    }) : [];
+  }
+
   addTask(title) {
-    this.tasks.push({
-      title, done: false
+    this.taskListService.tasks.push({
+      title, 
+      done: false
     });
   }
 }
