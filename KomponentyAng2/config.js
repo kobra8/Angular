@@ -14,6 +14,8 @@ System.config({
     "@angular/platform-browser": "npm:@angular/platform-browser@4.0.1",
     "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@4.0.1",
     "jquery": "npm:jquery@3.2.1",
+    "moment": "npm:moment@2.18.1",
+    "pouchdb": "github:pouchdb/pouchdb@6.2.0",
     "reflect-metadata": "npm:reflect-metadata@0.1.10",
     "rxjs": "npm:rxjs@5.3.0",
     "text": "github:systemjs/plugin-text@0.0.9",

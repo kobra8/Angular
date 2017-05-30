@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation, Inject } from '@angular/core';
 import template from './task-list.html !text';
-import { TaskListService } from './task-list-service'
 
 @Component({
   selector: 'ngc-task-list',
