@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, HostBinding } from '@angular/core';
+import {Component, Input, ViewEncapsulation, HostBinding} from '@angular/core';
 import template from './task.html!text';
 
 @Component({
@@ -9,12 +9,12 @@ import template from './task.html!text';
   template,
   encapsulation: ViewEncapsulation.None
 })
-
 export class Task {
+  // Model task może zostać dołączony na elemencie nadrzędnym wewnątrz widoku.
   @Input() task;
 
   @HostBinding('class.task--done')
-    get done() {
-      return this.task && this.task.done;
-    }
+  get done() {
+    return this.task && this.task.done;
+  }
 }
