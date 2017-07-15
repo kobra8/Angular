@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import {TaskListModule} from '../task-list/task-list.module';
-import {Project} from './project';
-import {UIModule} from '../ui/ui.module';
+import { TaskListModule } from '../task-list/task-list.module';
+import { Project } from './project';
+import { UIModule } from '../ui/ui.module';
 
 // Utwórz moduł projektu.
 @NgModule({

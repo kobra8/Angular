@@ -9,10 +9,10 @@ class LinkConventer {
   static getIdFromLink(link) {
     return link.slice(1);
   }
-  static getItemModelFromproject(project) {
+  static getItemModelFromProject(project) {
     return project ? {
       title: project.title,
-      link:`3${project._id}`
+      link:`#${project._id}`
     } : {
       title: '',
       link: `#`
@@ -42,7 +42,7 @@ export class App {
       //Utworzenie nowych elementów nawigacyjnych
       this.projectNavigationItems = this.projects
       .filter((project) => !project.deleted)
-      .map((project) => LinkConventer.getItemModelFromproject(project));
+      .map((project) => LinkConventer.getItemModelFromProject(project));
       //Jeśli został wybrany projekt, próbujemy wybrać ten sam z nowej listy.
       if(this.selectedProject) {
         this.selectedProject = this.projects.find((project) => project._id === this.selectedProject._id);
@@ -51,7 +51,7 @@ export class App {
   }
 //Uzywa konwertera, aby wygenerować identfikator łącza dla altualnie wybranego projektu
 getSelectedProjectLink() {
-  return LinkConventer.getItemModelFromproject(this.selectedProject).link;
+  return LinkConventer.getItemModelFromProject(this.selectedProject).link;
 }
 //Funkcja ustawi wartość selectedProject na podstawie identyfiakatora łącza
 selectProjectByLink(link) {
