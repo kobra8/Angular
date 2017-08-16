@@ -18,11 +18,17 @@ class LinkConventer {
 }
 
 @Component({
+  // Informuje Angular, aby szukał elementu <ngc-app> w celu utworzenia tego komponentu.
   selector: 'ngc-app',
+  // Wykorzystajmy treść wczytanego szablonu HTML.
   template,
   encapsulation: ViewEncapsulation.None,
   providers: [ProjectService]
 })
+export class App {
+  constructor(@Inject(ProjectService) projectService) {
+    this.projectService = projectService;
+    this.projects = [];
 
 export class App {
   constructor(@Inject(ProjectService) projectService) {
