@@ -1,0 +1,134 @@
+<app-loading *ngIf="customer === undefined || customer.details === undefined"></app-loading>
+
+<app-menu [menuItems]="menuItems">
+
+
+    <app-dropdown class="list attachments" *ngIf="path === 'mydata' && customer?.attachments?.length > 0">
+
+        <trigger class="menu-item">
+            <i class="ti-download"></i>
+            <span class="tablet-hidden">{{r?.translations?.filesToDownload}}</span>
+        </trigger>
+
+        <content>
+            <p class="label">{{r?.translations?.filesToDownload}}</p>
+
+            <a *ngFor="let att of customer?.attachments"
+               class="block attachment"
+               href="FileHandler.ashx?id={{att.id}}&fileName={{att.name}}.{{att.extension}}&fromBinary=false"
+               target="_self">
+
+                <i class="ti-clip"></i> {{att.name}}.{{att.extension}}
+            </a>
+        </content>
+
+    </app-dropdown>
+
+</app-menu>
+
+<div class="sidebar f-left" *ngIf="!configService.isMobile">
+
+    <app-sticky [stickyClass]="'filters-section'">
+        <app-profile-menu></app-profile-menu>
+    </app-sticky>
+
+</div>
+
+<div class="f-right profile-container main-column">
+
+    <div class="flex flex-equalize space-between margin-fix my-data" *ngIf="path === 'mydata'">
+
+
+        <div class="f-left box">
+
+            <p class="label">{{r?.translations?.invoiceData}}</p>
+
+
+            <p class="bold">{{customer?.details?.name1}}</p>
+
+            <p *ngIf="customer?.details?.name2">{{customer.details.name2}}</p>
+
+            <p *ngIf="customer?.details?.address && customer?.details?.address !== ''">{{customer.address}}</p>
+
+            <p *ngIf="!customer?.details?.address || customer?.details?.address === ''">
+                {{customer?.details?.street}} {{customer?.details?.zipCode}} {{customer?.details?.City}}
+            </p>
+
+            <p>{{r?.translations?.tin}}: {{customer?.details?.tin}}</p>
+
+            <p>{{r?.translations?.ein}}: {{customer?.details?.ein}}</p>
+
+        </div>
+
+        <div class="f-left box">
+
+            <p class="label">{{r?.translations?.contactData}}</p>
+
+
+            <p>
+                <i class="ti-mobile"></i>
+                <a href="tel:{{customer?.details?.telephoneNo1}}">{{customer?.details?.telephoneNo1}}</a>
+                <a href="tel:{{customer?.details?.telephoneNo2}}">{{customer?.details?.telephoneNo2}}</a>
+            </p>
+
+            <p> <i class="ti-email"></i> <a href="mailto:{{customer?.details?.email}}">{{customer?.details?.email}}</a></p>
+
+            <p>{{r?.translations?.fax}}: {{customer?.details?.fax}}</p>
+
+            <p><i class="ti-desktop"></i> <a href="http://{{customer?.details?.www}}">{{customer?.details?.www}}</a></p>
+
+
+        </div>
+
+        <div class="f-left box">
+
+            <p class="label">{{r?.translations?.defaultTradeParameters}}</p>
+
+            <p><i class="ti-truck"></i> {{customer?.details?.deliveryMethod}}</p>
+
+            <p>
+                <i class="ti-location-pin"></i>
+                {{customer?.details?.shippingStreet}}
+                {{customer?.details?.shippingZipCode}}
+                {{customer?.details?.shippingCity}}
+            </p>
+
+
+            <p><i class="ti-wallet"></i> {{customer?.details?.paymentForm}}</p>
+
+            <p><i class="ti-timer"></i> {{customer?.details?.dueDate}} {{r?.translations?.days?.toLowerCase()}}</p>
+
+
+        </div>
+
+
+
+    </div>
+
+    <section class="clear margin-fix employees" *ngIf="path === 'employees' && customer?.employees">
+
+        <div class="flex flex-wrap space-between inner-clear">
+
+            <div class="f-left box" *ngFor="let emp of customer.employees">
+
+                <strong>{{emp.name}}</strong>
+
+                <p>
+                    <small>{{emp.position}}</small>
+                </p>
+
+                <p>
+                    <i class="ti-mobile"></i>
+                    <a href="tel:{{emp.telephoneNo1}}">{{emp.telephoneNo1}}</a>
+                    <a href="tel:{{emp.telephoneNo2}}">{{emp.telephoneNo2}}</a>
+                </p>
+
+                <p> <i class="ti-email"></i> <a href="mailto:{{emp.email}}">{{emp.email}}</a></p>
+
+                <p> <i class="ti-skype"></i> <a [href]="emp.skypeUrl">{{emp.skype}}</a></p>
+
+            </div>
+
+        </div>
+    </section>
+</div>

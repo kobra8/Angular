@@ -1,0 +1,52 @@
+@import 'configuration.scss';
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px;
+}
+
+.modal-window {
+    z-index: 1001;
+    position: relative;
+    width: 500px;
+    min-height: 250px;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: auto;
+    box-shadow: 0 0 7px 1px rgba(0,0,0,0.1);
+    background: $background;
+}
+
+.modal-content {
+    text-align:center;
+}
+
+.single-toastr {
+    .overlay {
+        display: none;
+    }
+
+    .modal-wrapper {
+        position: fixed;
+        top: 10px;
+        left: auto;
+        right: 10px;
+        bottom: auto;
+        z-index: 1000;
+    }
+
+    .modal-window {
+        min-height: 70px;
+    }
+}

@@ -1,0 +1,98 @@
+<app-loading *ngIf="!promotionsService?.items || !promotionDetailsService?.products"></app-loading>
+
+<app-menu></app-menu>
+
+
+<section class="narrow-content promotions clear" [ngClass]="{'few': promotionsService?.items?.length <= 3}">
+
+
+    <div *ngIf="promotionsService?.items">
+
+
+        <div class="no-results trow box-message" *ngIf="promotionsService?.items && promotionsService?.items.length === 0">
+            <i class="ti-na"></i>
+            <span>{{r?.translations?.resultsNotFound}}</span>
+        </div>
+
+        <app-slider [loop]="false" [items]="3" class="flex" [responsive]="{'0': {'items': 1}, '1281': {'items': 3}}">
+
+            <div class="tns-item"
+                 *ngFor="let listItem of promotionsService?.items"
+                 [ngClass]="{'active': listItem.id === activePromotionId}"
+                 (click)="setActive(listItem.id)">
+
+                <div class="box inner-clear"
+                     [ngClass]="{'hover-shadow': listItem.id !== activePromotionId}">
+
+                    <div class="ribbon due-days" *ngIf="listItem?.effectiveFrom || listItem?.until">
+                        <i class="ti-bell"></i>
+
+                        <ng-container *ngIf="listItem?.effectiveFrom">
+                            {{r?.translations?.fromHour?.toLowerCase()}}
+                            {{listItem.effectiveFrom | date: 'dd-MM-yyyy'}}
+                        </ng-container>
+
+                        <ng-container *ngIf="listItem?.until">
+                            {{r?.translations?.toHour?.toLowerCase()}}
+                            {{listItem.until | date: 'dd-MM-yyyy'}}
+                        </ng-container>
+
+                    </div>
+
+                    <p class="emphasised">{{listItem.name}}</p>
+
+                    <div *ngIf="listItem?.validInHoursFrom || listItem?.validInHoursTo">
+
+                        <small class="block">{{r?.translations?.validInHours}}</small>
+
+                        <ng-container *ngIf="listItem?.validInHoursFrom">
+                            {{r?.translations?.fromHour?.toLowerCase()}}
+                            {{listItem?.validInHoursFrom}}
+                        </ng-container>
+
+                        <ng-container *ngIf="listItem?.validInHoursTo">
+                            {{r?.translations?.toHour?.toLowerCase()}}
+                            {{listItem?.validInHoursTo}}
+                        </ng-container>
+                    </div>
+
+                    <p class="desc" *ngIf="listItem.comment">{{listItem.comment}}</p>
+                    
+
+                </div>
+
+
+
+            </div>
+
+        </app-slider>
+
+        <app-pager *ngIf="promotionsService?.items && promotionsService?.items.length > 0"
+                   [page]="promotionsService?.pagination?.currentPage"
+                   [isNextPage]="promotionsService?.pagination?.isNextPage"
+                   [pageSize]="promotionsService?.pagination?.pageSize"
+                   (change)="changePage($event);">
+        </app-pager>
+
+    </div>
+
+
+
+</section>
+
+
+<form *ngIf="promotionsService?.items?.length > 0 && promotionDetailsService.products">
+
+
+    <app-products-table [products]="promotionDetailsService?.products"
+                        [cartCount]="promotionDetailsService?.details?.cartCount"
+                        [columns]="promotionDetailsService?.columns"
+                        [config]="promotionDetailsService?.details"
+                        [pagination]="promotionDetailsService?.paginationRepo?.pagination"
+                        (changePage)="promotionDetailsService?.changePage($event)">
+
+    </app-products-table>
+
+</form>
+
+

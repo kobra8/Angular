@@ -1,0 +1,29 @@
+@import 'configuration.scss';
+
+.app-sticky {
+    display: block;
+    position: relative;
+    z-index: 20;
+
+    .container {
+        top: 0;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    &.fixed-height {
+
+        .container {
+            height: 100%;
+            overflow-y: auto;
+        }
+    }
+
+    .size-guard, .container {
+        @media (max-width: $tablet-max) {
+            position: static !important;
+            width: 100% !important;
+            height: auto !important;
+        }
+    }
+}

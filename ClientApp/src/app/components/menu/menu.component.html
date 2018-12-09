@@ -1,0 +1,79 @@
+<nav class="inner-clear nav-container" *ngIf="menuItems && menuItems.length > 0 && r?.translations">
+
+    <ng-container *ngIf="menuItems[0]?.url?.toLowerCase()?.includes('items') || menuItems[0]?.cssClass?.toLowerCase()?.includes('back'); else simpleItem">
+
+
+        <a *ngIf="menuItems[0]?.cssClass?.toLowerCase()?.includes('back')" class="f-left menu-item {{menuItems[0].cssClass}}"
+           [routerLink]="'/'+menuItems[0]?.url"
+           routerLinkActive="active-top">
+            <i class="navBar-item-image ti-menu {{menuItems[0].cssClass}}"></i>
+            <p class="label">{{menuItems[0].displayName || r?.translations[menuItems[0].displayNameResource]}}</p>
+        </a>
+
+        <div *ngIf="!menuItems[0]?.cssClass?.toLowerCase()?.includes('back') && !groupsAsDrop"
+             (click)="toggleExternalGroups.emit()"
+             class="f-left button menu-item {{menuItems[0].cssClass}}">
+
+            <i class="navBar-item-image ti-menu {{menuItems[0].cssClass}}"></i>
+            <p class="label">{{menuItems[0].displayName || r?.translations[menuItems[0].displayNameResource]}}</p>
+        </div>
+
+        <app-dropdown *ngIf="!menuItems[0]?.cssClass?.toLowerCase()?.includes('back') && groupsAsDrop" class="items-drop f-left">
+
+            <trigger class="menu-item {{menuItems[0].cssClass}}">
+                <i class="navBar-item-image ti-menu {{menuItems[0].cssClass}}"></i>
+                <p class="label">{{menuItems[0].displayName || r?.translations[menuItems[0].displayNameResource]}}</p>
+            </trigger>
+
+            <content>
+                <app-sticky [fixedHeight]="true">
+                    <app-groups [initialGroupId]="initialGroupId"></app-groups>
+                </app-sticky>
+            </content>
+
+        </app-dropdown>
+
+    </ng-container>
+
+    <ng-template #simpleItem>
+        <a class="f-left menu-item {{menuItems[0].cssClass}}"
+           [routerLink]="['/'+menuItems[0].url]"
+           routerLinkActive="active-top">
+
+            <i class="navBar-item-image ti-menu {{menuItems[0].cssClass}}"></i>
+
+            <p class="label">
+                {{menuItems[0].displayName || r?.translations[menuItems[0].displayNameResource]}}<span *ngIf="menuItems[0].params?.id">: {{menuItems[0].params.id}}</span>
+            </p>
+
+        </a>
+    </ng-template>
+
+    <div class="inner-clear bar flex" *ngIf="menuItems.length > 0">
+
+
+
+        <ng-container *ngIf="menuItems.length > 1">
+
+
+            <a *ngFor="let item of menuItems.slice(1)"
+               class="f-left menu-item {{item.cssClass}}"
+               [routerLink]="['/'+item.url]"
+               routerLinkActive="active-top">
+
+                <i class="navBar-item-image ti-menu {{item.cssClass}}"></i>
+
+                <p class="label">
+                    {{item.displayName || r?.translations[item.displayNameResource]}}<span *ngIf="item.params?.id">: {{item.params.id}}</span>
+                </p>
+
+            </a>
+        </ng-container>
+
+        <ng-content></ng-content>
+
+    </div>
+
+
+
+</nav>

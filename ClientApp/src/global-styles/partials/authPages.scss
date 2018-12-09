@@ -1,0 +1,203 @@
+/* separate scss file for login and remider */
+
+@import 'compass-mixins/lib/_compass.scss';
+
+@import '../fonts/fonts.css';
+@import '../themify-icons/themify-icons.css';
+
+@import 'configuration.scss';
+@import 'common.scss';
+
+@import '../../app/components/header/header.component.scss';
+@import '../../app/components/menu/menu.component.scss';
+@import '../../app/controls/slider/slider.component.scss';
+@import '../../app/controls/checkbox/checkbox.component.scss';
+
+@import '../../app/components/footer/footer.component.scss';
+
+body {
+    padding-bottom: 0;
+
+    @media (min-width: #{$tablet-max + 1}) {
+        overflow: hidden;
+    }
+}
+
+.flag {
+    line-height: 35px;
+    margin-left: 15px;
+    display: inline-block;
+
+    @media (max-width: $tablet-max) {
+        margin: 0 10px;
+    }
+}
+
+.app-header {
+
+    .top-bar {
+        background: none;
+        display: block;
+    }
+
+    .languages-container {
+
+        @media (max-width: $tablet-max) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .middle-bar {
+        padding: 0 0 20px;
+
+        .content {
+            @media (max-width: $tablet-max) {
+                min-height: 0;
+                -ms-flex-direction: column;
+                @include flex-direction(column);
+            }
+        }
+
+        .bar-item {
+
+            @media (max-width: $tablet-max) {
+                margin: 0;
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+                padding: 0;
+            }
+        }
+    }
+
+    .access {
+        margin-left: auto;
+        font-size: 18px;
+
+        @media (max-width: $tablet-max) {
+            font-size: 14px;
+        }
+
+
+        i {
+            font-size: 1.5em;
+            margin-right: 5px;
+        }
+    }
+}
+
+.auth-pages {
+    position: relative;
+
+    .tns-outer {
+        margin: 0;
+        width: 100%;
+        min-height: 650px;
+        padding-top: 63px !important;
+
+        .caption {
+            color: #FFF;
+            left: $sidebars-width*2 + 5px;
+        }
+    }
+
+
+    .app-menu {
+
+        @media (max-width: $tablet-max) {
+            position: static;
+            height: auto;
+        }
+
+        .bar {
+            @media (max-width: $tablet-max) {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+
+        .menu-item.active-top {
+            padding: 0;
+            position: relative;
+            width: $sidebars-width;
+            margin-left: $sidebars-width;
+            line-height: $bar-height - 5px;
+
+            @media (max-width: $tablet-max) {
+                margin-left: 0;
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    .login-container {
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        right: 0;
+        top: 100%;
+        border: none;
+        text-align: left;
+        white-space: normal;
+
+        @media (max-width: $tablet-max) {
+            position: static;
+        }
+
+
+        [type="text"], [type="submit"], [type="password"], button {
+            display: block;
+            width: 100%;
+        }
+
+        [type="text"], [type="submit"], [type="password"], button, .app-checkbox, select {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+
+        .app-checkbox {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .links a, .links button {
+            background: none;
+            display: inline-block;
+            padding: 0;
+            text-align: right;
+            width: 100%;
+            line-height: 1.5em;
+            height: auto;
+            min-height: 0;
+            margin-top: 10px;
+        }
+
+        .primary-action {
+            min-height: 40px;
+        }
+
+        .validation-summary {
+            margin-bottom: 20px;
+            margin-top: -20px;
+            min-height: 1px;
+        }
+
+        .validation-summary, .remember-me, .links {
+            font-size: 14px;
+        }
+    }
+
+    .app-slider {
+        @media (max-width: $tablet-max) {
+            display: none !important;
+        }
+    }
+}
+
+.app-footer {
+    margin: 0
+}

@@ -1,0 +1,179 @@
+<app-menu *ngIf="backMenuItem" [menuItems]="[backMenuItem]">
+
+    <div class="menu-item active-top">
+
+        <p class="label">
+            {{r?.translations?.complaintForm}}
+        </p>
+
+    </div>
+
+</app-menu>
+
+<app-loading *ngIf="!complaintData?.products"></app-loading>
+
+<form class="articles clear" #complaintForm="ngForm" name="complaintForm" *ngIf="complaintData.products" (ngSubmit)="complain(complaintForm.value)">
+
+    <div class="narrow-content">
+        <div *ngFor="let i of keys(complaintData.products)" [ngModelGroup]="'product'+i" class="inner-clear product flex">
+
+            <div class="half f-left product-info">
+
+                <a *ngIf="configService?.permissions?.showProducts"
+                   [routerLink]="['/ItemDetails', complaintData.products[i].itemId]"
+                   class="covering-link">
+                </a>
+
+                <p class="product-desc">
+                    <span class="product-name block">{{complaintData.products[i].name}}</span>
+                    <span class="product-code" *ngIf="complaintData.config.showCode">{{complaintData.products[i].code}}</span>
+                </p>
+
+                <p class="source-document">
+
+                    <span class="pair-key">{{r?.translations?.purchaseDocument}}:</span>
+
+                    <a class="link-in-table" [routerLink]="['/Profile/Payments', complaintData.products[i].sourceDocumentId, complaintData.products[i].sourceDocumentType]">
+                        {{complaintData.products[i].sourceDocumentName}}
+                    </a>
+                </p>
+
+                <div class="image-container inline-block" *ngIf="complaintData.config.showImages">
+
+                    <i *ngIf="complaintData.products[i].imageId === null" class="no-photo ti-image"></i>
+
+                    <img *ngIf="complaintData.products[i].imageId !== null"
+                         src="ImageHandler.ashx?id={{complaintData.products[i].imageId}}&fromBinary={{complaintData.products[i].fromBinary}}&width=250&height=250" alt="" />
+                </div>
+
+            </div>
+
+            <div class="half f-right product-form">
+
+                <div>
+                    <p class="pair-key">{{r?.translations?.complaintQuantity}}<i class="required mark"></i></p>
+
+                    <app-stepper [name]="'quantity'"
+                                 [isUnitTotal]="complaintData.products[i].isUnitTotal"
+                                 [value]="complaintData.products[i].quantity"
+                                 [max]="complaintData.products[i].basicQuantity"
+                                 (valueChange)="changeQuantity(i, $event)">
+                    </app-stepper>
+
+                    <div class="inline-block vmiddle">
+                        {{r?.translations?.ofSomeCount | format: complaintData.products[i].basicQuantity}}
+                        {{complaintData.products[i].auxiliaryUnit || complaintData.products[i].basicUnit}}
+
+                        <span class="converter">{{complaintData.products[i].converter || complaintData.products[i].unitConversion}}</span>
+                    </div>
+
+
+                </div>
+
+                <p class="pair-key">{{r?.translations?.complaintReason}}<i class="required mark"></i></p>
+
+                <textarea name="reason" ngModel required></textarea>
+
+                <p class="pair-key">{{r?.translations?.chooseRequest}}<i class="required mark"></i></p>
+
+                <!--<select name="request" (click)="loadRequests()" ngModel required>
+                    <option label="{{r?.translations?.chooseRequest}}" value=""></option>
+                    <option *ngFor="let req of complaintData.requests" [ngValue]="req.id">{{req.name}}</option>
+                </select>-->
+
+                <app-select name="request"
+                            *ngIf="r?.translations?.chooseRequest"
+                            (firstOpen)="loadRequests()"
+                            [initialLabel]="r.translations.chooseRequest"
+                            [(ngModel)]="complaintData.products[i].reason"
+                            required>
+                    <app-option *ngFor="let req of complaintData.requests" [value]="req.id">{{req.name}}</app-option>
+                </app-select>
+
+                <p class="pair-key"><i class="required mark"></i> {{r?.translations?.requiredFields}}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="complaint-options inner-clear">
+
+        <div class="narrow-content inner-clear">
+
+
+            <div class="half f-left">
+
+               
+
+                <div class="f-left delivery half">
+
+                    <h3 class="subsection-title">{{r?.translations?.myNumber}}</h3>
+
+                    <input name="SourceNumber" ngModel type="text" />
+                </div>
+
+            </div>
+
+            <div class="half f-right">
+
+                <div class="note inner-clear">
+
+                    <button class="pure f-left"
+                            (click)="changeNoteDisplay()"
+                            type="button">
+
+                        <span *ngIf="!noteFormDisplay">
+
+                            <span *ngIf="complaintForm?.controls?.Description?.value === null || complaintForm?.controls?.Description?.value === ''">
+                                <i class="ti-notepad"></i> {{r?.translations?.add}}
+                            </span>
+                            <span *ngIf="complaintForm?.controls?.Description?.value !== null && complaintForm?.controls?.Description?.value !== ''">
+                                <i class="ti-pencil"></i> {{r?.translations?.edit}}
+                            </span>
+                        </span>
+
+                        <span *ngIf="noteFormDisplay">
+                            <span *ngIf="complaintForm?.controls?.Description?.value === null || complaintForm?.controls?.Description?.value === ''">
+                                <i class="ti-notepad"></i> {{r?.translations?.collapse}}
+                            </span>
+                            <span *ngIf="complaintForm?.controls?.Description?.value !== null && complaintForm?.controls?.Description?.value !== ''">
+                                <i class="ti-pencil"></i> {{r?.translations?.apply}}
+                            </span>
+                        </span>
+
+                        <span>{{r?.translations?.note | lowercase}}</span>
+                    </button>
+
+                    <textarea name="Description"
+                              class="clear"
+                              ngModel
+                              [hidden]="!noteFormDisplay">
+                    </textarea>
+
+                    <div class="note-added clear"
+                         *ngIf="complaintForm?.controls?.Description?.value !== undefined && complaintForm?.controls?.Description?.value !== '' && !noteFormDisplay">
+                        {{complaintForm?.controls?.Description?.value}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-bottom-bar">
+
+        <div class="action-buttons inner-clear">
+            <div class="narrow-content">
+
+                <button type="submit" class="add-order f-right half" [disabled]="complaintForm.invalid">
+                    <i class="ti-write"></i>
+                    {{r?.translations?.placeComplaint}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>

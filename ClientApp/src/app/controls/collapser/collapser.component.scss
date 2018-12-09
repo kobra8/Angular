@@ -1,0 +1,69 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-collapser {
+
+    &, trigger, collapsing {
+        &:not(.flex) {
+            display: block;
+        }
+    }
+
+    trigger, collapsing {
+
+        padding: 10px 0;
+
+        &::after {
+            clear: both;
+            display: block;
+            content: '';
+        }
+    }
+
+    trigger {
+        cursor: pointer;
+    }
+
+    &::after {
+        clear: both;
+        display: block;
+        content: '';
+    }
+
+    .open-label {
+        display: block;
+    }
+
+    .close-label {
+        display: none;
+    }
+
+    &.expanded {
+
+        .open-label {
+            display: none;
+        }
+
+        .close-label {
+            display: block;
+        }
+    }
+
+    &.bottom-trigger {
+        display: -ms-flexbox;
+        -ms-direction: column;
+
+        @include display-flex();
+        @include flex-direction(column);
+
+        .trigger-container {
+            -ms-flex-order: 2;
+            @include order(2);
+        }
+
+        .content-container {
+            -ms-flex-order: 1;
+            @include order(1);
+        }
+    }
+}

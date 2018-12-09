@@ -1,0 +1,150 @@
+﻿<div class="document" spinner="isBusy" fill-height>
+	<header>
+	
+	<nav class="nav-header">
+            <ul>
+                <li>
+                     <div class="articles-search-input">
+                        <input type="search" bindonce bo-attr bo-attr-placeholder="resources.searchElement" ng-model="searchText" my-enter="search(searchText);">
+                        <div class="profiles-button-container">
+                            <div class="clear-button" ng-click="clearFilters();"></div>
+                        </div>
+                    </div>          </li>
+                <li><a href="" class="search-button" ng-click="search(searchText);"></a></li>
+            </ul>
+        </nav>
+	
+	
+		<div class="summary" mc-expander title-show="{{::resources.hideDetails}}" title-hide="{{::resources.showDetails}}" is-expanded="false">
+			<div name="header-content" class="toolbar">
+				<div class="toolbar-row">
+					<div class="pre-view">
+						<button class="btn btn-preview" bindonce bo-title="resources.back" ng-click="goBack();" />
+					</div>
+					<div class="document-number">
+                        <span class="number" ng-bind="::header.name"></span>
+					</div>
+					<div class="actions">
+						<div class="tools"></div>
+					</div>
+				</div>
+			</div>			
+			<div name="content" class="header">
+				<div class="table-cell-one">
+					<ul>
+						<li>
+                            <div class="field-bigger">
+                                <span bindonce bo-text="resources.effectiveFrom"></span>
+                                {{::header.effectiveFrom}}
+                            </div>
+                            <div class="field-smaller">
+                                <span bindonce bo-text="resources.until"></span>
+                                {{::header.until}}
+                            </div>
+						</li>
+                        <li ng-if="showFields">
+                            <div class="field-bigger">
+                                <span bindonce bo-text="resources.validInHoursFrom"></span>
+                                {{::header.validInHoursFrom}}
+                            </div>
+                            <div class="field-smaller">
+                                <span bindonce bo-text="resources.until"></span>
+                                {{::header.validInHoursTo}}
+                            </div>
+                        </li>
+                    </ul>
+				</div>
+				<div class="table-cell-one">
+					<ul ng-if="showFields">
+                        <li ng-if="deliveryMethods.length">
+                            <span bindonce bo-text="resources.shippingMethod"></span>
+                            <div ng-repeat="deliveryMethod in deliveryMethods" ng-bind="::deliveryMethod.name"></div>&nbsp;
+                        </li>
+                        <li>
+                            <span bindonce bo-text="resources.comment"></span>
+                            <div class="scroller-comment" ng-bind="::header.comment"></div>
+                        </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+    <section>
+        <div class="wrapper content">
+            <div class="container articles-container">
+                <table class="grid1">
+                    <thead>
+						<tr>
+							<!--<th ng-if="header.showimages" class="ten-center"></th>-->
+                            <th class="forty-left" ng-bind="::header.showCode ? resources.codeName : resources.name"></th> <!--class="thirty-left"-->
+							<th bindonce bo-text=" resources.threshold" class="five-right"></th>
+							<th bindonce bo-text="resources.value" class="ten-right"></th>
+							<th bindonce bo-text="resources.discountType" class="ten-left"></th>
+							<th bindonce bo-text="resources.priceType" class="ten-left"></th>
+							<th bindonce bo-text="resources.uom" class="ten-center"></th>
+							<th bindonce bo-text="resources.quantity" class="ten-center"></th>
+							<th ng-if="showAddToCart" bindonce bo-text="resources.cart" class="five-center"></th>
+						</tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in items">
+                            <!--<td ng-if="header.showImages" class="ten-center">
+                                <img ng-src="ImageHandler.ashx?id={{::item.imageId}}&fromBinary={{::item.fromBinary}}&width=100&height=120" alt="" />
+                            </td>-->
+							<td class="forty-left">
+								<span ng-if="::header.showCode">[{{::item.code}}]</span>&nbsp; <!--<a ng-href="#/Items/{{item.id}}">{{item.code}}</a>-->
+								{{::item.name}}<!--<a ng-href="#/Items/{{::item.id}}" ng-bind="::item.name"></a>-->
+							</td>
+                            <td class="five-right">
+                                {{::item.threshold}}
+                            </td>
+                            <td class="ten-right">
+                                {{::item.value}}
+                            </td>
+                            <td class="ten-left">
+                                {{::item.type}}
+                            </td>
+                            <td class="ten-left">
+                                {{::item.vatDirection == 'N' ? resources.netHeader : resources.grossHeader}}
+                            </td>
+                            <td class="ten-center">
+                                {{::item.basicUnit}}
+                            </td>
+                            <td ng-if="showAddToCart" class="ten-center">
+                                <input kendo-numerictextbox k-options="$parent.item.quantityOptions" k-rebind="$parent.item.quantityOptions" k-ng-model="$parent.item.quantity" />
+                            </td>
+                            <td ng-if="showAddToCart" class="five-center">
+                                <select ng-options="c as c for c in cartNumbers" ng-model="item.cartNo"></select>
+                                <div class="add-to-cart" ng-click="addToCart(item);"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot ng-if="noResults">
+                        <tr>
+                            <td colspan="10">
+                                <div class="no-results">
+                                    <span bindonce bo-text="resources.resultsNotFound"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="pager" ng-if="showPager">
+                    <div class="pager-row">
+                        <div class="empty"></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <a href="" ng-if="backPage" class="back-button" ng-click="backClicked();"></a>
+                                <span class="page-number">{{currentPage + 1}}</span>
+                                <a href="" ng-if="nextPage" class="next-button" ng-click="nextClicked();"></a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="page-size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,11 @@
+<label>
+    <input type="radio" 
+           name="{{name}}" 
+           [required]="required" 
+           (change)="changeMiddleware($event.target.value)" 
+           [value]="value" 
+           [checked]="checked">
+
+    <span class="dot"></span>
+    <ng-content class="label"></ng-content>
+</label>

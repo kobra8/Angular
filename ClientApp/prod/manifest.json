@@ -1,0 +1,21 @@
+{
+    "short_name": "Comarch B2B",
+    "name": "Comarch B2B",
+    "icons": [
+        {
+            "src": "/ClientApp/assets/images/manifest192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/ClientApp/assets/images/manifest512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "scope": "/",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#004d8a"
+}

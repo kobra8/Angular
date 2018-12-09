@@ -1,0 +1,12 @@
+
+<input #inputField
+       type="{{type}}"
+       name="{{name}}"
+       [value]="value"
+       [required]="required"
+       [maxlength]="maxlength"
+       (input)="inputMiddleware($event.target.value)"/>
+<label [ngClass]="{'top': value && value.length > 0}" (click)="focusInput()">
+    <ng-content></ng-content>
+</label>
+

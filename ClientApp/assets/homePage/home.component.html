@@ -1,0 +1,25 @@
+
+<app-menu [groupsAsDrop]="false" (toggleExternalGroups)="handleGroupsVisibility()"></app-menu>
+
+<app-sticky *ngIf="configService?.permissions?.showProducts"
+            [fixedHeight]="true"
+            class="sidebar groups-wrapper"
+            [ngClass]="{'tablet-hidden': !groupsOpened}">
+
+    <button class="ti-close close tablet-block" (click)="handleGroupsVisibility(false)"></button>
+
+    <app-groups [initialGroupId]="0"
+                [isProductsPage]="false">
+    </app-groups>
+
+</app-sticky>
+
+
+<div 
+     [ngClass]="{'main-column': configService?.permissions?.showProducts,
+                 'clear': !configService?.permissions?.showProducts}"
+     *ngIf="r?.translations?.homePageContent"
+     [innerHtml]="r.translations.homePageContent">
+
+</div>
+

@@ -1,0 +1,80 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "b2b-client-app"
+    },
+    "apps": [
+        {
+            "root": "./",
+            "appRoot": "src",
+            "outDir": "dist",
+            "assets": [
+                "manifest.json"    
+            ],
+            "index": "index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsconfig": "src/tsconfig.app.json",
+            "prefix": "app",
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                    "src/global-styles",
+                    "node_modules",
+                    "assets"
+                ]
+            },
+            "styles": [
+                "src/global-styles/themify-icons/themify-icons.css",
+                "src/global-styles/fonts/fonts.css",
+                "src/styles.scss",
+                {
+                    "input": "src/global-styles/partials/authPages.scss",
+                    "output": "authPages",
+                    "lazy": true
+                }
+            ],
+            "scripts": [],
+            "environmentSource": "src/environments/environment.ts",
+            "environments": {
+                "dev": "src/environments/environment.ts",
+                "prod": "src/environments/environment.prod.ts"
+            }
+        }
+    ],
+    "lint": [
+        {
+            "project": "src/tsconfig.app.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
+
+    "defaults": {
+        "styleExt": "scss",
+
+        "component": {
+            "spec": {
+                "default": false
+            },
+            "host": { "class": "app-component" },
+            "viewEncapsulation": "None"
+        },
+
+        "directive": {
+            "spec": {
+                "default": false
+            }
+        },
+
+        "pipe": {
+            "spec": {
+                "default": false
+            }
+        },
+
+        "service": {
+            "spec": {
+                "default": false
+            }
+        }
+    }
+}

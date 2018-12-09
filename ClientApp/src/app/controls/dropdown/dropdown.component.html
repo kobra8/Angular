@@ -1,0 +1,13 @@
+<div class="trigger-container" (click)="changeDisplay()">
+    <ng-content select="trigger" ></ng-content>
+</div>
+
+<div class="dropdown-window" *ngIf="isOpen">
+
+    <button type="button" class="ti-close close" (click)="changeDisplay(false)"></button>
+
+    <ng-content select="content" *ngIf="isOpen"></ng-content>
+
+</div>
+
+<div class="outside" *ngIf="isOpen" (click)="changeDisplay(false)"></div>

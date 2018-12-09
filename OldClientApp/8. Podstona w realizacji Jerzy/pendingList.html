@@ -1,0 +1,131 @@
+﻿<div class="order-list" spinner="isBusy">    
+    <header>
+        <nav class="main-filters sidebar right" ng-controller="expandable">
+            <div class="filter-root">
+                <ul>                    
+                    <li>
+                        <span bindonce bo-text="resources.startExpectedDate"></span>
+                        <input kendo-date-picker k-options="dateOptions" k-ng-model="$parent.dateFrom" />
+                    </li>
+                    <li>
+                        <span bindonce bo-text="resources.endExpectedDate"></span>
+                        <input kendo-date-picker k-options="dateOptions" k-ng-model="$parent.dateTo" />
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav class="nav-header">
+            <ul>
+                <li>
+                    <div class="articles-search-input">
+                        <input type="search" bindonce bo-attr bo-attr-placeholder="resources.searchElement" ng-model="searchitems" > <!-- BB Modyfikacja-->
+                        <div class="profiles-button-container">
+                            <div class="clear-button" ng-click="clearText();"></div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="" class="search-button" ng-click="search(searchText);"></a></li>
+                <li><a href="" class="nav-filters" show-menu="main-filters" ng-click="closeCartPanel();"></a></li>
+            </ul>
+        </nav>
+        <div class="title">
+            <span bindonce bo-text="resources.pending"></span>
+        </div>
+    </header>
+    
+	
+	<section class="background">
+        <div class="wrapper content">
+            <div class="container articles-container" fill-height>
+                
+			<!--BB Modyfikacja -->		
+			<table class="grid1" >
+				<thead>
+					<tr>
+						<th class="ten-left">Numer WM</th>
+						<th class="ten-center">Data  wyst.WM</th>
+						<th ng-bind="resources.name"></th>
+						<th bindonce bo-text="resources.number" class="ten-left"></th>
+						<th bindonce bo-text="resources.state" class="ten-left"></th>
+                        <th bindonce bo-text="resources.myNumber" class="ten-left"></th>
+						<th class="ten-center"> Numer FS</th>
+						<th bindonce bo-text="resources.orderedQuantity" class="five-right"></th>
+						<th class="five-right"> Ilość na WM</th>
+						<th bindonce bo-text="resources.uom" class="ten-center"></th>
+				</thead>
+			</table>
+				
+			<!--BB Modyfikacja -->
+			<table class="grid1">
+            <tbody>
+                <thead ng-repeat="item in data | groupBy:'wmnumer' | filter: searchitems | orderBy:'-wmdata' ">
+					<th class="ten-left" ng-show="item.group_by_key"><strong> {{item.wmnumer}} 	</strong></th>
+						<tr>
+							<td>
+							</td>
+							<td class="ten-center">
+								{{::item.wmdata}}
+							</td>
+							<td>
+							<!--BB Modyfikacja -->
+							<!--	<a ng-if="item.isAvailable && showCode" href="#/Items/{{::item.itemId}}/1/{{::item.defaultUnitNo}}/0">[{{::item.code}}]</a> -->
+								<a ng-if="item.isAvailable" href="#/Items/{{::item.itemId}}/1/{{::item.defaultUnitNo}}/0" ng-bind="::item.name"></a>
+							<!--	<span ng-if="!item.isAvailable && showCode">[{{::item.code}}]&nbsp;</span> -->
+								<span ng-if="!item.isAvailable" ng-bind="::item.name"></span>
+							</td>
+						
+							<td class="ten-left">
+								<a href="#/Orders/{{::item.id}}" ng-bind="::item.number"></a>
+							</td>	
+							<td class="ten-left">
+								{{::item.state}}
+					
+							<td class="ten-left">
+								<a href="#/Orders/{{::item.id}}" ng-bind="::item.sourceNumber"></a>&nbsp;
+							</td>
+							<td class="ten-center">
+								<a href="#/Payments/{{::item.faid}}/{{::item.type}}" ng-bind="::item.fsnumer"></a>
+							</td>
+							<td class="five-right">
+								{{::item.orderedQuantity}}
+							</td>
+							<td class="five-right">
+								{{::item.wmilosc}}
+							</td>
+							<td class="ten-center">
+                                {{::item.defaultUnitNo > 0 ? item.auxiliaryUnit : item.basicUnit}}
+                                <span ng-if="item.defaultUnitNo > 0"><br>{{::item.denominator}} {{::item.auxiliaryUnit}} = {{::item.numerator}} {{::item.basicUnit}}</span>
+                            </td> 								
+						</tr>
+				</thead>		
+									
+            </tbody>
+                    <tfoot ng-if="noResults">
+                        <tr>
+                            <td colspan="10">
+                                <div class="no-results">
+                                    <span bindonce bo-text="resources.resultsNotFound"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="pager" ng-if="showPager">
+                    <div class="pager-row">
+                        <div class="empty"></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <a href="" ng-if="backPage" class="back-button" ng-click="backClicked();"></a>
+                                <span class="page-number">{{currentPage + 1}}</span>
+                                <a href="" ng-if="nextPage" class="next-button" ng-click="nextClicked();"></a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="page-size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

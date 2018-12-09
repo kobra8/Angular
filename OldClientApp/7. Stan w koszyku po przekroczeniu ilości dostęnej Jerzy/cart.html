@@ -1,0 +1,236 @@
+﻿<div spinner="isBusy">
+    <div class="toolbar1">
+        <button id="btn-cartNoTop" class="btn btn-cartNo" ng-bind="::cartNo"></button>
+        <div class="buttons">            
+            <button class="btn btn-close btn-close-cart" ng-click="goBack();"></button>
+            <input id="searchDesk" type="search" bindonce bo-attr bo-attr-placeholder="resources.searchItem" ng-model="searchText" my-enter="search(searchText);" />
+            <button id="currentView" ng-class="{'btn largetiles-view': currentView == 'datagrid', 'btn datagrid-view': currentView == 'largetiles'}" ng-click="changeView(currentView);" />
+            <input type="hidden" class="documents" ui-select2="selectDocumentOptions" ng-model="selectedDocument" ng-change="updateDocument(selectedDocument);" />
+            <button class="btn btn-adddocument" ng-click="addDocument();"></button>
+        </div>
+    </div>
+    <div class="document1" fill-height="[{maxWidth: 767, top:48}]" showheader="{{showHeader}}">
+        <div class="document-header" showheader="{{showHeader}}">
+            <div class="header-content" fill-height="[{minWidth: 767, top:47}]">
+                <div class="table">
+                    <div class="row">
+                        <div id="divcartNo" class="cell">
+                            <button id="btn-cartNo" class="btn btn-cartNo" ng-bind="::cartNo"></button>
+                        </div>
+                        <div id="divweight" class="cell" ng-click="closeLeftBar();" onselectstart="return false;">
+                            <span class="weight" ng-if="configuration.getDeliveryCost">{{::resources.grossWeight}}: {{data.volume[0].weightGross}} kg, {{::resources.volume}}: {{data.volume[0].volume}} m3</span>
+                            <button class="btn-arrow-left right"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary" count="{{summaryCount}}" ng-if="configuration.showPrice">
+                    <div class="row" ng-repeat="summary in data.summaries">
+                        <div class="count cell">{{summary.count}}</div>
+                        <div class="subtotalValue cell">
+                            <span>{{summary.netAmount}} {{::summary.currency}} ({{::resources.s}})</span>
+                        </div>
+                        <div class="totalValue cell bold">
+                            <span>{{summary.grossAmount}} {{::summary.currency}} ({{::resources.t}})</span>
+                        </div>
+                    </div>
+                </div>                
+                <div expander title-show="{{::resources.headerData}}" title-hide="{{::resources.headerData}}" is-expanded="!isExpanded">
+                    <div class="data">
+                        <ul ng-hide="selectedDocument.id != 0">
+                            <li>
+                                <span>{{::resources.myNumber}}:</span>
+                                <input class="input" type="text" ng-model="sourceNumber" ng-change="onHeaderDataChange(0, 2, sourceNumber)" maxlength='39' />
+                            </li>
+                            <li>
+                                <span>{{::resources.shippingAddress}}:</span>
+                                <input type="hidden" ui-select2="selectShippingAddressOptions" ng-model="shippingAddress" ng-change="onHeaderDataChange(1, 4)" />
+                            </li>
+                            <li>
+                                <div class="field">
+                                    <span>{{::resources.expectedDate}}:</span>
+                                    <input kendo-date-picker k-options="dateOptions" ng-model="receiptDateStr" k-ng-model="receiptDate" ng-change="onHeaderDataChange(2, 5)" ng-disabled="!configuration.receiptDateChange" />
+                                </div>
+                                <div class="field" ng-if="configuration.showCompletion">
+                                    <span>{{::resources.completion}}:</span>
+                                    <input type="hidden" ui-select2="$parent.selectCompletionEntirelyOptions" ng-model="$parent.completionEntirely" ng-change="$parent.onHeaderDataChange(3, 6)" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="field">
+                                    <span>{{::resources.paymentForm}}:</span>
+                                    <input type="hidden" ui-select2="selectPaymentFormOptions" ng-model="paymentForm" ng-change="onHeaderDataChange(5)"
+                                           ng-disabled="!configuration.paymentFormChange" />
+                                </div>
+                                <div class="field">
+                                    <span>{{::resources.dueDate}}:</span>
+                                    <input kendo-date-picker k-options="dateOptions" ng-model="dueDateStr" k-ng-model="dueDate" ng-change="onHeaderDataChange(6)" ng-disabled="!configuration.paymentDateChange" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="field" ng-if="configuration.showDeliveryMethod">
+                                    <span>{{::resources.shippingMethod}}:</span>
+                                    <input type="hidden" ui-select2="$parent.selectDeliveryMethodOptions" ng-model="$parent.deliveryMethod" ng-change="$parent.onHeaderDataChange(4)" ng-disabled="!configuration.deliveryMethodChange" />
+                                </div>
+                                <div class="field">
+                                    <span>{{::resources.warehouse}}:</span>
+                                    <input type="hidden" ui-select2="selectWarehouseOptions" ng-model="warehouse" ng-change="onHeaderDataChange(7)" ng-disabled="!configuration.warehouseChange" />
+                                </div>
+                            </li>
+                            <li ng-if="attributes.length > 0">                                
+                                <div class="field" ng-repeat="attribute in attributes">
+                                    <div class="box" ng-class="::{'box-m': $index % 2}">
+                                        <span>{{::attribute.traslateName}} <span ng-if="attribute.required" class="red">*</span></span>                                        
+                                        <input ng-if="attribute.type == 1" type="hidden" ui-select2="attribute.selectFlagOptions" ng-model="attribute.flagSelected" ng-change="onAttributeDataChange(attribute)" value="attribute.flagSelected.id" />
+                                        <input ng-if="attribute.type == 2" class="input" type="text" ng-model="attribute.value" maxlength='512' ng-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />
+                                        <input ng-if="attribute.type == 3" kendo-numerictextbox k-options="attribute.quantityOptions" k-rebind="attribute.quantityOptions" k-ng-model="attribute.value" k-on-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />
+                                        <input ng-if="attribute.type == 7" kendo-date-picker k-options="dateOptions" ng-model="attribute.valueStr" k-ng-model="attribute.value" ng-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />                                                                                                                                                               
+                                    </div>
+                                </div>
+                                <p ng-if="required" class="red">* {{::resources.fillRequiredParameters}}</p>
+                            </li>
+                        </ul>
+                        <ul ng-if="selectedDocument.id != 0">
+                            <li>
+                                <span>{{::resources.myNumber}}:</span>
+                                <input class="input" type="text" ng-model="sourceNumberSI" ng-change="onHeaderDataChange(0, 3, sourceNumberSI)" maxlength='39' />
+                            </li>
+                            <li ng-if="attributesSI.length > 0">
+                                <div class="field" ng-repeat="attribute in attributesSI">
+                                    <div class="box" ng-class="::{'box-m': $index % 2}">
+                                        <span>{{::attribute.traslateName}} <span ng-if="attribute.required" class="red">*</span></span>
+                                        <input ng-if="attribute.type == 1" type="hidden" ui-select2="attribute.selectFlagOptions" ng-model="attribute.flagSelected" ng-change="onAttributeDataChange(attribute)" value="attribute.flagSelected.id" />
+                                        <input ng-if="attribute.type == 2" class=" input" type="text" ng-model="attribute.value" maxlength='512' ng-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />
+                                        <input ng-if="attribute.type == 3" kendo-numerictextbox k-options="attribute.quantityOptions" k-rebind="attribute.quantityOptions" k-ng-model="attribute.value" k-on-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />
+                                        <input ng-if="attribute.type == 7" kendo-date-picker k-options="dateOptions" ng-model="attribute.valueStr" k-ng-model="attribute.value" ng-change="onAttributeDataChange(attribute)" requiredfield="{{attribute.fillRequired}}" />
+                                    </div>
+                                </div>
+                                <p ng-if="required" class="red">* {{::resources.fillRequiredParameters}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div expander title-show="{{::resources.additionalInformation}}" title-hide="{{::resources.additionalInformation}}" is-expanded="isExpanded">
+                    <div class="description">
+                        <span>{{::resources.description}}:</span>
+                        <textarea cols="40" rows="5" ng-model="description" ng-change="onHeaderDataChange(0, 0, description)" ng-hide="selectedDocument.id != 0"></textarea>
+                        <textarea cols="40" rows="5" ng-model="descriptionSI" ng-change="onHeaderDataChange(0, 1, descriptionSI)" ng-hide="selectedDocument.id == 0"></textarea>
+                    </div>
+                </div>
+                <div class="addItems">
+                    <a href="" ng-click="addItemsToCart();" ng-bind="::resources.addItemsToCart"></a>
+                </div>
+            </div>
+            <div class="hide-leftbar" ng-click="closeLeftBar();">
+                <button class="btn-arrow-left"></button>
+            </div>
+        </div>
+        <div class="cart-leftbar" ng-click="showLeftBar();" showleftbar="{{showLeftbar}}">
+            <button class="btn-arrow-right"></button>
+            <div class="showcart" ng-bind="::resources.showCartDetails"></div>
+        </div>
+        <div class="wrapper content">
+            <div class="container articles-container" fill-height="[{minWidth: 767, top:0}]">
+                <div class="searchtext">
+                    <input class="search" type="search" bindonce bo-attr bo-attr-placeholder="resources.searchItem" ng-model="searchText" my-enter="search(searchText);" />
+                </div>                
+                <div class="no-results" ng-if="noResults && currentView=='largetiles'">
+                    <span ng-bind="::resources.resultsNotFound"></span>
+                </div>                
+                <div list-view items="data.items" class="listView1" currentview="{{currentView === 'largetiles'}}" item-template-uri="'Templates\\cartItemTemplate.html'">
+                </div>
+                <table ng-if="currentView === 'datagrid'" currentview="{{currentView === 'datagrid'}}" class="grid1">
+                    <thead>
+                        <tr>
+                            <th class="two-right" ng-bind="::resources.ordinalNumber"></th>
+                            <th class="twentyeight-left" ng-bind="::configuration.showCode ? resources.codeName : resources.name"></th>
+                            <th class="ten-right nowrap" ng-if="configuration.showPrice" ng-bind="::resources.price"></th>
+                   
+							<th class="ten-right" ng-if="configuration.showState" ng-bind="::resources.state"></th>
+							
+							<!-- BB Modyfikacja---->
+							<th class="ten-center" ng-if="1==1" > Brakuje  </th>	 
+							
+							<th class="ten-center" ng-bind="::resources.quantity"></th>
+							<th class="five-center" ng-bind="::resources.uom"></th>
+                            <th class="ten-center" ng-bind="::resources.converter"></th>
+                            <th class="five-center" ng-bind="::resources.discount"></th>
+                            <th class="ten-right nowrap" ng-if="configuration.showPrice">{{::resources.value}} ({{::resources.s}})</th>
+                            <th class="ten-right nowrap" ng-if="configuration.showPrice">{{::resources.value}} ({{::resources.t}})</th>
+                            <th class="five-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in data.items">
+                            <td class="two-right">
+                                {{::item.no}}.
+                            </td>
+                            <td class="twentyeight-left">
+                                <a ng-if="configuration.showCode" ng-href="#/Items/{{::item.id}}/{{::item.cartId}}/{{item.defaultUnitNo}}/{{warehouse.id}}" ng-class="item.bundleId!=null ? 'code-set' : 'code'">[{{::item.code}}]</a>&nbsp;
+                                <a ng-href="#/Items/{{::item.id}}/{{::item.cartId}}/{{item.defaultUnitNo}}/{{warehouse.id}}" ng-class="item.bundleId!=null ? 'code-set' : 'code'" ng-bind="::item.name"></a>
+                            </td>
+                            <td class="ten-right" ng-if="configuration.showPrice">
+                                {{item.price}} {{::item.currency}}
+                            </td>
+                            <td class="ten-right" ng-if="configuration.showState">
+                                <span ng-style="{'color': item.stateColor}">{{item.state}}</span>
+                            </td>
+													 					
+							<!-- BB Modyfikacja---->
+							<td class="ten-center">  </th>
+							    <span ng-show="item.koszyk > item.stan &&  item.stan >0" > {{item.stan - item.koszyk | number : 2}} </span>
+							</td>
+													 
+														
+							
+                            <td class="ten-center">
+                                <input kendo-numerictextbox k-options="item.quantityOptions" k-rebind="item.quantityOptions" k-ng-model="item.quantity" k-on-change="onItemQuantityChange(item)" ng-disabled="item.fromQuote > 0 || (item.setDocumentsType < 2 && item.bundleId != null)" />
+                            </td>
+                            <td class="five-center">
+                                {{::item.unit}}
+                            </td>
+                            <td class="ten-center">
+                                {{::item.converter}}
+                            </td>
+                            <td class="five-center" ng-if="configuration.showDiscount">
+                                {{item.discount}} %
+                            </td>
+                            <td class="ten-right" ng-if="configuration.showPrice">
+                                {{item.subtotalValue}} {{::item.currency}}
+                            </td>
+                            <td class="ten-right" ng-if="configuration.showPrice">
+                                {{item.totalValue}} {{::item.currency}}
+                            </td>
+                            <td class="five-center">
+                                <button class="btn btn-remove-item" ng-click="removeCartItem(item)"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot ng-if="noResults">
+                        <tr>
+                            <td colspan="11">
+                                <div class="no-results">
+                                    <span ng-bind="::resources.resultsNotFound"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="pager" ng-if="showPager">
+                    <div class="pager-row">
+                        <div class="empty"></div>
+                        <div class="content">
+                            <div class="content-container">
+                                <a href="" ng-if="backPage" class="back-button" ng-click="backClicked()"></a>
+                                <span class="page-number">{{currentPage + 1}}</span>
+                                <a href="" ng-if="nextPage" class="next-button" ng-click="nextClicked()"></a>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="page-size">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-floating-label-input {
+    display: inline-block;
+    position: relative;
+
+    input {
+        width: 100%;
+    }
+
+    label {
+        left: 0;
+        top: 50%;
+        transform: translateY(-0.5em);
+        position: absolute;
+        line-height: 1em;
+        margin-left: 5px;
+        cursor: text;
+        font-size: inherit;
+        background: $inputs-bg;
+        z-index: 2;
+        padding: 0 2px;
+
+        @include transition-property(transform, top, font-size);
+        @include transition-duration($little-transitions-time);
+        @include background(linear-gradient(to bottom, transparent 0%, transparent 49%, $inputs-bg 50%, $inputs-bg 100%));
+    }
+
+    input:focus + label, label.top {
+        top: -0.5em;
+        transform: translateY(0);
+        font-size: smaller;
+    }
+}
