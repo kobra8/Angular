@@ -84,11 +84,10 @@
     
     
 </section>
-<div class="container thead">
-    <div class="tcell name-col">Nazwa promocji
-        <span class="tablet-hidden">Nazwa promocji</span>
+<!-- <div class="container thead-promo narrow-content"> -->
+    <div class="thead-promo narrow-content name-col">Nazwa promocji
     </div>
-</div>
+<!-- </div> -->
 <div class="narrow-content tbody">
     <div class="trow flex promo-title" *ngFor="let listItem of promotionsService?.items">
         <a class="covering-link" [routerLink]="['/Promotions', listItem.id ]">{{listItem.name}}</a>

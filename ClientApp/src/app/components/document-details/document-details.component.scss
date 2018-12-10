@@ -26,8 +26,8 @@
         .search-bar {
             position: relative;
             padding: 0;
-            margin: auto;
-            max-width: 45%;
+            margin: 0 auto 8px auto;
+            max-width: 500px;
     
             @media (max-width: $tablet-max) {
                 -ms-flex-order: 10;
@@ -72,7 +72,7 @@
     
             .search-button {
                 position: absolute;
-                right: 27%;
+                right: 0;
                 top: 0;
                 bottom: 0;
                 width: 60px;
