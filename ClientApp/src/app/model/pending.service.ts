@@ -13,6 +13,8 @@ export class PendingService extends DocumentsList {
         super(httpClient);
 
         this.columns = new Map()
+            .set('wmnumer', 'numberWm')
+            .set('wmdata', 'dataWm')
             .set('name', 'article')
             .set('number', 'number')
             .set('sourceNumber', 'myNumber')
@@ -20,7 +22,8 @@ export class PendingService extends DocumentsList {
             .set('orderedQuantity', 'orderedQuantity')
             .set('completedQuantity', 'completedQuantity')
             .set('quantityToComplete', 'quantityToComplete')
-            .set('basicUnit', '')
+            .set('wmilosc', 'quantityWm')
+            .set('basicUnit', 'unit')
             .set('expectedDate', 'expectedDate');
     }
 

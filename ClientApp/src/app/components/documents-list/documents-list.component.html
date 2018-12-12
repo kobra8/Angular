@@ -249,6 +249,20 @@
                         </div>
 
 
+                        <!-- Column title for WM variables -->
+                        <ng-container *ngSwitchCase="col[1] === 'numberWm' ">
+                                Numer WM
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col[1] === 'dataWm' ">
+                                Data wyst. WM
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col[1] === 'quantityWm' ">
+                               ilość na WM
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col[1] === 'unit' ">
+                              Jm.
+                        </ng-container>
+
                         <ng-container *ngSwitchDefault>
                             {{r?.translations[col[1]]}}
                         </ng-container>
@@ -268,7 +282,7 @@
 
             <div class="tbody" *ngIf="listContext?.items?.length > 0">
 
-                <div class="trow flex" *ngFor="let listItem of listContext.items">
+                <div class="trow flex" *ngFor="let listItem of listContext.items; let i=index">
 
                     <a class="covering-link"
                        *ngIf="url && !url?.toLowerCase()?.includes('pending') && !url?.toLowerCase()?.includes('payments')"
@@ -291,6 +305,18 @@
                          [ngStyle]="{'width.%': 100/listContext.columns.size }">
 
                         <ng-container [ngSwitch]="col[0]">
+
+                            <!-- WM number group - only first of WM visible -->
+                                <span *ngSwitchCase="'wmnumer'">
+                                        <span *ngIf="listItem.wmnumer !== listContext.items[i + 1]?.wmnumer ">
+                                        {{listItem.wmnumer}}
+                                        </span>
+        
+                                        <span *ngIf="i !== 0 && listItem.wmnumer === listContext.items[i - 1]?.wmnumer ">
+                                                x
+                                        </span>
+        
+                                    </span>
 
                             <div *ngSwitchCase="'name'" class="inner-clear">
 

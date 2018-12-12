@@ -104,6 +104,7 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
 
             if (res.listContext) {
                 this.listContext = res.listContext;
+                console.log(this.listContext);
             }
 
             if (res instanceof Array) {
