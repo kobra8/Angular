@@ -308,14 +308,14 @@
 
                             <!-- WM number group - only first of WM visible -->
                                 <span *ngSwitchCase="'wmnumer'">
-                                        <span *ngIf="listItem.wmnumer !== listContext.items[i + 1]?.wmnumer ">
+                                        <span *ngIf="i === 0 || (i !== 0 && listItem.wmnumer !== listContext.items[i - 1]?.wmnumer) ">
                                         {{listItem.wmnumer}}
                                         </span>
-        
+
                                         <span *ngIf="i !== 0 && listItem.wmnumer === listContext.items[i - 1]?.wmnumer ">
-                                                x
+
                                         </span>
-        
+
                                     </span>
 
                             <div *ngSwitchCase="'name'" class="inner-clear">

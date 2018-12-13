@@ -120,6 +120,7 @@
 
         </div>
 
+        <!-- Details show/hide section -->
         <div class="inner-clear flex flex-wrap infos">
 
             <div class="gr-larger f-left header-data">
@@ -372,12 +373,14 @@
             </div>
         </div>
     </section>
+
+    <!-- Promotion details product search bar -->
     <div class="search-bar">
             <form novalidate #promotionProductForm="ngForm" (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
                 <input name="searchPhrase" ngModel type="search" placeholder="Szukaj towaru w promocji..." minlength="2">
                 <button class="search-button pure ti-search"></button>
             </form>
-        </div> 
+        </div>
 
         <div class="no-results trow box-message top-margin" *ngIf="detailsContext?.products?.length === 0">
             <i class="ti-na"></i>
