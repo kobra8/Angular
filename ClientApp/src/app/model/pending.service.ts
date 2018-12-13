@@ -14,7 +14,6 @@ export class PendingService extends DocumentsList {
 
         this.columns = new Map()
             .set('wmnumer', 'numberWm')
-            .set('wmdata', 'dataWm')
             .set('name', 'article')
             .set('number', 'number')
             .set('sourceNumber', 'myNumber')
@@ -24,7 +23,6 @@ export class PendingService extends DocumentsList {
             .set('quantityToComplete', 'quantityToComplete')
             .set('wmilosc', 'quantityWm')
             .set('basicUnit', 'unit')
-            .set('expectedDate', 'expectedDate');
     }
 
 

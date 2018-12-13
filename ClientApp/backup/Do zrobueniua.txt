@@ -1,0 +1,16 @@
+Copy cookie .ComarchB2B
+
+Promotions - Wyszukiwarka promocji
+
+API wyszukiwania
+
+
+Pendings - Zgrupowanie po dokumencie WM 
+Customer panel - getPendingList()
+
+Koszyk - w koszyku je¿eli wybrano iloœæ wiêksz¹ ni¿ dostêpna. -> wyswietliæ komunikat.
+
+Pliki zmienione:
+
+Foldery: promotions, document list, document details, 
+Pliki: promotion.service.ts, pending.service.ts
