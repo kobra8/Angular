@@ -120,16 +120,9 @@
 
         </div>
 
-        <!-- Details show/hide section -->
         <div class="inner-clear flex flex-wrap infos">
 
             <div class="gr-larger f-left header-data">
-
-
-                <div class="f-left header-item" *ngIf="detailsContext?.details?.issueDate">
-                    <small class="pair-key">{{r?.translations?.issueDate}}</small>
-                    <p>{{detailsContext.details.issueDate}}</p>
-                </div>
 
                 <div class="f-left header-item" *ngIf="!detailsContext?.details?.issueDate && detailsContext?.details?.createdDate">
                     <small class="pair-key">{{r?.translations?.createdDate}}</small>
@@ -138,10 +131,26 @@
 
                 <div class="clear comment" *ngIf="detailsContext?.details?.comment" [innerHTML]="detailsContext.details.comment"></div>
 
-
+                  <!-- Details show/hide section -->
                 <div class="clear" *ngIf="detailsVisibility">
 
                     <div class="flex flex-wrap">
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.name">
+                            <small class="pair-key">Nazwa promocji:</small>
+                            <p>{{detailsContext.details.name}}</p>
+                        </div>
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.effectiveFrom">
+                            <small class="pair-key">Obowiązuje od:</small>
+                            <p>{{detailsContext.details.effectiveFrom}}</p>
+                        </div>
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.until">
+                            <small class="pair-key">Ważna do:</small>
+                            <p>{{detailsContext.details.until}}</p>
+                        </div>
+                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods.length > 0">
+                            <small class="pair-key">Sposoby dostawy:</small>
+                            <p *ngFor="let method of detailsContext?.deliveryMethods">{{method.name}}</p>
+                        </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.sourceNumber">
                             <small class="pair-key">{{r?.translations?.myNumber}}</small>

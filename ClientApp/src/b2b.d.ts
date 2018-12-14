@@ -2159,6 +2159,11 @@ export module b2b {
         quantity?: number;
     }
 
+    interface PromotionDeliveryMethod {
+        no: number;
+        name: string;
+    }
+
     interface PromotionDetailsResponse extends CustomerListDetailsResponse {
         hasMore: boolean;
         items: {
@@ -2167,6 +2172,7 @@ export module b2b {
             set3: any[];
             set4: PromotionDetails[];
             set5: PromotionProduct[];
+            set6: PromotionDeliveryMethod[];
         };
     }
 

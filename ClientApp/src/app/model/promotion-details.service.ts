@@ -14,6 +14,7 @@ export class PromotionDetailsService extends DocumentDetails {
     products: b2b.PromotionProduct[];
     columns: Map<string, string>;
     filter: string = '';
+    deliveryMethods: b2b.PromotionDeliveryMethod[];
 
     constructor(httpClient: HttpClient) {
         super(httpClient, 'promotionDetails');
@@ -50,6 +51,7 @@ export class PromotionDetailsService extends DocumentDetails {
 
             this.id = id;
             (<b2b.PromotionDetails>this.details) = res.items.set4[0];
+            console.log(res.items.set4[0]);
             if (res.items.set5.length > 0) {
                 this.details.calculateDiscount = true;
             
@@ -66,6 +68,17 @@ export class PromotionDetailsService extends DocumentDetails {
             }
             else {
                 this.products = [];
+            }
+            if (res.items.set6.length > 0) {
+                console.log(res.items.set6);
+                this.deliveryMethods = res.items.set6.map(item => {
+                    item.no = item.no;
+                    item.name = item.name;
+                    return item
+                })
+            }
+            else {
+                this.deliveryMethods = []
             }
             this.paginationRepo.pagination.isNextPage = res.hasMore;
 
