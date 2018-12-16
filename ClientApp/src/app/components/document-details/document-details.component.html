@@ -142,14 +142,20 @@
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.effectiveFrom">
                             <small class="pair-key">Obowiązuje od:</small>
                             <p>{{detailsContext.details.effectiveFrom}}</p>
+                            <p>{{detailsContext.details.validInHoursFrom}}</p>
                         </div>
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.until">
                             <small class="pair-key">Ważna do:</small>
                             <p>{{detailsContext.details.until}}</p>
+                            <p>{{detailsContext.details.validInHoursTo}}</p>
                         </div>
                         <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods.length > 0">
                             <small class="pair-key">Sposoby dostawy:</small>
                             <p *ngFor="let method of detailsContext?.deliveryMethods">{{method.name}}</p>
+                        </div>
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.comment">
+                            <small class="pair-key">Uwagi:</small>
+                            <p>{{detailsContext.details.comment}}</p>
                         </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.sourceNumber">
