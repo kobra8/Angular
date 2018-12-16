@@ -51,7 +51,6 @@ export class PromotionDetailsService extends DocumentDetails {
 
             this.id = id;
             (<b2b.PromotionDetails>this.details) = res.items.set4[0];
-            console.log(res.items.set4[0]);
             if (res.items.set5.length > 0) {
                 this.details.calculateDiscount = true;
             
@@ -70,7 +69,6 @@ export class PromotionDetailsService extends DocumentDetails {
                 this.products = [];
             }
             if (res.items.set6.length > 0) {
-                console.log(res.items.set6);
                 this.deliveryMethods = res.items.set6.map(item => {
                     item.no = item.no;
                     item.name = item.name;
