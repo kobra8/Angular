@@ -149,7 +149,7 @@
                             <p>{{detailsContext.details.until}}</p>
                             <p>{{detailsContext.details.validInHoursTo}}</p>
                         </div>
-                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods.length > 0">
+                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods?.length > 0">
                             <small class="pair-key">Sposoby dostawy:</small>
                             <p *ngFor="let method of detailsContext?.deliveryMethods">{{method.name}}</p>
                         </div>
