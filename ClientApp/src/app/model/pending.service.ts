@@ -11,12 +11,13 @@ export class PendingService extends DocumentsList {
 
     constructor(httpClient: HttpClient) {
         super(httpClient);
-
+//JD
         this.columns = new Map()
             .set('wmnumer', 'numberWm')
             .set('name', 'article')
             .set('number', 'number')
             .set('sourceNumber', 'myNumber')
+            .set('wZnumer', 'numberWz')
             .set('issueDate', 'issueDate')
             .set('orderedQuantity', 'orderedQuantity')
             .set('completedQuantity', 'completedQuantity')

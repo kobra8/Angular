@@ -248,10 +248,13 @@
 
                         </div>
 
-
+<!-- JD -->
                         <!-- Column title for WM variables -->
                         <ng-container *ngSwitchCase="col[1] === 'numberWm' ">
                                 Numer WM
+                        </ng-container>
+                        <ng-container *ngSwitchCase="col[1] === 'numberWz' ">
+                                Numer WZ
                         </ng-container>
                         <ng-container *ngSwitchCase="col[1] === 'quantityWm' ">
                                ilość na WM
@@ -302,7 +305,7 @@
                          [ngStyle]="{'width.%': 100/listContext.columns.size }">
 
                         <ng-container [ngSwitch]="col[0]">
-
+<!-- JD -->
                             <!-- WM number group - only first of WM visible -->
                                 <span *ngSwitchCase="'wmnumer'">
                                         <span *ngIf="i === 0 || (i !== 0 && listItem.wmnumer !== listContext.items[i - 1]?.wmnumer) ">
@@ -358,6 +361,18 @@
                                 </a>
 
                                 <span *ngIf="!url?.toLowerCase()?.includes('pending')">{{listItem.number}}</span>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'numberWz'">
+
+                                <a *ngIf="url && url?.toLowerCase()?.includes('pending')"
+                                   class="link-in-table"
+                                   [routerLink]="['/Profile/Orders', listItem.type || listItem.id]">
+
+                                    {{listItem.numberWz}}
+                                </a>
+
+                                <span *ngIf="!url?.toLowerCase()?.includes('pending')">{{listItem.numberWz}}</span>
                             </ng-container>
 
 

@@ -2158,7 +2158,7 @@ export module b2b {
         cartId?: number;
         quantity?: number;
     }
-
+//JD
     interface PromotionDeliveryMethod {
         no: number;
         name: string;

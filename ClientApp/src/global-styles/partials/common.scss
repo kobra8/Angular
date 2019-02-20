@@ -310,11 +310,11 @@ select[name="cartId"], select.cart-id, .app-select[name="cartId"] .value, .app-s
 
 
 .gr-larger {
-    width: 62%;
+    width: 70%;
 }
 
 .gr-smaller {
-    width: 38%;
+    width: 30%;
 }
 
 
@@ -327,17 +327,17 @@ select[name="cartId"], select.cart-id, .app-select[name="cartId"] .value, .app-s
 
 
 .flex {
-
+/* JD */
     .gr-larger {
-        -ms-flex-preferred-size: 62%;
-        -ms-flex-basis: 62%;
-        @include flex-basis(62%);
+        -ms-flex-preferred-size: 70%;
+        -ms-flex-basis: 70%;
+        @include flex-basis(70%);
     }
 
     .gr-smaller {
-        -ms-flex-preferred-size: 38%;
-        -ms-flex-basis: 38%;
-        @include flex-basis(38%);
+        -ms-flex-preferred-size: 30%;
+        -ms-flex-basis: 30%;
+        @include flex-basis(30%);
     }
 
     .gr-larger, .gr-smaller {

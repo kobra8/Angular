@@ -84,7 +84,6 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
 
     initSlider(): void {
         if (this.el.nativeElement && this.el.nativeElement.children.length > 1) {
-
             this.slider = tns({
                 container: this.el.nativeElement,
                 mode: this.mode || 'carousel',

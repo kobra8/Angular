@@ -133,7 +133,7 @@
 
                   <!-- Details show/hide section -->
                 <div class="clear" *ngIf="detailsVisibility">
-
+<!-- JD -->
                     <div class="flex flex-wrap">
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.name">
                             <small class="pair-key">Nazwa promocji:</small>
@@ -149,7 +149,7 @@
                             <p>{{detailsContext.details.until}}</p>
                             <p>{{detailsContext.details.validInHoursTo}}</p>
                         </div>
-                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods.length > 0">
+                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods?.length > 0">
                             <small class="pair-key">Sposoby dostawy:</small>
                             <p *ngFor="let method of detailsContext?.deliveryMethods">{{method.name}}</p>
                         </div>
@@ -161,6 +161,11 @@
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.sourceNumber">
                             <small class="pair-key">{{r?.translations?.myNumber}}</small>
                             <p>{{detailsContext.details.sourceNumber}}</p>
+                        </div>
+
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.wydanie">
+                            <small class="pair-key">Numer WZ</small>
+                            <p>{{detailsContext.details.wydanie}}</p>
                         </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.dueDate || detailsContext?.paymentSummary?.dueDate">
@@ -246,13 +251,14 @@
                                 {{doc.number}}
                             </a>
                         </div>
-
-                        <div class="f-left header-item" *ngIf="detailsContext?.orders">
+<!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.zamowienie">
                             <small class="pair-key block">{{r?.translations?.orders}}</small>
-
-                            <a *ngFor="let doc of detailsContext.orders" [routerLink]="['/Profile/Orders', doc.id]">
+                            <p>{{detailsContext.details.zamowienie}}</p>
+                            <!-- No backend service for link object
+                                 <a *ngFor="let doc of detailsContext.orders" [routerLink]="['/Profile/Orders', doc.id]">
                                 {{doc.number}}
-                            </a>
+                            </a> -->
                         </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.waybill">

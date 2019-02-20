@@ -5,7 +5,7 @@
 
 <section class="narrow-content promotions clear" [ngClass]="{'few': promotionsService?.items?.length <= 3}">
 
-
+<!-- JD -->
     <div *ngIf="promotionsService?.items">
         <div class="search-bar">
             <form novalidate #promotionForm="ngForm" (ngSubmit)="search(promotionForm.valid, promotionForm.value)">

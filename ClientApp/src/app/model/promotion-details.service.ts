@@ -44,7 +44,7 @@ export class PromotionDetailsService extends DocumentDetails {
         return this.httpClient.get<b2b.PromotionDetailsResponse>('api/promotions/' + id, { params: params }).toPromise();
     }
 
-
+//JD
     loadDetails(id = this.id): Promise<b2b.PromotionDetailsResponse> {
 
         return this.requestDetails(id).then((res: b2b.PromotionDetailsResponse) => {

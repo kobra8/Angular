@@ -50,7 +50,7 @@ export class PromotionsComponent implements OnInit {
          //   this.promotionDetailsService.loadDetails(this.activePromotionId);
         } 
     }
-
+//JD
     search(formValid, formValue) {
 
         if (formValid) {
