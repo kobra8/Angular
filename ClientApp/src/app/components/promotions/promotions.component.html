@@ -12,7 +12,7 @@
                 <input name="searchPhrase" ngModel type="search" placeholder="Szukaj promocji..." minlength="2">
                 <button class="search-button pure ti-search"></button>
             </form>
-        </div> 
+        </div>
 
         <div class="no-results trow box-message top-margin" *ngIf="promotionsService?.items && promotionsService?.items.length === 0">
             <i class="ti-na"></i>
@@ -62,27 +62,27 @@
                     </div>
 
                     <p class="desc" *ngIf="listItem.comment">{{listItem.comment}}</p>
-                    
+
 
                 </div>
 
 
 
             </div>
-            
-          
+
+
         </app-slider>
 
         <app-pager *ngIf="promotionsService?.items && promotionsService?.items.length > 0"
-                   [page]="promotionsService?.pagination?.currentPage"
-                   [isNextPage]="promotionsService?.pagination?.isNextPage"
-                   [pageSize]="promotionsService?.pagination?.pageSize"
+                   [page]="promotionsService?.paginationRepo?.pagination?.currentPage"
+                   [isNextPage]="promotionsService?.paginationRepo?.pagination?.isNextPage"
+                   [pageSize]="promotionsService?.paginationRepo?.pagination?.pageSize"
                    (change)="changePage($event);">
         </app-pager>
 
     </div>
-    
-    
+
+
 </section>
 <!-- <div class="container thead-promo narrow-content"> -->
     <div class="thead-promo narrow-content name-col">Nazwa promocji
@@ -97,7 +97,7 @@
 
 <!-- <form *ngIf="promotionsService?.items?.length > 0 && promotionDetailsService.products">
 
- 
+
     <app-products-table [products]="promotionDetailsService?.products"
                         [cartCount]="promotionDetailsService?.details?.cartCount"
                         [columns]="promotionDetailsService?.columns"

@@ -20,6 +20,7 @@ import { ComplaintsService } from '../../model/complaints.service';
 import { PromotionDetailsService } from '../../model/promotion-details.service';
 import { ConfigService } from '../../model/config.service';
 import { NgForm } from '@angular/forms';
+import { UrlSegment } from '@angular/router/src/url_tree';
 
 @Component({
     selector: 'app-document-details',
@@ -45,6 +46,8 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
     listLoading?: boolean;
 
     selectedKey?: number;
+// JD
+   promotionContext: boolean;
 
     @ViewChild('promotionProductForm')
     searchForm: NgForm;
@@ -66,8 +69,6 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
         this.activatedRouteSubscription = Observable.merge(this.activatedRoute.params, this.activatedRoute.data, this.activatedRoute.url)
             .subscribe((res: any) => {
 
-                
-
                 if (res.id || Object.keys(res).length === 0) {
                     this.id = Number(res.id || 0);
                 }
@@ -82,15 +83,25 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
 
                 if (res instanceof Array) {
                     this.url = res[0].path;
+    // JD
+                   if (this.url === 'Promotions') {
+                       this.promotionContext = true;
+                   } else {
+                       this.promotionContext = false;
+                   }
+
                 }
 
                 if (this.id !== undefined && this.detailsContext !== undefined && this.url !== undefined) {
 
                     this.detailsContext.loadDetails(this.id, this.type);
 
+                    this.listLoading = true;
                     this.menuService.loadFullMenuItems().then(() => {
                         this.backMenuItem = Object.assign({}, this.menuService.fullMenuItems.find(item => item.url.toLowerCase().includes(this.url.toLowerCase())));
                         this.backMenuItem = this.menuService.convertLabelToBack(this.backMenuItem, 'back');
+                        this.listLoading = false;
+                        this.detailsContext.products = undefined;
                     });
                 }
 
@@ -108,14 +119,13 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
         }
 
     }
-
+// JD
     search(formValid, formValue) {
 
         if (formValid) {
             this.detailsContext.filter = formValue.searchPhrase;
             this.detailsContext.loadDetails(this.id);
-        }
-        else {
+        } else {
             this.detailsContext.loadDetails(this.id);
         }
     }
@@ -124,7 +134,7 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
 
         this.activatedRouteSubscription.unsubscribe();
-        
+
 
     }
 

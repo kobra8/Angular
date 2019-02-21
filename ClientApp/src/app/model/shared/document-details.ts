@@ -12,6 +12,8 @@ export abstract class DocumentDetails implements Resolve<any> {
 
     abstract columns: Map<string, string>;
 
+    listLoading: boolean;
+
 
     protected constructor(protected httpClient: HttpClient, public headerResource: string) {
         //this.columns = this.getColumns();
@@ -28,6 +30,7 @@ export abstract class DocumentDetails implements Resolve<any> {
      */
     loadDetails(id = this.id): Promise<any> {
 
+        this.listLoading = true;
         return this.requestDetails(id).then(res => {
 
             this.id = id;
@@ -44,7 +47,8 @@ export abstract class DocumentDetails implements Resolve<any> {
             if (this.details.vatDirection === 'N' && this.columns.has('price')) {
                 this.columns.set('price', 'netPrice');
             }
-            
+
+            this.listLoading = false;
             return res;
 
         });

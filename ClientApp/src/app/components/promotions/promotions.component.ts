@@ -15,8 +15,8 @@ import { NgForm } from '@angular/forms';
 export class PromotionsComponent implements OnInit {
 
     r: ResourcesService;
-    activePromotionId: number; 
-
+    activePromotionId: number;
+// JD
     @ViewChild('promotionForm')
     searchForm: NgForm;
 
@@ -48,7 +48,7 @@ export class PromotionsComponent implements OnInit {
             this.activePromotionId = id;
             this.promotionDetailsService.products = undefined;
          //   this.promotionDetailsService.loadDetails(this.activePromotionId);
-        } 
+        }
     }
 //JD
     search(formValid, formValue) {
@@ -63,8 +63,7 @@ export class PromotionsComponent implements OnInit {
                     this.promotionDetailsService.products = [];
                 }
             })
-        }
-        else {
+        } else {
              this.promotionsService.loadList(false, true, true).then(() => {
                 if (this.promotionsService.items.length > 0) {
                     this.activePromotionId = this.promotionsService.items[0].id;
@@ -75,5 +74,19 @@ export class PromotionsComponent implements OnInit {
             })
         }
     }
-  
+
+    changePage(currentPage) {
+
+        this.promotionsService.paginationRepo.changePage(currentPage);
+        this.promotionsService.loadList(true, true, true).then(() => {
+
+            if (this.promotionsService.items.length > 0) {
+                this.activePromotionId = this.promotionsService.items[0].id;
+             //   this.promotionDetailsService.loadDetails(this.activePromotionId);
+            } else {
+                this.promotionDetailsService.products = [];
+            }
+        });
+    }
+
 }

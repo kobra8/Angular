@@ -394,9 +394,9 @@
             </div>
         </div>
     </section>
-
+<!-- JD -->
     <!-- Promotion details product search bar -->
-    <div class="search-bar">
+    <div class="search-bar" *ngIf="promotionContext">
             <form novalidate #promotionProductForm="ngForm" (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
                 <input name="searchPhrase" ngModel type="search" placeholder="Szukaj towaru w promocji..." minlength="2">
                 <button class="search-button pure ti-search"></button>

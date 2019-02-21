@@ -116,7 +116,7 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
 
                 if (this.url === 'ItemsComplaint') {
                     this.listContext.switchTo('products');
-                } 
+                }
 
                 if (this.url === 'Complaints') {
                     this.listContext.switchTo('documents');
@@ -128,7 +128,7 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
                         this.listContext.columns = PermissionHelper.removeForbiddenColumns(this.listContext.columns, this.configService.permissions);
                     });
                 }
-
+// JD
                 //clear filters
                 this.listContext.setCurrentFilter(this.listContext.getDefaultFilter());
 
@@ -163,13 +163,12 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
         this.listLoading = true;
         this.listContext.paginationRepo.changePage(currentPage);
         this.listContext.loadList(false, false).then(() => {
-            this.listLoading = false;          
+            this.listLoading = false;
         });
     }
 
 
     updateFilter(filterParam) {
-       
 
         if (filterParam.statusId !== undefined) {
             filterParam.statusId = Number(filterParam.statusId);
@@ -178,8 +177,8 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
         if (filterParam.stateId !== undefined) {
             filterParam.stateId = Number(filterParam.stateId);
         }
-        
-        
+
+
         this.filtersSubject.next({ getFilter: false, updateFilter: true, filterParam: filterParam });
     }
 
@@ -197,7 +196,7 @@ export class DocumentsListComponent implements OnInit, OnDestroy {
 
     /**
      * Fixing wrong validation of native date controls. They doesn't respect min, max and required values for direct input.
-     * Validators respected only for datapicker. 
+     * Validators respected only for datapicker.
      */
     datesInputGuardian(value, dateInputType: 'dateFrom' | 'dateTo'): boolean {
 

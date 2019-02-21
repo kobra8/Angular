@@ -13,7 +13,7 @@ export class PromotionDetailsService extends DocumentDetails {
     params: b2b.PromotionDetailsDefaultParams;
     products: b2b.PromotionProduct[];
     columns: Map<string, string>;
-    filter: string = '';
+    filter = '';
     deliveryMethods: b2b.PromotionDeliveryMethod[];
 
     constructor(httpClient: HttpClient) {
@@ -53,29 +53,27 @@ export class PromotionDetailsService extends DocumentDetails {
             (<b2b.PromotionDetails>this.details) = res.items.set4[0];
             if (res.items.set5.length > 0) {
                 this.details.calculateDiscount = true;
-            
+
 
                 if (this.details.cartCount !== undefined) {
                     this.details.cartCount = <string[]>ArrayUtils.toRangeArray(<string>this.details.cartCount, true);
                 }
-            
+
             this.products = res.items.set5.map(item => {
                 item.quantity = item.quantity || 0;
                 item.cartId = 1;
                 return item;
             });
-            }
-            else {
+            } else {
                 this.products = [];
             }
             if (res.items.set6.length > 0) {
                 this.deliveryMethods = res.items.set6.map(item => {
                     item.no = item.no;
                     item.name = item.name;
-                    return item
+                    return item;
                 })
-            }
-            else {
+            } else {
                 this.deliveryMethods = []
             }
             this.paginationRepo.pagination.isNextPage = res.hasMore;

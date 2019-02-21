@@ -274,8 +274,8 @@
             </app-sticky>
 
 
-
-            <div class="no-results trow box-message" *ngIf="listContext?.items?.length === 0 || listContext?.items === ''">
+<!-- JD -->
+            <div class="no-results trow box-message" *ngIf="listContext?.items?.length === 0 || listContext?.items === null">
                 <i class="ti-na"></i>
                 <span>{{r?.translations?.resultsNotFound}}</span>
             </div>

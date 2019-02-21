@@ -215,6 +215,7 @@ export module b2b {
 
         purchasePrice?: any;
         reverseCharge?: any;
+        showImages?: boolean;
     }
 
     /**
@@ -451,6 +452,7 @@ export module b2b {
         currency: string;
         id: number;
         imageId: number;
+        showImages?: boolean;
         name: string;
         quantity?: number;
         stockLevel: string;
@@ -638,7 +640,7 @@ export module b2b {
         quantity: number;
         warehouseId: string;
         features?: string;
-        fromQuote?: string; // must be string, otherwise the server return 500 
+        fromQuote?: string; // must be string, otherwise the server return 500
         unitDefault: number;
         calculateDiscount?: boolean;
     }
@@ -663,6 +665,7 @@ export module b2b {
         applicationId: number;
         priceMode: PriceMode;
         applicationId: number;
+        showImages?: boolean;
     }
 
     /**
@@ -691,7 +694,6 @@ export module b2b {
         bundleId: number;
         bundleCode: string;
         bundleQuantity: number;
-
     }
 
     /**
@@ -703,6 +705,7 @@ export module b2b {
         completionEntirely?: string;
         creditLimitMode?: CreditLimitMode;
         deliveryMethod?: string;
+        getDeliveryCost?: boolean;
         description?: string;
         descriptionSI?: string;
         dueDate?: Date;
@@ -751,6 +754,7 @@ export module b2b {
     * Summary of all cart products.
     * All pages included in calculations.
     */
+
     interface CartSummary {
         count: number;
         currency: string;
@@ -769,7 +773,7 @@ export module b2b {
         volume: number;
 
         /**
-         * Delivery cost (may not exist) 
+         * Delivery cost (may not exist)
          */
         costValue?: string;
         gidService?: number;
@@ -863,7 +867,7 @@ export module b2b {
 
         //response
         denominator: number;
-        getDeliveryConst: boolean;
+        getDeliveryCost: boolean;
         numerator: number;
         vatDirection: number; //??
         totalPrice: string;
@@ -1088,7 +1092,7 @@ export module b2b {
             code: any
         }[];
     }
-    
+
 
     interface ExceetedStockLimitResponse {
         outputs: { returN_VALUE: number };
@@ -1217,7 +1221,7 @@ export module b2b {
         netPrice: string;
         stockLevel: string;
         type: number;
-        
+
         vatRate: number;
         wmc: number;
 
@@ -1263,6 +1267,7 @@ export module b2b {
         stateNoneColor: boolean;
         warehouseName: boolean;
         showHowMany?: boolean;
+        showImages?: boolean;
     }
 
     /**
@@ -1287,6 +1292,7 @@ export module b2b {
         howMuch: string;
         id: number;
         imageId: number;
+        showImages?: boolean;
         isUnitTotal: number;
         name: string;
         netPrice: string;
@@ -1384,6 +1390,7 @@ export module b2b {
         customer: string;
         completionEntirely: string;
         deliveryMethod: number;
+        getDeliveryCost?: boolean;
         expectedDate: Date;
         isCancelled: boolean;
         isConfirmed: boolean;
@@ -1572,7 +1579,6 @@ export module b2b {
             number: string;
         }[];
         statusId: string;
-
     }
 
     /**
@@ -1594,6 +1600,7 @@ export module b2b {
         set2?: {
             complaintSubmission: boolean;
             showCode: boolean;
+            showImages?: boolean;
         }[];
         set3: any[];
     }
@@ -1638,11 +1645,17 @@ export module b2b {
     /**
     * Promotion list element
     */
+
+    // JD
     interface PromotionListItem {
         comment: string;
         isCyclic: boolean;
         id: number;
         name: string;
+        effectiveFrom: any;
+        until: any;
+        validInHoursFrom: any;
+        validInHoursTo: any;
     }
 
     /**
@@ -1684,16 +1697,20 @@ export module b2b {
     interface PendingListResponseItems extends CustomerListResponseItems<PendingListItem> {
         set2: {
             showCode: boolean
+            showImages?: boolean;
         }[];
     }
 
     interface PendingListDetails {
         showCode: boolean;
+        showImages?: boolean;
     }
 
     interface ComplaintsListDetails {
         showCode: boolean;
+        showImages?: boolean;
         complaintSubmission: boolean;
+        number?: string;
     }
 
     /**
@@ -1890,6 +1907,7 @@ export module b2b {
 
         stateResource?: string;
         quantityDisabled?: boolean;
+        showImages?: boolean;
     }
 
 
@@ -1927,9 +1945,11 @@ export module b2b {
         showCode: boolean;
         showFeatures: boolean;
         showImages: boolean;
-        state: string;      
-        vatDirection: string;       
+        state: string;
+        vatDirection: string;
         costValue?: string;
+        getDeliveryCost?: boolean;
+        showImages?: boolean;
 
         /**
          * XL only
@@ -1984,7 +2004,7 @@ export module b2b {
             volume?: number;
         }[];
     }
-
+//JD
     interface PaymentDetails extends CustomerListDetails {
         canComplaint: boolean;
         cartCount: string | string[];
@@ -2001,6 +2021,8 @@ export module b2b {
         vatDirection: string;
         vatValue: number;
         printHref?: string;
+        wydanie?: string;
+        zamowienie?: string;
     }
 
     interface PaymentProduct extends CustomerListProduct {
@@ -2064,6 +2086,7 @@ export module b2b {
         sourceDocumentName: string;
         sourceDocumentType: number;
         unitConversion: string;
+        showImages?: boolean;
     }
 
     interface DeliveryDetailsResponse extends CustomerListDetailsResponse {
@@ -2106,6 +2129,7 @@ export module b2b {
         completion: ComplaintCompletion;
         id: number;
         imageId: number;
+        showImages?: boolean;
         isAvailable: number;
         itemId: number;
         name: string;
@@ -2149,6 +2173,7 @@ export module b2b {
         currency: string;
         id: number;
         imageId: number;
+        showImages?: boolean;
         isUnitTotal: number;
         name: string;
         threshold: number;
@@ -2204,6 +2229,7 @@ export module b2b {
         defaultUnitNo: number;
         discount: number;
         imageId: number;
+        showImages?: boolean;
         isAvailable: number;
         isUnitTotal: number;
         itemId: number;
