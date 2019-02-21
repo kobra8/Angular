@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Route, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -62,7 +62,11 @@ import { AccountService } from './model/account.service';
 import { GroupsService } from './model/groups.service';
 import { GroupsComponent } from './components/groups/groups.component';
 import { ConfigService } from './model/config.service';
+// JD
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 
+registerLocaleData(localePl, 'pl');
 
 const routes: Route[] = [
     {
@@ -175,7 +179,9 @@ const routes: Route[] = [
         PaymentDetailsService,
         DeliveryDetailsService,
         ComplaintDetailsService,
-        PromotionDetailsService
+        PromotionDetailsService,
+    // JD
+        { provide: LOCALE_ID, useValue: 'pl' }
     ],
     bootstrap: [AppComponent]
 })

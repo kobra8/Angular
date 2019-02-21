@@ -256,8 +256,8 @@
                             <small class="pair-key block">{{r?.translations?.orders}}</small>
                             <p>{{detailsContext.details.zamowienie}}</p>
                             <!-- No backend service for link object
-                                 <a *ngFor="let doc of detailsContext.orders" [routerLink]="['/Profile/Orders', doc.id]">
-                                {{doc.number}}
+                                 <a *ngFor="let doc of detailsContext.details.zamowienie" [routerLink]="['/Profile/Orders', doc.id]">
+                                {{doc.zamowienie}}
                             </a> -->
                         </div>
 
@@ -266,6 +266,20 @@
                             <p>{{detailsContext.details.waybill}}</p>
                         </div>
 
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.kierowca">
+                            <small class="pair-key">Kierowca</small>
+                            <p>{{detailsContext.details.kierowca}}</p>
+                        </div>
+
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.dostawa">
+                            <small class="pair-key">Data dostawy</small>
+                            <p>{{detailsContext.details.dostawa | date:'fullDate'}}</p>
+                        </div>
+
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.telefon">
+                            <small class="pair-key">Telefon kierowcy</small>
+                            <p>{{detailsContext.details.telefon}}</p>
+                        </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.volume">
                             <small class="pair-key">{{r?.translations?.volume}}</small>
