@@ -41,7 +41,6 @@ export class PaymentDetailsService extends DocumentDetails {
 
         return this.requestDetails(id, type).then(res => {
 
-
             this.id = id;
             this.type = type;
 
@@ -61,6 +60,7 @@ export class PaymentDetailsService extends DocumentDetails {
 
             this.paymentSummary = res.set6[0];
             this.orders = res.set7;
+
             return res;
 
         });

@@ -122,7 +122,7 @@
 
         <div class="inner-clear flex flex-wrap infos">
 
-            <div class="gr-larger f-left header-data">
+            <div class="gr-larger f-left header-data" [ngClass]="{'details-wide': detailsContext?.details?.waybill}">
 
                 <div class="f-left header-item" *ngIf="!detailsContext?.details?.issueDate && detailsContext?.details?.createdDate">
                     <small class="pair-key">{{r?.translations?.createdDate}}</small>
@@ -226,7 +226,7 @@
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.deliveryMethod">
                             <small class="pair-key">{{r?.translations?.shippingMethod}}</small>
-                            <p>{{detailsContext.details.deliveryMethod}}</p>
+                            <span>{{detailsContext.details.deliveryMethod}}</span>
                         </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.deliveryAddress">
@@ -252,13 +252,12 @@
                             </a>
                         </div>
 <!-- JD -->
-                        <div class="f-left header-item" *ngIf="detailsContext?.details?.zamowienie">
+                        <div class="f-left header-item" *ngIf="zamowienieParsed">
                             <small class="pair-key block">{{r?.translations?.orders}}</small>
-                            <p>{{detailsContext.details.zamowienie}}</p>
-                            <!-- No backend service for link object
-                                 <a *ngFor="let doc of detailsContext.details.zamowienie" [routerLink]="['/Profile/Orders', doc.id]">
-                                {{doc.zamowienie}}
-                            </a> -->
+                            <!-- <p>{{detailsContext.details.zamowienie}}</p> -->
+                                 <a *ngFor="let doc of zamowienieParsed" [routerLink]="['/Profile/Orders', doc.id]">
+                                {{doc.zamowienie}},
+                            </a>
                         </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.waybill">
@@ -312,7 +311,7 @@
 
             </div>
 
-            <div class="gr-smaller f-left summary-col">
+            <div class="gr-smaller f-left summary-col" [ngClass]="{'summary-narrow':  detailsContext?.details?.waybill}">
 
                 <div *ngIf="configService?.permissions?.pricesVisibility">
 

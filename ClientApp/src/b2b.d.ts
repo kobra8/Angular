@@ -2070,6 +2070,9 @@ export module b2b {
         waybill: string;
         weight: number;
         weightUnit: string;
+        kierowca: string;
+        dostawa: any;
+        telefon: string;
     }
 
     interface DeliveryProduct {

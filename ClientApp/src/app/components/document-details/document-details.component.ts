@@ -37,6 +37,7 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
     r: ResourcesService;
     type?: number;
     backMenuItem: b2b.MenuItem;
+    zamowienieParsed = [];
 
     private activatedRouteSubscription: Subscription;
 
@@ -94,7 +95,12 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
 
                 if (this.id !== undefined && this.detailsContext !== undefined && this.url !== undefined) {
 
-                    this.detailsContext.loadDetails(this.id, this.type);
+                    this.detailsContext.loadDetails(this.id, this.type).then((res) => {
+
+                        if (res.set4[0].zamowienie) {
+                            this.zamowienieParsed = JSON.parse(res.set4[0].zamowienie);
+                        }
+                    });
 
                     this.listLoading = true;
                     this.menuService.loadFullMenuItems().then(() => {
@@ -121,12 +127,16 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
     }
 // JD
     search(formValid, formValue) {
-
+        this.listLoading = true;
         if (formValid) {
             this.detailsContext.filter = formValue.searchPhrase;
-            this.detailsContext.loadDetails(this.id);
+            this.detailsContext.loadDetails(this.id).then(() => {
+                this.listLoading = false;
+            });
         } else {
-            this.detailsContext.loadDetails(this.id);
+            this.detailsContext.loadDetails(this.id).then(() => {
+                this.listLoading = false;
+            });
         }
     }
 

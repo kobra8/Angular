@@ -1,7 +1,7 @@
 @import 'compass-mixins/lib/_compass.scss';
 @import 'configuration.scss';
 
-.app-document-details { 
+.app-document-details {
     display: block;
 
 
@@ -28,7 +28,7 @@
             padding: 0;
             margin: 0 auto 8px auto;
             max-width: 500px;
-    
+
             @media (max-width: $tablet-max) {
                 -ms-flex-order: 10;
                 @include order(10);
@@ -40,7 +40,7 @@
                 border-bottom: 1px solid $border-color;
                 margin-right: 0;
             }
-    
+
             form {
                 @media (max-width: $tablet-max) {
                     width: 100%;
@@ -49,7 +49,7 @@
                     padding-left: 10px;
                 }
             }
-    
+
             input {
                 padding: 15px;
                 width: 500px;
@@ -57,11 +57,11 @@
                 padding-right: 65px;
                 height: 60px;
                 font-size: 1rem;
-    
+
                 @include input-placeholder {
                     color: $search-placeholder;
                 }
-    
+
                 @media (max-width: $tablet-max) {
                     height: $bar-height - 20px;
                     width: calc(100% - 60px);
@@ -69,7 +69,7 @@
                     border: 0;
                 }
             }
-    
+
             .search-button {
                 position: absolute;
                 right: 0;
@@ -207,4 +207,13 @@
         padding: 5px 10px;
         font-size: 1.2rem;
     }
+
 }
+    .summary-narrow{
+        flex-basis: 10%!important;
+        width: 10%;
+    }
+    .details-wide {
+        flex-basis: 90%!important;
+        width: 90%;
+    }
