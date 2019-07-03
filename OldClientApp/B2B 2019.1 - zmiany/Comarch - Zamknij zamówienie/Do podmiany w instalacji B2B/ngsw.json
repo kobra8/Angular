@@ -1,0 +1,76 @@
+{
+  "configVersion": 1,
+  "index": "/",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "patterns": [],
+      "urls": [
+        "/"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "patterns": [],
+      "urls": [
+        "/remindpassword/passwordreminder"
+      ]
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "patterns": [
+        "\\/api\\/configuration\\/getforcustomer",
+        "\\/api\\/common\\/menuitems",
+        "\\/account\\/isloggedin",
+        "\\/account\\/getcompanies",
+        "\\/account\\/getapplicationtype",
+        "\\/account\\/isloginconfirmationrequired",
+        "\\/languages\\/getactive",
+        "\\/resources\\/getbylanguageid",
+        "\\/api\\/carts\\/[^/]*",
+        "\\/api\\/customer\\/header\\/",
+        "\\/api\\/orders\\/[^/]*",
+        "\\/api\\/inquiries\\/[^/]*",
+        "\\/api\\/offers\\/[^/]*",
+        "\\/api\\/payments\\/[^/]*",
+        "\\/api\\/delivery\\/[^/]*",
+        "\\/api\\/complaints\\/[^/]*",
+        "\\/api\\/customer",
+        "\\/api\\/customer\\/contacts\\/",
+        "\\/api\\/payments\\/[^/]*",
+        "\\/api\\/items\\/[^/]*",
+        "\\/api\\/promotions\\/[^/]*",
+        "\\/imagehandler\\.aspx"
+      ],
+      "strategy": "freshness",
+      "maxSize": 300,
+      "maxAge": 1800000,
+      "version": 1
+    }
+  ],
+  "hashTable": {},
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

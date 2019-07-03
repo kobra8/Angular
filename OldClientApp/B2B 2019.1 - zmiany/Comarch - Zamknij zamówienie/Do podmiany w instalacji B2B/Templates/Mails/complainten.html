@@ -1,0 +1,89 @@
+﻿Details of Complaint @number@ from: @date@@topic@
+<p>
+    Thank you for submitting the complaint on: <b> @date@</b>.<br/>
+    Your complaint no.:<b> @number@ </b>has been registered by: <b>@contact@</b>.<br/>
+</p>
+<p>
+    <b>COMPLAINT DETAILS</b><br/>
+    <b>Complaint No.:</b> @number@<br/>
+    <b>Date of Issue:</b> @date@<br/>
+    <b>Complaint Status:</b> @state@<br/>
+</p>
+<b>COMPLAINT ITEMS:</b>
+<style>
+    th {
+        border-bottom: 1px solid black;
+    }
+
+    th, td {
+        border-right: 1px solid black;
+    }
+
+    .ten-left {
+        width: 10px;
+        text-align: left;
+    }
+
+    .twohundredandfifty-left {
+        width: 250px;
+        text-align: left;
+    }
+
+    .fifty-center {
+        width: 50px;
+        text-align: center;
+    }
+
+    .onehundredand-center {
+        width: 100px;
+        text-align: center;
+    }
+
+    .left {
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .center {
+        margin: auto auto;
+        text-align: center;
+    }    
+</style>
+<table>
+    <thead>
+        <tr>
+            <th class="ten-left">Lp.</th>
+            <th class="twohundredandfifty-left">Name</th>
+            <th class="fifty-center">Quantity</th>
+            <th class="fifty-center">UOM</th>
+            <th class="onehundredand-center">My Request</th>
+            <th class="onehundredand-center">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="left">
+                @no@
+            </td>
+            <td class="left">
+                @name@
+            </td>
+            <td class="center">
+                @quantity@
+            </td>
+            <td class="center">
+                @unit@
+            </td>
+            <td class="center">
+                @myRequest@
+            </td>
+            <td class="center">
+                @status@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <b>ADDITIONAL INFORMATION:</b><br/>
+    The complaint has been registered in Comarch B2B.
+</p>

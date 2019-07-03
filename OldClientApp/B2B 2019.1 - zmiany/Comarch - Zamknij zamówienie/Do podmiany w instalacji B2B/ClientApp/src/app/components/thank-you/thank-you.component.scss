@@ -1,0 +1,87 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-thank-you {
+    display: block;
+
+    .summary {
+        margin: 0 20%;
+        padding-top: 115px;
+
+        @media (max-width: $tablet-max) {
+            margin: 0 10%;
+            padding-top: 45px;
+        }
+
+        @media (max-width: $mobile-max) {
+            margin: 0 3%;
+            padding-top: 15px;
+        }
+    }
+
+    .summary-table {
+        margin: 10px 0 30px;
+        display: block;
+        background-color: $thirdparty-color;
+        padding: 5px 20px;
+    }
+
+    .summary-section {
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+
+        &:last-child {
+            border-bottom: none;
+            font-weight: bold;
+        }
+    }
+
+    .summary-row {
+        width: 100%;
+        display: block;
+        padding-bottom: 5px;
+
+        & > span {
+            display: inline-block;
+        }
+    }
+
+    .summary-label {
+        text-align: left;
+        width: 75%;
+
+        @media (max-width: $mobile-max) {
+            width: 65%;
+            font-size: 14px;
+            vertical-align: top;
+        }
+    }
+
+    .summary-data {
+        text-align: right;
+        width: 25%;
+        font-weight: bold;
+
+        @media (max-width: $mobile-max) {
+            width: 35%;
+            font-size: 15px;
+        }
+    }
+
+    .summary-highlight {
+        color: $secondary-color;
+    }
+
+    .summary-title {
+        display: block;
+        font-size: 16px;
+
+        &.summary-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+    }
+}

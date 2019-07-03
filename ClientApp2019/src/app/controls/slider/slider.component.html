@@ -1,0 +1,14 @@
+
+<div class="slides-wrapper flex" [ngClass]="{'no-slider': noSlider}">
+    <ng-content></ng-content>
+</div>
+
+<div class="thumbs-wrapper" [hidden]="!thumbs">
+    <div data-id="thumbs"></div>
+</div>
+
+<div class="zoom-wrapper flex" [hidden]="!zoomOpened" data-id="zoom">
+    <button class="close ti-close" (click)="toggleZoom(false)"></button>
+    <div select="app-slider-zoom" class="zoom-slider mauto" data-id="zoom-slides"></div>
+</div>
+

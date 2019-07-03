@@ -1,0 +1,346 @@
+<app-menu [menuItems]="[backMenuItem]" *ngIf="currentMenuItem && r?.translations">
+
+    <div class="menu-item active-top">
+
+        <div class="label">
+            {{r?.translations[currentMenuItem.resourceKey]}}
+
+            <div class="inputs flex align-items-center">
+
+                <span class="tablet-hidden" aria-hidden="true">{{r?.translations?.fromDate?.toLowerCase()}}</span>
+
+                <div class="ff-date-fix">
+                    <input type="date"
+                           name="dateFrom"
+                           [attr.aria-label]="r?.translations?.selectStartDate"
+                           #dateFrom
+                           required
+                           [value]="listContext?.filters?.currentFilter?.dateFrom | date: 'yyyy-MM-dd'"
+                           (input)="updateDateWithGuardian($event.target.value, 'dateFrom')" />
+                </div>
+
+                <span aria-hidden="true">{{r?.translations?.toDate?.toLowerCase()}}</span>
+
+                <div class="ff-date-fix">
+                    <input type="date"
+                           name="dateTo"
+                           [attr.aria-label]="r?.translations?.selectEndDate"
+                           #dateTo
+                           required
+                           [value]="listContext?.filters?.currentFilter?.dateTo | date: 'yyyy-MM-dd'"
+                           (input)="updateDateWithGuardian($event.target.value, 'dateTo')" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a class="menu-item new-complain button"
+       *ngIf="url === configService.routePaths.complaints && configService?.permissions?.canComplain"
+       [routerLink]="[configService.routePaths.complaintItems]">
+         
+        <i class="ti-plus"></i>
+        <span class="tablet-hidden">{{r?.translations?.newComplaint}}</span>
+    </a>
+
+</app-menu>
+
+<nav class="sidebar filters-section" *ngIf="!configService.isMobile && url !== configService.routePaths.pending">
+    <app-profile-menu class="sticky"></app-profile-menu>
+</nav>
+
+<section class="profile-container"
+         [ngClass]="{
+                'narrow-content clear': url === configService.routePaths.pending
+             }">
+
+    <div *ngIf="listContext?.ifProducts" class="box-message warning">
+        {{r?.translations?.chooseItemComplaint}}
+    </div>
+
+    <div class="inner-clear aditional-filters"
+         *ngIf="listContext?.filters?.currentFilter?.paymentTypeId !== undefined || listContext?.filters?.currentFilter?.valid !== undefined">
+
+        <div class="f-left tabs">
+
+            <ng-container *ngIf="listContext?.filters?.currentFilter?.paymentTypeId !== undefined">
+
+                <button [disabled]="listContext?.filters?.currentFilter?.paymentTypeId === 2"
+                        (click)="updateFilter('paymentTypeId', 2)">
+                    {{r?.translations?.payables}}
+                </button>
+
+                <button [disabled]="listContext?.filters?.currentFilter?.paymentTypeId === 1"
+                        (click)="updateFilter('paymentTypeId', 1)">
+                    {{r?.translations?.receivables}}
+                </button>
+
+
+            </ng-container>
+
+            <ng-container *ngIf="listContext?.filters?.currentFilter?.valid !== undefined">
+
+                <button [disabled]="listContext?.filters?.currentFilter?.valid === true"
+                        (click)="updateFilter('valid', true)">
+                    {{r?.translations?.current}}
+                </button>
+
+                <button [disabled]="listContext?.filters?.currentFilter?.valid === false"
+                        (click)="updateFilter('valid', false)">
+                    {{r?.translations?.all}}
+                </button>
+
+            </ng-container>
+
+        </div>
+
+    </div>
+
+    <div class="table">
+
+        <div class="sticky trow thead filters flex" *ngIf="r?.translations && listContext?.columns && listContext?.items !== undefined">
+
+            <div *ngFor="let col of listContext?.columns; trackBy: trackByFn"
+                    class="tcell {{col.property}}-col"
+                    [ngClass]="{'currency-visible': col.property === 'currency' && listContext?.filters?.currentFilter?.currencyId !== undefined}"
+                    [ngStyle]="{'width.%': 100/listContext.columns.length }"
+                    [ngSwitch]="col.filter?.type">
+
+
+                <app-floating-label-input *ngSwitchCase="'text'"
+                                            #textFilterInput
+                                            [name]="col.property"
+                                            [ngModel]="listContext.filters.currentFilter[col.filter.property]"
+                                            (input)="clearOthers(col.property); updateFilter(col.filter.property, $event.target.value)">
+                    {{r?.translations[col.translation || col.property]}}
+                </app-floating-label-input>
+
+
+                <ng-container *ngSwitchCase="'select'">
+
+                    <div class="app-floating-label-input">
+
+                        <label class="top floating-label">{{r?.translations[col.translation || col.property]}}</label>
+
+                        <app-select [name]="col.filter.property"
+                                    [ngModel]="listContext.filters.currentFilter[col.filter.property]"
+                                    (ngModelChange)="updateFilter(col.filter.property, $event)"
+                                    (labelChange)="changeDetector.markForCheck()"
+                                    (firstOpen)="lazyLoadFilterValues(col.filter.valuesLoader)">
+
+                            <app-loading class="small" *ngIf="!listContext?.filters[col.filter.valuesProperty]"></app-loading>
+
+                            <app-option [value]="col.filter.defaultValue">
+                                {{r?.translations?.all}}
+                            </app-option>
+
+                            <app-option *ngFor="let s of listContext?.filters[col.filter.valuesProperty]"
+                                        [value]="s.id">
+                                {{s.name || r?.translations[s.name] || r?.translations[s.resourceKey]}}
+                            </app-option>
+
+                        </app-select>
+
+
+                    </div>
+
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    {{r?.translations[col.translation || col.property]}}
+                </ng-container>
+
+            </div>
+        </div>
+       
+
+        <div class="no-results trow box-message" *ngIf="message">
+            <i class="ti-na"></i>
+            <span>{{message}}</span>
+        </div>
+
+        <div class="tbody"
+             *ngIf="listContext?.items?.length > 0">
+
+            <div class="trow flex" *ngFor="let listItem of listContext.items; trackBy: trackByFn">
+
+                <a class="covering-link"
+                   *ngIf="url !== configService.routePaths.pending && url !== configService.routePaths.payments"
+                   [routerLink]="[url, listItem.id]">
+                </a>
+
+                <a class="covering-link"
+                   *ngIf="configService?.permissions?.showProducts
+                            && (url === configService.routePaths.pending || url === configService.routePaths.complaintItems)"
+                   [routerLink]="[configService.routePaths.itemDetails, listItem.itemId]">
+                </a>
+
+                <a class="covering-link"
+                   *ngIf="url === configService.routePaths.payments"
+                   [routerLink]="[configService.routePaths.payments, listItem.id, listItem.type]">
+                </a>
+
+                <div class="tcell {{col.property}}-col"
+                     *ngFor="let col of listContext.columns; trackBy: trackByFn"
+                     [ngStyle]="{'width.%': 100/listContext.columns.length }"
+                     [ngSwitch]="col.type">
+
+
+                    <div *ngSwitchCase="'productName'" class="inner-clear">
+
+                        <div class="f-left image-container small">
+
+                            <i class="ti-image no-photo" *ngIf="!configService?.config?.showImages || !listItem?.imageId"></i>
+
+                            <app-lazy-image *ngIf="configService?.config?.showImages && listItem?.imageId > 0"
+                                            alt="{{listItem.name}}"
+                                            src="imagehandler.ashx?id={{listItem.imageId}}&fromBinary={{listItem.fromBinary}}&width=50&height=50">
+                            </app-lazy-image>
+
+                        </div>
+
+                        <span class="product-name block">{{listItem.name}}</span>
+                        <span class="product-code" *ngIf="configService?.config?.showCode">{{listItem.code}}</span>
+                    </div>
+
+                    <ng-container *ngSwitchCase="'productNameWithoutPhoto'">
+
+                        <span class="product-name block">{{listItem.name}}</span>
+                        <span class="product-code" *ngIf="configService?.config?.showCode">{{listItem.code}}</span>
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'state'">
+                        <ng-container *ngIf="r?.translations && listContext?.states">
+                            {{r?.translations[listContext?.states?.get(listItem[col.property])]}}
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'cases'">
+                        <ng-container *ngFor="let case of col.cases">
+                            <ng-container *ngIf="r?.translations && case.case === listItem[col.property]">
+                                {{r?.translations[case.translation]}}
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+
+
+                    <ng-container *ngSwitchCase="'linkedDocumentsArray'">
+
+                        <a *ngFor="let doc of listItem[col.property]"
+                           class="link-in-table"
+                           [routerLink]="genedareDocumentRouteLink(col.link.href, col.link.paramProperty, doc)">
+
+                            {{doc[col.link.labelProperty]}}
+                        </a>
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'linkedDocument'">
+
+                        <a class="link-in-table" *ngIf="listItem[col.link.labelProperty]"
+                           [routerLink]="genedareDocumentRouteLink(col.link.href, col.link.paramProperty, listItem)">
+                            {{listItem[col.link.labelProperty]}}
+                        </a>
+                    </ng-container>
+
+
+                    <span *ngSwitchCase="'daysAfterDueDate'" [ngClass]="{'danger': listItem.daysAfterDueDate > 0}">
+
+                        {{listItem.dueDate}}
+
+                        <span class="due-days ribbon" *ngIf="listItem.daysAfterDueDate > 0">
+                            {{listItem.daysAfterDueDate}}
+                            {{r?.translations?.daysAfterDueDate?.toLowerCase()}}
+                        </span>
+
+                    </span>
+
+                    <ng-container *ngSwitchCase="'price'">
+                        {{listItem[col.property] | toPrice}}
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'priceWithCurrency'">
+                        {{listItem[col.property] | toPrice}} {{listItem.currency}}
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'unit'">
+
+                        <span class="block">{{listItem.auxiliaryUnit || listItem.basicUnit}}</span>
+                        <span class="block converter" *ngIf="listItem.auxiliaryUnit && listItem.auxiliaryUnit !== listItem.basicUnit">
+                            {{listItem.denominator}} {{listItem.auxiliaryUnit}} = {{listItem.numerator}} {{listItem.basicUnit}}
+                        </span>
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'complain'">
+
+                        <a [routerLink]="[configService.routePaths.complaintForm, (listItem.id || listItem.itemId) +':'+ listItem.sourceDocumentId +':' + listItem.no]"
+                           class="link-in-table">
+                            <i class="ti-write"></i> <span class="tablet-hidden">{{r?.translations?.complain}}</span>
+                        </a>
+
+                    </ng-container>
+
+
+                    <ng-container *ngSwitchCase="'quantity'">
+
+                        {{listItem.quantity}}
+
+                        <span>{{listItem.auxiliaryUnit || listItem.basicUnit || listItem.unit}}</span>
+
+                        <span class="block converter">{{listItem.converter || listItem.unitConversion}}</span>
+
+                    </ng-container>
+
+
+                    <ng-container *ngSwitchCase="'percent'">
+
+                        {{listItem[col.property] | percentOrEmpty}}
+
+                    </ng-container>
+
+                    <ng-container *ngSwitchDefault>
+                        {{listItem[col.property]}}
+                    </ng-container>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tfoot"
+             *ngIf="listContext?.summaries || listContext?.details?.number || listContext?.paginationRepo?.pagination?.isNextPage || listContext?.paginationRepo?.pagination?.isPrevPage">
+
+            <span class="trow tcell products-amount" *ngIf="listContext?.details?.number">
+                {{r?.translations?.packageArticlesCount}}: {{listContext.details.number}}
+            </span>
+
+
+            <app-pager [page]="listContext?.paginationRepo?.pagination?.currentPage"
+                       [isNextPage]="listContext?.paginationRepo?.pagination?.isNextPage"
+                       [pageSize]="listContext?.paginationRepo?.pagination?.pageSize"
+                       (change)="changePage($event);">
+            </app-pager>
+
+            <div class="trow flex" *ngFor="let summary of listContext?.summaries">
+
+                <div class="tcell {{col.property}}-col"
+                     *ngFor="let col of listContext.columns; trackBy: trackByFn"
+                     [ngClass]="{'currency-visible': col.property === 'currency' && listContext?.filters?.currentFilter?.currencyId !== undefined}"
+                     [ngStyle]="{'width.%': 100/listContext.columns.length }">
+
+                    <ng-container *ngIf="summary[col.summaryProperty || col.property]">
+                        {{summary[col.summaryProperty || col.property] | toPrice}}
+                    </ng-container>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+</section>

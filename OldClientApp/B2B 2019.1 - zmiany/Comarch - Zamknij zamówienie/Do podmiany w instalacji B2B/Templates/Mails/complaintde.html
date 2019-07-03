@@ -1,0 +1,89 @@
+﻿Angaben zur Reklamation @number@ vom: @date@@topic@
+<p>
+    Wir bedanken uns für Ihre Reklamation vom: <b> @date@</b>.<br/>
+    Ihre Reklamation mit der Nummer:<b> @number@ </b>wurde vom: <b>@contact@</b> registriert.<br/>
+</p>
+<p>
+    <b>ANGABEN ZUR REKLAMATION</b><br/>
+    <b>Reklamation nr.:</b> @number@<br/>
+    <b>Ausstellungsdatum:</b> @date@<br/>
+    <b>Reklamationsstatus:</b> @state@<br/>
+</p>
+<b>REKLAMATIONSPOSITIONEN:</b>
+<style>
+    th {
+        border-bottom: 1px solid black;
+    }
+
+    th, td {
+        border-right: 1px solid black;
+    }
+
+    .ten-left {
+        width: 10px;
+        text-align: left;
+    }
+
+    .twohundredandfifty-left {
+        width: 250px;
+        text-align: left;
+    }
+
+    .fifty-center {
+        width: 50px;
+        text-align: center;
+    }
+
+    .onehundredand-center {
+        width: 100px;
+        text-align: center;
+    }
+
+    .left {
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .center {
+        margin: auto auto;
+        text-align: center;
+    }    
+</style>
+<table>
+    <thead>
+        <tr>
+            <th class="ten-left">Lp.</th>
+            <th class="twohundredandfifty-left">Nazwa</th>
+            <th class="fifty-center">Ilość</th>
+            <th class="fifty-center">Jm.</th>
+            <th class="onehundredand-center">Moje żądanie</th>
+            <th class="onehundredand-center">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="left">
+                @no@
+            </td>
+            <td class="left">
+                @name@
+            </td>
+            <td class="center">
+                @quantity@
+            </td>
+            <td class="center">
+                @unit@
+            </td>
+            <td class="center">
+                @myRequest@
+            </td>
+            <td class="center">
+                @status@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <b>ZUSÄTZLICHE INFORMATIONEN :</b><br/>
+    Reklamation wurde in Comarch B2B registriert.
+</p>

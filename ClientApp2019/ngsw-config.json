@@ -1,0 +1,77 @@
+{
+    "index": "/",
+    "assetGroups": [
+        {
+            "name": "app",
+            "installMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/ClientApp/assets/favicon.ico",
+                    "/ClientApp/assets/images/logo.png",
+                    "/ClientApp/prod/runtime.*.js",
+                    "/ClientApp/prod/polyfills.*.js",
+                    "/ClientApp/prod/main.*.js",
+                    "/ClientApp/prod/styles.*.css"
+                ],
+                "urls": [
+                    "/"
+                ]
+            }
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/ClientApp/prod/*.eot",
+                    "/ClientApp/prod/*.woff",
+                    "/ClientApp/prod/*.ttf",
+                    "/ClientApp/prod/*.svg",
+                    "/ClientApp/prod/*.png",
+                    "/ClientApp/assets/images/flags/*",
+                    "/ClientApp/assets/images/slider/*"
+                    
+                ],
+                "urls": [
+                    "/remindpassword/passwordreminder"
+                ]
+            }
+        }
+    ],
+    "dataGroups": [
+        {
+            "name": "api-data",
+            "urls": [
+                "/api/configuration/getforcustomer",
+                "/api/common/menuitems",
+                "/account/isloggedin",
+                "/account/getcompanies",
+                "/account/getapplicationtype",
+                "/account/isloginconfirmationrequired",
+                "/languages/getactive",
+                "/resources/getbylanguageid",
+                "/api/carts/*",
+                "/api/customer/header/",
+                "/api/orders/*",
+                "/api/inquiries/*",
+                "/api/offers/*",
+                "/api/payments/*",
+                "/api/delivery/*",
+                "/api/complaints/*",
+                "/api/customer",
+                "/api/customer/contacts/",
+                "/api/payments/*",
+                "/api/items/*",
+                "/api/promotions/*",
+                "/imagehandler.aspx"
+
+            ],
+            "cacheConfig": {
+                "maxSize": 300,
+                "maxAge": "30m",
+                "strategy": "freshness"
+            }
+        }
+    ]
+}

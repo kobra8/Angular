@@ -1,0 +1,89 @@
+﻿Détails de la réclamation @number@ du: @date@@topic@
+<p>
+    Merci d’avoir déposé votre réclamation le: <b> @date@</b>.<br/>
+    Votre réclamation n°:<b> @number@ </b>a été enregistrée par: <b>@contact@</b>.<br/>
+</p>
+<p>
+    <b>INFORMATION SUR LA RÉCLAMATION</b><br/>
+    <b>Réclamation n°:</b> @number@<br/>
+    <b>Date d’émission:</b> @date@<br/>
+    <b>Statut de la réclamation:</b> @state@<br/>
+</p>
+<b>ÉLÉMENTS DE LA RÉCLAMATION:</b>
+<style>
+    th {
+        border-bottom: 1px solid black;
+    }
+
+    th, td {
+        border-right: 1px solid black;
+    }
+
+    .ten-left {
+        width: 10px;
+        text-align: left;
+    }
+
+    .twohundredandfifty-left {
+        width: 250px;
+        text-align: left;
+    }
+
+    .fifty-center {
+        width: 50px;
+        text-align: center;
+    }
+
+    .onehundredand-center {
+        width: 100px;
+        text-align: center;
+    }
+
+    .left {
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .center {
+        margin: auto auto;
+        text-align: center;
+    }    
+</style>
+<table>
+    <thead>
+        <tr>
+            <th class="ten-left">N°</th>
+            <th class="twohundredandfifty-left">Désignation</th>
+            <th class="fifty-center">Quantité</th>
+            <th class="fifty-center">Unité de mesure</th>
+            <th class="onehundredand-center">Ma demande</th>
+            <th class="onehundredand-center">Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="left">
+                @no@
+            </td>
+            <td class="left">
+                @name@
+            </td>
+            <td class="center">
+                @quantity@
+            </td>
+            <td class="center">
+                @unit@
+            </td>
+            <td class="center">
+                @myRequest@
+            </td>
+            <td class="center">
+                @status@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <b>INFORMATIONS SUPPLÉMENTAIRES:</b><br/>
+    La réclamation a été enregistrée dans Comarch B2B.
+</p>

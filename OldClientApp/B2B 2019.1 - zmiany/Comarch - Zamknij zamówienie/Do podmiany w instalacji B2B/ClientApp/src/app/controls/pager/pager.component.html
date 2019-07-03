@@ -1,0 +1,18 @@
+<div class="pagination" role="group" *ngIf="isPrevPage || isNextPage" [attr.aria-label]="r?.translations?.pagination">
+
+    <button [disabled]="!isPrevPage"
+            [attr.aria-label]="r?.translations?.previousPage"
+            class="back-button secondary"
+            (click)="onPrev()">
+        <i class="ti-angle-left"></i>
+    </button>
+
+    <span class="page-number" [attr.aria-label]="r?.translations?.paginationPage">{{page + 1}}</span>
+
+    <button [disabled]="!isNextPage"
+            [attr.aria-label]="r?.translations?.nextPage"
+            class="next-button secondary"
+            (click)="onNext();">
+        <i class="ti-angle-right"></i>
+    </button>
+</div>

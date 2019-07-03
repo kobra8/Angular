@@ -1,0 +1,29 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-option, .app-select .app-option {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    white-space: nowrap;
+    padding: 0 10px;
+    @include transition(box-shadow $little-transitions-time);
+
+    &:not(:focus) {
+        @media (min-width: #{$tablet-max + 1px}) {
+            border-top: 0;
+        }
+    }
+
+    @media (max-width: $tablet-max) {
+        line-height: 60px;
+        height: 60px;
+    }
+
+
+    &:hover {
+        box-shadow: 0px 1px 5px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+}
