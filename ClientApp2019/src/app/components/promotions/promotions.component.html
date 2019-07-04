@@ -9,7 +9,13 @@
     </div>
 
     <div *ngIf="promotionsService?.items">
-
+        <!-- JD -->
+        <div class="search-bar">
+            <form novalidate #promotionForm="ngForm" (ngSubmit)="search(promotionForm.valid, promotionForm.value)">
+                <input name="searchPhrase" ngModel type="search" placeholder="Szukaj promocji..." minlength="2">
+                <button class="search-button pure ti-search"></button>
+            </form>
+        </div>
 
         <div class="no-results trow box-message" *ngIf="promotionsService?.items && promotionsService?.items.length === 0">
             <i class="ti-na"></i>
@@ -70,20 +76,27 @@
         </app-slider>
 
         <app-pager *ngIf="promotionsService?.items && promotionsService?.items.length > 0"
-                   [page]="promotionsService?.pagination?.currentPage"
-                   [isNextPage]="promotionsService?.pagination?.isNextPage"
-                   [pageSize]="promotionsService?.pagination?.pageSize"
+                   [page]="promotionsService?.paginationRepo?.pagination?.currentPage"
+                   [isNextPage]="promotionsService?.paginationRepo?.pagination?.isNextPage"
+                   [pageSize]="promotionsService?.paginationRepo?.pagination?.pageSize"
                    (change)="changePage($event);">
         </app-pager>
 
     </div>
 
-
-
 </section>
+<!-- JD -->
+<!-- <div class="container thead-promo narrow-content"> -->
+    <div class="thead-promo narrow-content name-col">Nazwa promocji
+    </div>
+<!-- </div> -->
+<div class="narrow-content tbody">
+    <div class="trow flex promo-title" *ngFor="let listItem of promotionsService?.items">
+        <a class="covering-link" [routerLink]="['/promotions', listItem.id ]">{{listItem.name}}</a>
+    </div>
+</div>
 
-
-<form *ngIf="promotionsService?.items?.length > 0 && promotionDetailsService.products">
+<!-- <form *ngIf="promotionsService?.items?.length > 0 && promotionDetailsService.products">
 
 
     <app-products-table [disabled]="!configService?.isOnline"
@@ -96,6 +109,6 @@
 
     </app-products-table>
 
-</form>
+</form> -->
 
 

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { PromotionsService } from '../../model/promotions.service';
 import { ResourcesService } from '../../model/resources.service';
 import { PromotionDetailsService } from '../../model/promotion-details.service';
 import { ConfigService } from '../../model/config.service';
 import { b2b } from '../../../b2b';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-promotions',
@@ -15,8 +16,11 @@ import { b2b } from '../../../b2b';
 export class PromotionsComponent implements OnInit {
 
     r: ResourcesService;
-    activePromotionId: number; 
+    activePromotionId: number;
     message: string;
+    // JD
+    @ViewChild('promotionForm')
+    searchForm: NgForm;
 
     constructor(
         resourcesService: ResourcesService,
@@ -67,6 +71,15 @@ export class PromotionsComponent implements OnInit {
             return null;
         });
     }
+    //JD
+    search(formValid: boolean, formValue) {
+        if (formValid) {
+            this.promotionsService.filter = formValue.searchPhrase;
+            this.loadList(false, true, true);
+        } else {
+            this.loadList(false, true, true);
+        }
+    }
 
     loadDetails(id = this.activePromotionId): Promise<b2b.PromotionDetailsResponse | null> {
 
@@ -98,7 +111,7 @@ export class PromotionsComponent implements OnInit {
         this.loadDetails(this.activePromotionId);
     }
 
-    
+
 
     setActive(id) {
         if (id !== this.activePromotionId) {
@@ -106,8 +119,8 @@ export class PromotionsComponent implements OnInit {
             this.promotionDetailsService.products = undefined;
             this.promotionDetailsService.paginationRepo.changePage(0);
             this.loadDetails(this.activePromotionId);
-        } 
+        }
     }
-  
+
 
 }

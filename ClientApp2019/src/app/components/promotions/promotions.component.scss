@@ -21,6 +21,11 @@
             padding-top: 30px;
         }
     }
+/* JD */
+    .thead-promo {
+        border-bottom: 1px solid #d9d9d9;
+        padding: 15px;
+    }
 
     .emphasised {
         margin-top: 15px;
@@ -133,5 +138,18 @@
         //slider script sometimes resizes font to 0 when route change
         font-size: inherit !important;
         width: 33.3333%;
+    }
+
+    /* JD */
+    .search-button {
+     /*   position: absolute;
+        right:0;
+        top: 0;
+        bottom: 0;
+        width: 60px;
+        font-size: 20px;
+        @media (max-width: $tablet-max) {
+            right: 0;
+        } */
     }
 }

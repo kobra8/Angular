@@ -207,6 +207,8 @@ export module b2b {
 
         purchasePrice?: any;
         reverseCharge?: any;
+        //JD
+        calculateDiscount?: boolean;
     }
 
     /**
@@ -760,7 +762,7 @@ export module b2b {
         quantity: number;
         warehouseId: string;
         features?: string;
-        fromQuote?: string; // must be string, otherwise the server return 500 
+        fromQuote?: string; // must be string, otherwise the server return 500
         unitDefault: number;
         calculateDiscount?: boolean;
     }
@@ -959,7 +961,7 @@ export module b2b {
         volume: number;
 
         /**
-         * Delivery cost (may not exist) 
+         * Delivery cost (may not exist)
          */
         costValue?: string;
         gidService?: number;
@@ -1897,6 +1899,11 @@ export module b2b {
         isCyclic: boolean;
         id: number;
         name: string;
+        // JD
+        effectiveFrom: any;
+        until: any;
+        validInHoursFrom: any;
+        validInHoursTo: any;
     }
 
     /**
@@ -2392,6 +2399,8 @@ export module b2b {
         until: any;
         validInHoursFrom: string;
         validInHoursTo: string;
+        // JD
+        calculateDiscount?: boolean;
     }
 
     interface PromotionProduct {
@@ -2411,6 +2420,13 @@ export module b2b {
         status: ProductStatus;
     }
 
+    //JD
+    interface PromotionDeliveryMethod {
+        no: number;
+        name: string;
+    }
+
+
     interface PromotionDetailsResponse extends CustomerListDetailsResponse {
         hasMore: boolean;
         items: {
@@ -2419,6 +2435,8 @@ export module b2b {
             set3: any[];
             set4: PromotionDetails[];
             set5: PromotionProduct[];
+            // JD
+            set6: PromotionDeliveryMethod[];
         };
     }
 

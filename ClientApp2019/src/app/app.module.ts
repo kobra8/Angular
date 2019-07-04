@@ -30,6 +30,7 @@ import { SharedModule } from './shared.module';
 import { b2b } from '../b2b';
 import { OrderDetailsService } from './model/order-details.service';
 import { ImportCartResultsViewComponent } from './components/import-cart-results-view/import-cart-results-view.component';
+import { DocumentDetailsComponent } from './components/document-details/document-details.component';
 
 
 
@@ -55,6 +56,8 @@ const routes: b2b.RouteWithKey[] = [
     },
 
     { path: 'promotions', key: 'promotions', component: PromotionsComponent, canActivate: [AccountService] },
+    //JD
+    { path: 'promotions/:id', key: 'promotionDetails', component: DocumentDetailsComponent, resolve: { detailsContext: PromotionDetailsService } },
 
     { path: 'login', key: 'login', component: AccountComponent, canActivate: [AccountService] },
     { path: 'remind', key: 'remindPassword', component: AccountComponent, canActivate: [AccountService] },
@@ -65,7 +68,7 @@ const routes: b2b.RouteWithKey[] = [
     },
 
     { path: 'fileImportResult', key: 'fileImportResult', component: ImportCartResultsViewComponent, canActivate: [AccountService] },
-    
+
     { path: 'profile', key: 'profile', canActivate: [AccountService], loadChildren: './customer-profile.module#CustomerProfileModule' },
 
     { path: '**', redirectTo: '', pathMatch: 'full' }
@@ -91,7 +94,8 @@ const initialkeysForChildModules: b2b.RouteWithKey[] = [
         PromotionsComponent,
         AccountComponent,
         ProductFlagsComponent,
-        ThankYouComponent
+        ThankYouComponent,
+        DocumentDetailsComponent
     ],
     entryComponents: [SliderComponent],
     imports: [
@@ -114,7 +118,7 @@ const initialkeysForChildModules: b2b.RouteWithKey[] = [
         PromotionsService,
         PromotionDetailsService,
         OrderDetailsService
-        
+
     ],
     bootstrap: [AppComponent]
 })

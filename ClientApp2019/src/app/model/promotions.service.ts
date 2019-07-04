@@ -8,6 +8,7 @@ export class PromotionsService {
 
     paginationRepo: PaginationRepo;
     items: b2b.PromotionListItem[];
+    filter: '';
 
     constructor(private httpClient: HttpClient) {
 
