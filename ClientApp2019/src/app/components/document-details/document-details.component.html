@@ -181,7 +181,11 @@
                 <div class="clear" *ngIf="detailsVisibility">
 
                     <div class="flex flex-wrap">
-
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.name">
+                            <small class="pair-key">Nazwa promocji:</small>
+                            <!-- <p>{{detailsContext.details.name}}</p> -->
+                        </div>
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.sourceNumber">
                             <small class="pair-key">{{r?.translations?.myNumber}}</small>
                             <p>{{detailsContext.details.sourceNumber}}</p>

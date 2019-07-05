@@ -8,12 +8,35 @@
         <span>{{message}}</span>
     </div>
 
-    <div *ngIf="promotionsService?.items">
+    <!-- <div *ngIf="promotionsService?.items"> -->
+    <div>
         <!-- JD -->
         <div class="search-bar">
-            <form novalidate #promotionForm="ngForm" (ngSubmit)="search(promotionForm.valid, promotionForm.value)">
-                <input name="searchPhrase" ngModel type="search" placeholder="Szukaj promocji..." minlength="2">
+            <form novalidate #promotionForm="ngForm"
+            role="search"
+            aria-label="Szukaj promocji"
+            (ngSubmit)="search(promotionForm.valid, promotionForm.value)">
+                <!-- <input name="searchPhrase" ngModel type="search" placeholder="Szukaj promocji..." minlength="2"> -->
+                <app-floating-label-input [type]="'search'"
+                ngModel
+                name="searchPhrase"
+                (keyup)="searchInputKeyPress($event)"
+                [minlength]="2"
+                ariaLabel="Wpisz szukane słowo"
+                [required]="false">
+                Szukaj promocji...
+                </app-floating-label-input>
                 <button class="search-button pure ti-search"></button>
+
+                <span class="validation-error danger"
+                    *ngIf="onlySpacesInSearchForm && promotionForm?.controls?.searchPhrase?.value?.length > 0">
+                        {{r?.translations?.searchErrorOnlySpaces}}
+                </span>
+
+                <span class="validation-error danger"
+                      *ngIf="promotionForm?.invalid && searchForm?.dirty && promotionForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
+                    {{r?.translations?.searchErrorMsgTooShortPhrase}}
+                </span>
             </form>
         </div>
 
@@ -22,7 +45,7 @@
             <span>{{r?.translations?.resultsNotFound}}</span>
         </div>
 
-        <app-slider [loop]="false" [items]="3" class="flex" [responsive]="{'0': {'items': 1}, '1281': {'items': 3}}">
+        <!-- <app-slider [loop]="false" [items]="3" class="flex" [responsive]="{'0': {'items': 1}, '1281': {'items': 3}}">
 
             <div class="tns-item"
                  *ngFor="let listItem of promotionsService?.items"
@@ -73,7 +96,7 @@
 
             </div>
 
-        </app-slider>
+        </app-slider> -->
 
         <app-pager *ngIf="promotionsService?.items && promotionsService?.items.length > 0"
                    [page]="promotionsService?.paginationRepo?.pagination?.currentPage"
@@ -92,7 +115,7 @@
 <!-- </div> -->
 <div class="narrow-content tbody">
     <div class="trow flex promo-title" *ngFor="let listItem of promotionsService?.items">
-        <a class="covering-link" [routerLink]="['/promotions', listItem.id ]">{{listItem.name}}</a>
+        <a class="covering-link" [routerLink]="['/profile/promotions', listItem.id ]">{{listItem.name}}</a>
     </div>
 </div>
 

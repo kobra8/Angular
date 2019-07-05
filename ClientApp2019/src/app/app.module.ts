@@ -56,8 +56,6 @@ const routes: b2b.RouteWithKey[] = [
     },
 
     { path: 'promotions', key: 'promotions', component: PromotionsComponent, canActivate: [AccountService] },
-    //JD
-    { path: 'promotions/:id', key: 'promotionDetails', component: DocumentDetailsComponent, resolve: { detailsContext: PromotionDetailsService } },
 
     { path: 'login', key: 'login', component: AccountComponent, canActivate: [AccountService] },
     { path: 'remind', key: 'remindPassword', component: AccountComponent, canActivate: [AccountService] },
@@ -95,7 +93,6 @@ const initialkeysForChildModules: b2b.RouteWithKey[] = [
         AccountComponent,
         ProductFlagsComponent,
         ThankYouComponent,
-        DocumentDetailsComponent
     ],
     entryComponents: [SliderComponent],
     imports: [

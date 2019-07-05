@@ -1,0 +1,86 @@
+<div class="no-results box-message danger" *ngIf="configService?.config?.orderBlock">
+    <i class="ti-na"></i>
+    <span>{{r?.translations?.ordersBlocked}}</span>
+</div>
+
+<div class="website-grid" [attr.fixHeightWhenSelectOpened]="true">
+    <app-header></app-header>
+
+    <router-outlet class="views-container"></router-outlet>
+
+    <app-footer [ngClass]="{'with-offline-msg': !configService.isOnline}"></app-footer>
+</div>
+
+<app-modal class="added-to-cart"
+           [isOpened]="afterAddingToCartModal.opened"
+           [autoClose]="cartsService?.afterAddingToCart === 1"
+           (close)="closeInform('afterAddingToCart')">
+
+    <p class="title flex">
+
+        <span class="mauto" *ngIf="afterAddingToCartModal.addedCount === 1 && afterAddingToCartModal.notAddedCount === 0">
+            <i class="ti-check check"></i> {{r?.translations?.articleAddedToCart}}
+        </span>
+
+        <span class="mauto" *ngIf="afterAddingToCartModal.addedCount > 1 && afterAddingToCartModal.notAddedCount === 0">
+            <i class="ti-check check"></i> {{r?.translations?.allArticlesAddedToCart}}
+        </span>
+
+        <span class="mauto" *ngIf="afterAddingToCartModal.addedCount > 1 && afterAddingToCartModal.notAddedCount > 0">
+            {{r?.translations?.someArticlesFailed}}
+        </span>
+    </p>
+
+    <div class="options emphasised-section" *ngIf="cartsService.afterAddingToCart === null">
+
+        <button class="cart" (click)="saveAfterAddingBehaviour(0); router.navigate([configService.routePaths.cart, afterAddingToCartModal.cartId])">
+            <i class="ti-shopping-cart icon"></i>{{r?.translations?.goToCart}}
+        </button>
+
+        <button class="pure" (click)="saveAfterAddingBehaviour(1); closeInform('afterAddingToCart')">
+            {{r?.translations?.stayOnPage}}
+        </button>
+
+        <app-checkbox (changeValue)="setIfSaveBehaviour($event)">{{r?.translations?.saveMyChoice}}</app-checkbox>
+
+    </div>
+
+</app-modal>
+
+<app-modal [autoClose]="false"
+           [isOpened]="noPermissions"
+           (close)="closeInform('noPermissions')">
+
+    {{r?.translations?.noPermissions}}
+</app-modal>
+
+
+
+
+
+<app-modal class="install-app-prompt"
+           *ngIf="configService?.isSafari"
+           [autoClose]="false"
+           [isOpened]="installPromptOpened"
+           (close)="closeInform('installPrompt')">
+
+    <p class="title">{{r?.translations?.addToHomeScreen}}</p>
+
+    <p class="inner-clear app-name">
+        <img src="/ClientApp/assets/images/icons/icon-72x72.png" class="f-left" />
+        {{r?.translations?.productName}}
+    </p>
+
+    <div class="buttons">
+        <button (click)="promptInstallAppBanner(); closeInform('installPrompt')">{{r?.translations?.addApp}}</button>
+        <button class="secondary" (click)="closeInform('installPrompt')">{{r?.translations?.dialogCancel}}</button>
+    </div>
+</app-modal>
+
+
+
+<div class="box-message warning offline-mode" *ngIf="!configService.isOnline">
+    {{r?.translations?.offlineMode}}
+</div>
+
+<app-loading [hidden]="!loader" [attr.aria-hidden]="!loader"></app-loading>

@@ -1,0 +1,57 @@
+@import 'configuration.scss';
+
+.app-radio {
+    display: block;
+
+    label {
+        cursor: pointer;
+        padding: 10px 0;
+        display: inline-block;
+    }
+
+    input {
+        opacity: 0;
+        position: absolute;
+        z-index: -2;
+    }
+
+
+    .label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .dot {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        transition: background $little-transitions-time, border $little-transitions-time;
+        vertical-align: middle;
+        border-radius: 10px;
+        background: $radio-bg;
+        border: 1px solid $radio-border;
+        transition: background $little-transitions-time, border $little-transitions-time;
+
+        &::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            background: $radio-dot;
+        }
+    }
+
+    input:checked + .dot {
+        background: $radio-active-bg;
+        border-color: $radio-active-bg;
+    }
+
+    input:focus + .dot {
+        border-color: shade($checkbox-border, 30%);
+        box-shadow: 0 0 0 2px shade($checkbox-border, 30%);
+    }
+}
+
+

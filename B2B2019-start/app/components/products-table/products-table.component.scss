@@ -1,0 +1,374 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-products-table {
+    font-size: 0.9em;
+    display: block;
+
+
+    .converter {
+        display: block;
+    }
+
+    .tcell {
+        padding: 7px;
+    }
+
+    .tbody, .tfoot {
+
+        .tcell {
+
+            @media (max-width: $tablet-max) {
+                padding: 0;
+            }
+        }
+    }
+
+    .currency-col {
+        @media (max-width: $tablet-max) {
+            display: none;
+        }
+    }
+
+    .thead {
+
+        .tcell {
+            @media (max-width: $tablet-max) {
+                padding: 7px 0;
+            }
+        }
+
+        .trow {
+
+            > :not(.name-col):not(.quantity-col):not(.description-col):not(.addToCart-col) {
+                @media (max-width: $tablet-max) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+
+    .addToCart-col, .quantity-col, .complain-col {
+        position: relative;
+        z-index: 5;
+    }
+
+
+
+    .app-stepper {
+        margin-right: 8px;
+
+        @media (max-width: $tablet-max) {
+            margin: 0;
+        }
+    }
+
+    .image-container {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .product-desc {
+        width: calc(100% - 50px);
+    }
+
+    .name-col {
+        min-width: 0;
+    }
+
+    .addToCart-col {
+        @media (max-width: $tablet-max) {
+            width: auto !important;
+        }
+    }
+
+    .converter {
+        display: block;
+    }
+
+    .tbody {
+
+        button, .button {
+            @media (max-width: $tablet-max) {
+                padding: 0;
+                font-size: 12px;
+            }
+        }
+
+        .tcell:not(.name-col):not(.quantity-col):not(.discount-col):not(.remove-col):not(.complain-col):not(.addToCart-col):not(.grossValue-col):not(.netValue-col):not(.subtotalValue-col):not(.totalValue-col) {
+            @media (max-width: $tablet-max) {
+                width: auto !important;
+                padding-right: 20px !important;
+            }
+        }
+
+
+        .quantity-col, .addToCart-col {
+            @media (max-width: $tablet-max) {
+                position: static;
+                margin-bottom: 10px;
+            }
+        }
+
+        .trow:not(.pager-col) {
+            @media (max-width: $tablet-max) {
+                padding: 10px;
+            }
+        }
+
+        .trow.flex {
+            @media (max-width: $tablet-max) {
+                -ms-flex-wrap: wrap;
+                @include flex-wrap(wrap);
+            }
+        }
+
+        .subtotalPrice-col, .totalPrice-col, .price-col {
+            @media (max-width: $tablet-max) {
+                position: absolute;
+                right: 100px;
+                top: 45px;
+                padding: 0;
+            }
+        }
+
+        .totalPrice-col {
+            @media (max-width: $tablet-max) {
+                top: 82px;
+            }
+        }
+
+        .subtotalValue-col, .totalValue-col {
+            @media (max-width: $tablet-max) {
+                top: 63px;
+            }
+        }
+
+        .name-col {
+            @media (max-width: $tablet-max) {
+                width: calc(100% - 100px) !important;
+                max-width: none;
+                min-width: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        .quantity-col, .addToCart-col {
+            @media (max-width: $tablet-max) {
+                width: 90px !important;
+                text-align: right;
+                font-size: 16px;
+                color: inherit;
+            }
+
+            * {
+                @media (max-width: $tablet-max) {
+                    vertical-align: baseline;
+                }
+            }
+
+            .unit {
+                @media (max-width: $tablet-max) {
+                    color: inherit
+                }
+            }
+        }
+
+        .quantity-col:not(.with-stepper) {
+
+            .unit {
+                @media (max-width: $tablet-max) {
+                    font-size: inherit;
+                }
+            }
+        }
+
+        .addToCart-col {
+            @media (max-width: $tablet-max) {
+                white-space: normal;
+            }
+        }
+
+        &, .product-name, button {
+            @media (max-width: $tablet-max) {
+                font-size: 12px;
+            }
+        }
+
+        .totalValue-col, .subtotalValue-col, .netValue-col, .grossValue-col {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .subtotalValue-col, .netValue-col {
+            @media (max-width: $tablet-max) {
+                padding-top: 5px;
+            }
+        }
+
+        .stock {
+
+            @media (max-width: $tablet-max) {
+                position: absolute;
+                top: 110px;
+                left: 10px;
+                width: calc(100% - 110px);
+                text-align: left;
+            }
+        }
+    }
+
+    .unavailable.button {
+        margin-right: 5px;
+    }
+
+    .trow.stock-warn {
+        border: 1px solid $warning;
+    }
+
+    .trow.forbidden {
+        border: 1px solid $danger;
+    }
+
+    .tfoot {
+        position: relative;
+        overflow: hidden;
+
+        .tcell {
+            @media (max-width: $tablet-max) {
+                width: 100% !important;
+            }
+        }
+
+        .trow:not(.pager-col) {
+            @media (max-width: $tablet-max) {
+                -ms-flex-wrap: wrap;
+                @include flex-wrap(wrap);
+                padding: 10px;
+            }
+        }
+
+        .name-col span {
+            margin-right: 20px;
+        }
+
+        .totalValue-col, .subtotalValue-col, .netValue-col, .grossValue-col {
+            font-size: 18px;
+            font-weight: 500;
+
+            @media (max-width: $tablet-max) {
+                font-size: 16px;
+            }
+        }
+
+        &.with-weight {
+            .trow:first-child {
+                @media (max-width: $tablet-max) {
+                    padding-top: 5em;
+                }
+            }
+
+            .name-col {
+                @media (min-width: #{$tablet-max + 1}) {
+                    position: relative;
+                }
+
+                .name-with-weight {
+                    @media (min-width: #{$tablet-max + 1}) {
+                        position: absolute;
+                        width: 100vw;
+                    }
+                }
+            }
+
+            .weight, .volume, .total {
+
+                @media (max-width: $tablet-max) {
+                    position: absolute;
+                    right: 0;
+                    top: -3em;
+                }
+            }
+
+            .weight {
+                @media (max-width: $tablet-max) {
+                    top: -4.9em;
+                }
+            }
+
+            .total {
+                @media (max-width: $tablet-max) {
+                    top: -3.9em;
+                    font-size: 16px;
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    .name-col, .quantity-col, .addToCart-col {
+        @media (max-width: $tablet-max) {
+            -ms-flex-order: -1;
+            @include order(-1);
+        }
+    }
+
+    .discount-col {
+        @media (max-width: $tablet-max) {
+            position: absolute;
+            bottom: 10px;
+            left: 30%;
+            width: 30% !important;
+            text-align: center;
+        }
+    }
+
+
+
+
+    [class*="Price"], [class*="price"], [class*="Value"], .currency-col, .price {
+        text-align: right;
+
+        @media (max-width: $tablet-max) {
+            width: 100% !important;
+        }
+    }
+
+
+
+    .remove-col, .complain-col {
+        font-size: large;
+        z-index: 1;
+        position: relative;
+
+        @media (max-width: $tablet-max) {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            white-space: nowrap;
+            padding: 0;
+        }
+
+        button {
+            @media (max-width: $tablet-max) {
+                border: 0;
+            }
+        }
+    }
+
+    .app-pager {
+
+        @media (max-width: $tablet-max) {
+            position: relative;
+            top: -55px;
+        }
+    }
+
+
+    .add-to-cart {
+        -ms-flex-grow: 1;
+        @include flex-grow(1);
+    }
+}

@@ -19,8 +19,11 @@ export class PromotionsComponent implements OnInit {
     activePromotionId: number;
     message: string;
     // JD
+    onlySpacesInSearchForm = false;
+
     @ViewChild('promotionForm')
     searchForm: NgForm;
+
 
     constructor(
         resourcesService: ResourcesService,
@@ -79,6 +82,11 @@ export class PromotionsComponent implements OnInit {
         } else {
             this.loadList(false, true, true);
         }
+    }
+
+    searchInputKeyPress(event) {
+        const trimmedValue = event.target.value.trim();
+        (trimmedValue.length > 0) ? this.onlySpacesInSearchForm = false : this.onlySpacesInSearchForm = true;
     }
 
     loadDetails(id = this.activePromotionId): Promise<b2b.PromotionDetailsResponse | null> {

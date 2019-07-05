@@ -1,0 +1,142 @@
+.flags-sprite, .flags-be, .flags-bg, .flags-cs, .flags-da, .flags-de, .flags-el, .flags-en, .flags-es, .flags-et, .flags-fi, .flags-fr, .flags-hr, .flags-hu, .flags-is, .flags-it, .flags-ja, .flags-ka, .flags-lt, .flags-lv, .flags-mk, .flags-nl, .flags-no, .flags-pl, .flags-pt, .flags-ro, .flags-ru, .flags-sk, .flags-sl, .flags-sq, .flags-sr, .flags-sv, .flags-tr, .flags-uk {
+  background-image: url('flags.png');
+  background-repeat: no-repeat;
+}
+
+.flags-be {
+  background-position: 0 0;
+}
+
+.flags-bg {
+  background-position: 0 -20px;
+}
+
+.flags-cs {
+  background-position: 0 -40px;
+}
+
+.flags-da {
+  background-position: 0 -60px;
+}
+
+.flags-de {
+  background-position: 0 -80px;
+}
+
+.flags-el {
+  background-position: 0 -100px;
+}
+
+.flags-en {
+  background-position: 0 -120px;
+}
+
+.flags-es {
+  background-position: 0 -140px;
+}
+
+.flags-et {
+  background-position: 0 -160px;
+}
+
+.flags-fi {
+  background-position: 0 -180px;
+}
+
+.flags-fr {
+  background-position: 0 -200px;
+}
+
+.flags-hr {
+  background-position: 0 -220px;
+}
+
+.flags-hu {
+  background-position: 0 -240px;
+}
+
+.flags-is {
+  background-position: 0 -260px;
+}
+
+.flags-it {
+  background-position: 0 -280px;
+}
+
+.flags-ja {
+  background-position: 0 -300px;
+}
+
+.flags-ka {
+  background-position: 0 -320px;
+}
+
+.flags-lt {
+  background-position: 0 -340px;
+}
+
+.flags-lv {
+  background-position: 0 -360px;
+}
+
+.flags-mk {
+  background-position: 0 -380px;
+}
+
+.flags-nl {
+  background-position: 0 -400px;
+}
+
+.flags-no {
+  background-position: 0 -420px;
+}
+
+.flags-pl {
+  background-position: 0 -440px;
+}
+
+.flags-pt {
+  background-position: 0 -460px;
+}
+
+.flags-ro {
+  background-position: 0 -480px;
+}
+
+.flags-ru {
+  background-position: 0 -500px;
+}
+
+.flags-sk {
+  background-position: 0 -520px;
+}
+
+.flags-sl {
+  background-position: 0 -540px;
+}
+
+.flags-sq {
+  background-position: 0 -560px;
+}
+
+.flags-sr {
+  background-position: 0 -580px;
+}
+
+.flags-sv {
+  background-position: 0 -600px;
+}
+
+.flags-tr {
+  background-position: 0 -620px;
+}
+
+.flags-uk {
+  background-position: 0 -640px;
+}
+
+.flags-sprite {
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+}

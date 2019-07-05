@@ -9,9 +9,13 @@
 
 
     .narrow-content:not(.trow) {
+        &.tbody{
+            padding-top: 10px;
+        }
         @media (max-width: $tablet-max) {
             padding-left: 0;
             padding-right: 0;
+            width: 95%;
         }
     }
 
@@ -24,7 +28,7 @@
 /* JD */
     .thead-promo {
         border-bottom: 1px solid #d9d9d9;
-        padding: 15px;
+        padding: 15px 15px 5px 0;
     }
 
     .emphasised {
@@ -141,15 +145,68 @@
     }
 
     /* JD */
-    .search-button {
-     /*   position: absolute;
-        right:0;
-        top: 0;
-        bottom: 0;
-        width: 60px;
-        font-size: 20px;
+    .search-bar {
+        position: relative;
+        padding: 0;
+        margin: auto;
+        max-width: 500px;
+
         @media (max-width: $tablet-max) {
+            -ms-flex-order: 10;
+            @include order(10);
+            padding-left: 10px;
+            width: calc(100% - #{$bar-height});
+            padding: 10px 0;
+            z-index: 1;
+            height: $bar-height;
+            border-bottom: 1px solid $border-color;
+            margin-right: 0;
+        }
+
+        form {
+            @media (max-width: $tablet-max) {
+                width: 100%;
+                position: relative;
+                float: right;
+                padding-left: 10px;
+            }
+        }
+
+        .app-floating-label-input {
+            width: 100%;
+            display: block;
+        }
+
+        input {
+            padding: 15px;
+            width: 500px;
+            max-width: 100%;
+            padding-right: 65px;
+            height: 45px;
+            font-size: 1rem;
+
+            @media (max-width: $tablet-max) {
+                height: $bar-height - 20px;
+                width: calc(100% - 60px);
+                padding: 0 10px;
+                border: 0;
+            }
+        }
+
+        .search-button {
+            position: absolute;
             right: 0;
-        } */
+            top: -10px;
+            bottom: -10px;
+            width: 60px;
+            height: auto;
+            font-size: 20px;
+        }
+
+        .validation-error {
+            display: block;
+            position: absolute;
+            background-color: #fff;
+        }
     }
 }

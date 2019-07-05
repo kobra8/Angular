@@ -1,0 +1,196 @@
+<app-menu>
+
+    <div class="inner-clear bar flex">
+
+        <div class="menu-item active-top">
+
+            <p class="label" [ngSwitch]="viewType">
+
+                <ng-container *ngSwitchCase="0">
+                    <i class="ti-shift-right"></i>
+                    {{r?.translations?.signIn}}
+                </ng-container>
+
+                <ng-container *ngSwitchCase="1">
+                    <i class="ti-help-alt"></i>
+                    {{r?.translations?.remind}}
+                </ng-container>
+
+                <ng-container *ngSwitchCase="2">
+                    <i class="ti-eraser"></i>
+                    {{r?.translations?.resetPassword}}
+                </ng-container>
+
+            </p>
+
+            <div class="login-container box">
+
+                <div class="success text-center" *ngIf="messageKey && r?.translations[messageKey]">
+                    {{r?.translations[messageKey]}}
+                </div>
+
+                <div class="danger text-center" *ngIf="errorKey && r?.translations[errorKey] && viewType === 2">
+                    {{r?.translations[errorKey]}}
+                </div>
+
+                <a *ngIf="backBtn" class="block text-center" href="{{configService?.routePaths?.login}}">
+                    <!-- not routerLink, href needed for change server view -->
+                    <i class="ti-angle-double-left"></i> {{r?.translations?.invalidLinkGetBackToMainPageButton}}
+                </a>
+
+                <form #accountForm="ngForm"
+                      *ngIf="showForm"
+                      name="accountForm"
+                      [ngClass]="{'immediately-required-form': triedToSendInvalid}"
+                      (ngSubmit)="submit(accountForm?.valid, accountForm?.value)">
+
+                    <ng-container *ngIf="viewType !== 2">
+
+                        <app-floating-label-input name="customerName"
+                                                  [autofocus]="true"
+                                                  [tabindex]="0"
+                                                  ngModel
+                                                  [required]="true"
+                                                  (focus)="onFocus()"
+                                                  (focusout)="onFocusOut()"
+                                                  (input)="debounceCustomerName(accountForm?.controls?.customerName?.value)">
+                            {{r?.translations?.company}}
+                        </app-floating-label-input>
+
+                        <small class="validation-error danger"
+                               *ngIf="triedToSendInvalid && accountForm?.controls?.customerName?.invalid">
+                            {{r?.translations?.fieldRequired}}
+                        </small>
+
+                        <app-floating-label-input name="userName"
+                                                  ngModel
+                                                  (focus)="onFocus()"
+                                                  (focusout)="onFocusOut()"
+                                                  [required]="true">
+                            {{r?.translations?.employee}}
+                        </app-floating-label-input>
+
+                        <small class="validation-error danger"
+                               *ngIf="triedToSendInvalid && accountForm?.controls?.userName?.invalid">
+                            {{r?.translations?.fieldRequired}}
+                        </small>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="viewType !== 1">
+
+                        <div class="input-wrapper input-with-icon">
+
+                            <app-floating-label-input name="password"
+                                                      [autofocus]="viewType === 2"
+                                                      [tabindex]="viewType === 2 ? 0 : ''"
+                                                      ngModel
+                                                      [type]="showPassword ? 'text' : 'password'"
+                                                      (focus)="onFocus()"
+                                                      (focusout)="onFocusOut()"
+                                                      [required]="true">
+                                {{r?.translations?.password}}
+                            </app-floating-label-input>
+
+                            <i (click)="onShowHidePassword()"
+                               [ngStyle]="{color: showPassword ? '#004d8a' : '#969696'}"
+                               class="icon ti-eye"></i>
+                        </div>
+
+                        <small class="validation-error danger"
+                               *ngIf="triedToSendInvalid && accountForm?.controls?.password?.invalid">
+                            {{r?.translations?.fieldRequired}}
+                        </small>
+
+                    </ng-container>
+
+                    <div class="danger text-center" *ngIf="errorKey && r?.translations[errorKey] && viewType !== 2">
+                        {{r?.translations[errorKey]}}
+                    </div>
+
+                    <ng-container *ngIf="viewType !== 2">
+
+                        <app-select *ngIf="companies?.length > 0" name="companyGroupId" ngModel>
+                            <app-option *ngFor="let company of companies"
+                                        [value]="company.GroupId"
+                                        [ngValue]="company.GroupId">
+                                {{company.Name}}
+                            </app-option>
+                        </app-select>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="viewType === 0">
+
+                        <app-checkbox name="rememberMe" ngModel>{{r?.translations?.rememberMe}}</app-checkbox>
+
+                        <app-checkbox *ngIf="accountService.isLoginConfirmationRequired"
+                                      name="LoginConfirmation"
+                                      [required]="true"
+                                      ngModel>
+                            <span class="vmiddle" [innerHTML]="loginConfirmationHtml"></span>
+                        </app-checkbox>
+
+                        <small class="validation-error danger"
+                               *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
+                            {{r?.translations?.checkOrRadioRequired}}
+                        </small>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="viewType === 2">
+
+                        <app-floating-label-input name="repeatPassword"
+                                                  ngModel
+                                                  [type]="'password'"
+                                                  [required]="true"
+                                                  (focus)="onFocus()"
+                                                  (focusout)="onFocusOut()"
+                                                  (input)="checkPasswordsMatching()">
+                            {{r?.translations?.repeatPassword}}
+                        </app-floating-label-input>
+
+                        <small class="validation-error danger"
+                               *ngIf="triedToSendInvalid && accountForm?.controls?.repeatPassword?.errors?.required">
+                            {{r?.translations?.fieldRequired}}
+                        </small>
+
+                        <small class="validation-error danger"
+                               *ngIf="!accountForm?.controls?.repeatPassword?.pristine && accountForm?.controls?.repeatPassword?.errors?.match">
+                            {{r?.translations?.passwordsDiffer}}
+                        </small>
+
+                    </ng-container>
+
+                    <button class="action primary-action" [ngSwitch]="viewType">
+                        <ng-container *ngSwitchCase="0">{{r?.translations?.signIn}}</ng-container>
+                        <ng-container *ngSwitchCase="1">{{r?.translations?.remind}}</ng-container>
+                        <ng-container *ngSwitchCase="2">{{r?.translations?.resetPassword}}</ng-container>
+                    </button>
+
+                </form>
+
+                <div class="links" *ngIf="viewType === 0">
+                    <a class="pure" [routerLink]="[configService?.routePaths?.remindPassword]">{{r?.translations?.forgotPassword}}</a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</app-menu>
+
+<div class="app-slider inner-clear tns-outer">
+
+    <div class="slide">
+        <img src="ClientApp/assets/images/slider/slide1.png" alt="{{r?.translations?.productName}}">
+
+        <div class="caption">
+            <p class="title">{{r?.translations?.productName}}</p>
+            <p class="desc">{{r?.translations?.b2BSalesPlatform}}</p>
+        </div>
+    </div>
+
+</div>
