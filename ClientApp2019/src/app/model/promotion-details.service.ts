@@ -11,7 +11,7 @@ import { AccountService } from './account.service';
 @Injectable()
 export class PromotionDetailsService extends DocumentDetails {
 
-  //  id: number;
+    id: number;
     paginationRepo: PaginationRepo;
  //   details: b2b.PromotionDetails;
  //  products: b2b.PromotionProduct[];
@@ -19,8 +19,10 @@ export class PromotionDetailsService extends DocumentDetails {
     columns: b2b.ColumnConfig[];
     states: Map<number, string>;
     headerResource: string;
-  //  config: b2b.Permissions & b2b.CustomerConfig;
-
+    config: b2b.Permissions & b2b.CustomerConfig;
+    //JD
+    deliveryMethods: b2b.PromotionDeliveryMethod[];
+    filter = '';
 
     constructor(
         httpClient: HttpClient,
@@ -59,48 +61,57 @@ export class PromotionDetailsService extends DocumentDetails {
 
         const params = Object.assign(
             this.params,
-            { skip: paginationParams.skip, top: paginationParams.top }
+            { filter: this.filter, skip: paginationParams.skip, top: paginationParams.top }
         );
 
-        return this.httpClient.get<b2b.PromotionDetailsResponse>('/api/promotions/' + id, { params: params }).toPromise();
+        return this.httpClient.get<b2b.PromotionDetailsResponse>('/api/promotions/' + id, {params: params}).toPromise();
     }
 
 
     loadDetails(id = this.id): Promise<b2b.PromotionDetailsResponse> {
 
-        // const detailsPromise = this.requestDetails(id);
-        // const configPromise = this.configService.allConfigsPromise;
+       //  const detailsPromise = this.requestDetails(id);
+       //  const configPromise = this.configService.allConfigsPromise;
 
-        return super.loadDetails(id).then((listResponse) => {
+        return super.loadDetails(id).then((res) => {
 
         this.details.printHref = 'printhandler.ashx?pageId=' + DocumentType.promotion + '&documentId=' + this.id;
 
+        this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
 
-          //  const detailsRes = res[0];
+        this.id = id;
+        if (res.items.set4 instanceof Array && res.items.set4.length > 0) {
+            this.details = res.items.set4[0];
+            if (this.details.cartCount !== undefined) {
+                this.details.cartCount = ArrayUtils.toRangeArray(<any>res.items.set4[0].cartCount, true);
+                }
+        }
 
-         //   this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
+        if (res.items.set5 instanceof Array && res.items.set5.length > 0) {
+            this.products = res.items.set5.map(item => {
+                item.quantity = item.quantity || 0;
+                item.cartId = 1;
+                return item;
+            });
+        } else {
+            this.products = [];
+        }
 
-         //   this.id = id;
-         //   this.details = detailsRes.items.set4[0];
+        if (res.items.set6 instanceof Array && res.items.set6.length > 0) {
+            this.deliveryMethods = res.items.set6.map(item => {
+                item.no = item.no;
+                item.name = item.name;
+                return item;
+            })
+        } else {
+            this.deliveryMethods = [];
+        }
 
-            // if (this.details.cartCount !== undefined) {
-            //     this.details.cartCount = ArrayUtils.toRangeArray(<any>detailsRes.items.set4[0].cartCount, true);
-            // }
-
-            // this.products = detailsRes.items.set5.map(item => {
-            //     item.quantity = item.quantity || 0;
-            //     item.cartId = 1;
-            //     return item;
-            // });
-
-          //  this.paginationRepo.pagination.isNextPage = detailsRes.hasMore;
-            this.products = listResponse.set5;
-            console.log(this.products);
-            return listResponse;
+        this.paginationRepo.pagination.isNextPage = res.hasMore;
+        return res;
         });
 
     }
-
 
     getDefaultParams(): b2b.PromotionDetailsDefaultParams {
 

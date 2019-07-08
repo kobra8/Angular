@@ -35,7 +35,7 @@ export class ComplaintDetailsService extends DocumentDetails {
             { property: 'completion', translation: 'state', type: 'complaintHistory'}
         ];
 
-        
+
     }
 
     protected requestDetails(id = this.id): Promise<b2b.ComplaintDetailsResponse> {
@@ -47,7 +47,6 @@ export class ComplaintDetailsService extends DocumentDetails {
     loadDetails(id = this.id): Promise<b2b.ComplaintDetailsResponse> {
 
         return super.loadDetails(id).then((res: b2b.ComplaintDetailsResponse) => {
-
             this.details.printHref = '/printhandler.ashx?pageid=' + DocumentType.complaint + '&documentid=' + this.id;
             this.products = res.set5;
             this.completion = res.set6;

@@ -184,8 +184,31 @@
                 <!-- JD -->
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.name">
                             <small class="pair-key">Nazwa promocji:</small>
-                            <!-- <p>{{detailsContext.details.name}}</p> -->
+                           <p>{{detailsContext.details.name}}</p>
                         </div>
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.effectiveFrom">
+                            <small class="pair-key">Obowiązuje od:</small>
+                            <p>{{detailsContext.details.effectiveFrom}}</p>
+                            <p>{{detailsContext.details.validInHoursFrom}}</p>
+                        </div>
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.until">
+                            <small class="pair-key">Ważna do:</small>
+                            <p>{{detailsContext.details.until}}</p>
+                            <p>{{detailsContext.details.validInHoursTo}}</p>
+                        </div>
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.deliveryMethods?.length > 0">
+                            <small class="pair-key">Sposoby dostawy:</small>
+                            <p *ngFor="let method of detailsContext?.deliveryMethods">{{method.name}}</p>
+                        </div>
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.comment">
+                            <small class="pair-key">Uwagi:</small>
+                            <p>{{detailsContext.details.comment}}</p>
+                        </div>
+
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.sourceNumber">
                             <small class="pair-key">{{r?.translations?.myNumber}}</small>
                             <p>{{detailsContext.details.sourceNumber}}</p>
@@ -422,6 +445,35 @@
             </div>
         </div>
     </section>
+<!-- JD -->
+    <!-- Promotion details product search bar -->
+     <div class="search-bar" *ngIf="detailsContext?.headerResource === 'promotionDetails'">
+            <form novalidate #promotionProductForm="ngForm"
+            role="search"
+            aria-label="Szukaj towaru w promocji"
+            (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
+                <app-floating-label-input [type]="'search'"
+                ngModel
+                name="searchPhrase"
+                (keyup)="searchInputKeyPress($event)"
+                [minlength]="2"
+                ariaLabel="Wpisz szukane słowo"
+                [required]="false">
+                Szukaj towaru w promocji...
+                </app-floating-label-input>
+                <button class="search-button pure ti-search"></button>
+
+                <span class="validation-error danger"
+                    *ngIf="onlySpacesInSearchForm && promotionProductForm?.controls?.searchPhrase?.value?.length > 0">
+                        {{r?.translations?.searchErrorOnlySpaces}}
+                </span>
+
+                <span class="validation-error danger"
+                      *ngIf="promotionProductForm?.invalid && searchForm?.dirty && promotionProductForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
+                    {{r?.translations?.searchErrorMsgTooShortPhrase}}
+                </span>
+            </form>
+    </div>
 
 </div>
 

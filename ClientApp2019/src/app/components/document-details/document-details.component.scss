@@ -152,4 +152,70 @@
         padding: 5px 10px;
         font-size: 1.2rem;
     }
+
+    /* JD */
+    .search-bar {
+        position: relative;
+        padding: 0;
+        margin: auto;
+        max-width: 500px;
+
+        @media (max-width: $tablet-max) {
+            -ms-flex-order: 10;
+            @include order(10);
+            padding-left: 10px;
+            width: calc(100% - #{$bar-height});
+            padding: 10px 0;
+            z-index: 1;
+            height: $bar-height;
+            border-bottom: 1px solid $border-color;
+            margin-right: 0;
+        }
+
+        form {
+            @media (max-width: $tablet-max) {
+                width: 100%;
+                position: relative;
+                float: right;
+                padding-left: 10px;
+            }
+        }
+
+        .app-floating-label-input {
+            width: 100%;
+            display: block;
+        }
+
+        input {
+            padding: 15px;
+            width: 500px;
+            max-width: 100%;
+            padding-right: 65px;
+            height: 45px;
+            font-size: 1rem;
+
+            @media (max-width: $tablet-max) {
+                height: $bar-height - 20px;
+                width: calc(100% - 60px);
+                padding: 0 10px;
+                border: 0;
+            }
+        }
+
+        .search-button {
+            position: absolute;
+            right: 0;
+            top: -10px;
+            bottom: -10px;
+            width: 60px;
+            height: auto;
+            font-size: 20px;
+        }
+
+        .validation-error {
+            display: block;
+            position: absolute;
+            background-color: #fff;
+        }
+    }
 }

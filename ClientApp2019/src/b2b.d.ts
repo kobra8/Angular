@@ -2389,7 +2389,7 @@ export module b2b {
         set6: ComplaintCompletion[];
     }
 
-    interface PromotionDetails {
+    interface PromotionDetails extends CustomerListDetails {
         applicationId: 0;
         cartCount: number[];
         comment: string;
@@ -2401,6 +2401,7 @@ export module b2b {
         validInHoursTo: string;
         // JD
         calculateDiscount?: boolean;
+        deliveryMethods?: PromotionDeliveryMethod
     }
 
     interface PromotionProduct {
@@ -2437,7 +2438,7 @@ export module b2b {
             set5: PromotionProduct[];
             // JD
             set6: PromotionDeliveryMethod[];
-        };
+        }
     }
 
     interface PromotionDetailsDefaultParams {

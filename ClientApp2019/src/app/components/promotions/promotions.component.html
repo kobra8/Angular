@@ -11,12 +11,12 @@
     <!-- <div *ngIf="promotionsService?.items"> -->
     <div>
         <!-- JD -->
-        <div class="search-bar">
+        <!-- Szukanie prmocji nie jest potrzebne ze względu na niewielką ich ilość -->
+        <!-- <div class="search-bar">
             <form novalidate #promotionForm="ngForm"
             role="search"
             aria-label="Szukaj promocji"
             (ngSubmit)="search(promotionForm.valid, promotionForm.value)">
-                <!-- <input name="searchPhrase" ngModel type="search" placeholder="Szukaj promocji..." minlength="2"> -->
                 <app-floating-label-input [type]="'search'"
                 ngModel
                 name="searchPhrase"
@@ -38,7 +38,7 @@
                     {{r?.translations?.searchErrorMsgTooShortPhrase}}
                 </span>
             </form>
-        </div>
+        </div> -->
 
         <div class="no-results trow box-message" *ngIf="promotionsService?.items && promotionsService?.items.length === 0">
             <i class="ti-na"></i>
