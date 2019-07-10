@@ -19,6 +19,8 @@ export class PendingService extends DocumentsList {
         super(httpClient, configService, accountService);
 
         this.columns = [
+            //JD
+            {   property: 'numberWm'},
             {
                 property: 'name',
                 type: 'productName',
@@ -34,12 +36,14 @@ export class PendingService extends DocumentsList {
                 translation: 'myNumber',
                 filter: { property: 'sourceNumber', type: 'text' }
             },
+            { property: 'numberWz'},
             { property: 'issueDate' },
             { property: 'orderedQuantity' },
             { property: 'completedQuantity' },
             { property: 'quantityToComplete' },
+            { property: 'quantityWm' },
             { property: 'basicUnit', translation: '', type: 'unit' },
-            { property: 'expectedDate' }
+          // JD  { property: 'expectedDate' }
         ];
 
         this.createdOrderSub = this.cartsService.updateOrdersObservable.subscribe(() => {

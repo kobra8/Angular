@@ -130,13 +130,16 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy, AfterViewIni
 
     }
     ngAfterViewInit() {
-        this.formSubscription.add(this.searchForm.valueChanges.subscribe(x => {
+        //JD request after form input 'x' click
+        if (this.detailsContext instanceof PromotionDetailsService) {
+            this.formSubscription.add(this.searchForm.valueChanges.subscribe(x => {
                 if (this.searchForm.dirty && x.searchPhrase === '') {
-                    this.detailsContext.filter = '';
-                    this.loadDetails(this.id, this.type);
-                }
-            })
-        );
+                        this.detailsContext.filter = '';
+                        this.loadDetails(this.id, this.type);
+                    }
+                })
+            );
+        }
     }
 
     changeVisibility(section: 'details' | 'confirmModal', isVisible?: boolean) {

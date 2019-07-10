@@ -38,7 +38,7 @@
     <a class="menu-item new-complain button"
        *ngIf="url === configService.routePaths.complaints && configService?.permissions?.canComplain"
        [routerLink]="[configService.routePaths.complaintItems]">
-         
+
         <i class="ti-plus"></i>
         <span class="tablet-hidden">{{r?.translations?.newComplaint}}</span>
     </a>
@@ -152,7 +152,7 @@
 
             </div>
         </div>
-       
+
 
         <div class="no-results trow box-message" *ngIf="message">
             <i class="ti-na"></i>
