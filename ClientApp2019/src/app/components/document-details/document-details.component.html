@@ -213,6 +213,11 @@
                             <small class="pair-key">{{r?.translations?.myNumber}}</small>
                             <p>{{detailsContext.details.sourceNumber}}</p>
                         </div>
+                <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.wydanie">
+                            <small class="pair-key">Numer WZ</small>
+                            <p>{{detailsContext.details.wydanie}}</p>
+                        </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.dueDate || detailsContext?.paymentSummary?.dueDate">
                             <small class="pair-key">{{r?.translations?.dueDate}}</small>
@@ -305,9 +310,9 @@
 
                         <div class="f-left header-item" *ngIf="detailsContext?.orders">
                             <small class="pair-key block">{{r?.translations?.orders}}</small>
-
-                            <a *ngFor="let doc of detailsContext.orders" [routerLink]="[configService.routePaths.orders, doc.id]">
-                                {{doc.number}}
+                    <!-- JD -->
+                            <a *ngFor="let doc of detailsContext.zamowienieParsed" [routerLink]="['/profile/orders', doc.id]">
+                                {{doc.zamowienie}}
                             </a>
                         </div>
 
@@ -315,7 +320,21 @@
                             <small class="pair-key">{{r?.translations?.waybill}}</small>
                             <p>{{detailsContext.details.waybill}}</p>
                         </div>
-
+                     <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.kierowca">
+                            <small class="pair-key">Kierowca</small>
+                            <p>{{detailsContext.details.kierowca}}</p>
+                        </div>
+                     <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.dostawa">
+                            <small class="pair-key">Data dostawy</small>
+                            <p>{{detailsContext.details.dostawa | date:'fullDate'}}</p>
+                        </div>
+                     <!-- JD -->
+                        <div class="f-left header-item" *ngIf="detailsContext?.details?.telefon">
+                            <small class="pair-key">Telefon kierowcy</small>
+                            <p>{{detailsContext.details.telefon}}</p>
+                        </div>
 
                         <div class="f-left header-item" *ngIf="detailsContext?.details?.volume">
                             <small class="pair-key">{{r?.translations?.volume}}</small>

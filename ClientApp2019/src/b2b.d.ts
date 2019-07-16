@@ -1932,6 +1932,10 @@ export module b2b {
         completedQuantity: number;
         quantityToComplete: number;
         uom: number;
+        //JD
+        numberWm: string;
+        numberWz: string;
+        quantityWm: number;
 
     }
 
@@ -2269,6 +2273,9 @@ export module b2b {
         vatDirection: 'N' | 'B';
         vatValue: number;
         printHref?: string;
+        //JD
+        wydanie?: string;
+        zamowienie?: string;
     }
 
     interface PaymentProduct extends CustomerListProduct {
@@ -2313,6 +2320,10 @@ export module b2b {
         waybill: string;
         weight: number;
         weightUnit: string;
+        //JD
+        kierowca: string;
+        dostawa: any;
+        telefon: string;
     }
 
     interface DeliveryProduct {

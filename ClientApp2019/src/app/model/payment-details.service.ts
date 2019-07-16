@@ -19,6 +19,8 @@ export class PaymentDetailsService extends DocumentDetails {
     states: Map<number, string>;
     attachments: b2b.ProductAttachement[];
     headerResource: string;
+//JD
+    zamowienieParsed = [];
 
     constructor(httpClient: HttpClient, private router: Router, private cartsService: CartsService, configService: ConfigService, accountService: AccountService) {
         super(httpClient, configService, accountService);
@@ -37,7 +39,7 @@ export class PaymentDetailsService extends DocumentDetails {
             { property: 'complain', translation: ' ', type: 'complain' }
         ];
 
-        
+
     }
 
     protected requestDetails(id = this.id, type = this.type): Promise<b2b.PaymentDetailsResponse> {
@@ -54,6 +56,11 @@ export class PaymentDetailsService extends DocumentDetails {
 
             //enums doesn't work with template strings
             this.details.printHref = 'printhandler.ashx?pageid=' + DocumentType.payment + '&documentid=' + this.id + '&documenttypeid=' + this.type + '&documentmode=' + this.details.isClip;
+
+            //JD
+            if (res.set4[0].zamowienie) {
+                this.zamowienieParsed = JSON.parse(res.set4[0].zamowienie);
+            }
 
             this.products = res.set5.map(item => {
                 item.discount = Number(item.discount) === 0 ? '' : item.discount + ' %';

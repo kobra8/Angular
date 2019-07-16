@@ -65,7 +65,16 @@ export class PendingService extends DocumentsList {
 
         return super.loadList(getFilter, updateFilter, controlDate).then((res: b2b.PendingListResponse) => {
             this.details = res.items.set2[0];
-
+        // JD
+            const resSet1Arr = JSON.parse(JSON.stringify(res.items.set1)); // Deep copy of arr set 1
+            res.items.set1.forEach((x, i) => {
+               if (x.numberWm === '') {
+                    x.numberWm = 'brak nr WM';
+               } else if (i > 0 && x.numberWm === resSet1Arr[i - 1].numberWm) {
+                    x.numberWm = ' ';
+               }
+               return x;
+            });
             return res;
         });
     }
