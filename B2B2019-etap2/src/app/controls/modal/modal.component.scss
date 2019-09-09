@@ -1,0 +1,69 @@
+@import 'configuration.scss';
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+
+    @media (max-width: $tablet-max) {
+        z-index: 1000;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px;
+}
+
+.modal-window {
+    z-index: 501;
+    position: relative;
+    width: 500px;
+    min-height: 250px;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: auto;
+    box-shadow: 0 0 7px 1px rgba(0,0,0,0.1);
+    background: $background;
+    overflow: auto;
+
+    button:not(:last-child):not(.close) {
+        margin-right: 15px;
+    }
+
+    .title {
+        font-size: 1.2em;
+        font-weight: 300;
+    }
+}
+
+.modal-content {
+    text-align: center;
+    width: 100%;
+}
+
+.single-toastr {
+    .overlay {
+        display: none;
+    }
+
+    .modal-wrapper {
+        position: fixed;
+        top: 10px;
+        left: auto;
+        right: 10px;
+        bottom: auto;
+        z-index: 500;
+    }
+
+    .modal-window {
+        min-height: 70px;
+    }
+}
+
+

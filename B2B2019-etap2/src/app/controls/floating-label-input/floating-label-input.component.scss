@@ -1,0 +1,17 @@
+@import 'compass-mixins/lib/_compass.scss';
+@import 'configuration.scss';
+
+.app-floating-label-input {
+    input {
+        width: 100%;
+    }
+
+    .floating-label {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        
+        @include transition-property(transform, top, font-size, opacity);
+        @include transition-duration($little-transitions-time);
+    }
+}

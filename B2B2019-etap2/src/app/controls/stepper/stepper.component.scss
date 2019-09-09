@@ -1,0 +1,67 @@
+@import 'configuration.scss';
+
+.app-stepper {
+    display: inline-block;
+    vertical-align: middle;
+
+    input, button {
+        float: left;
+        text-align: center;
+    }
+
+    input {
+        width: 100px;
+        margin: 0 -1px;
+        position: relative;
+        z-index: 1;
+        order: 2;
+    }
+
+    .increase {
+        order: 3;
+    }
+
+    .decrease {
+        order: 1;
+    }
+
+    &.responsive {
+
+        .flex {
+            @media (max-width: $tablet-max) {
+                width: 82px;
+                -ms-flex-wrap: wrap;
+                @include flex-wrap(wrap);
+            }
+        }
+
+        button {
+            @media (max-width: $tablet-max) {
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        input {
+            @media (max-width: $tablet-max) {
+                margin: 0;
+                margin-bottom: -1px;
+                height: 40px;
+                width: 80px;
+                order: 1;
+            }
+        }
+
+        .decrease {
+            @media (max-width: $tablet-max) {
+                order: 2;
+            }
+        }
+
+        .increase {
+            @media (max-width: $tablet-max) {
+                order: 3;
+            }
+        }
+    }
+}

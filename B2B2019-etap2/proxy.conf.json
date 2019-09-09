@@ -1,0 +1,79 @@
+{
+    "/api/*": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/imagehandler.ashx": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/printhandler.ashx": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/filehandler.ashx": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/ClientApp/**": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+
+    "/*.json": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/ngsw-worker.js": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/account/*": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/remindpassword/*": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/languages/*": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+
+    "/resources": {
+        "target": "https://b2b2019.bruk-bet.pl:443/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

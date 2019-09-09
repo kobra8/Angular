@@ -1,0 +1,11 @@
+<a class="block button menu-item {{item.cssClass}}"
+   *ngFor="let item of items"
+   [routerLink]="'/'+item.url"
+   routerLinkActive="active-left">
+
+    <i class="navBar-item-image ti-menu {{item.cssClass}}"></i>
+    <span *ngIf="r?.translations">
+        {{r?.translations[item.resourceKey]}}
+    </span>
+    
+</a>
