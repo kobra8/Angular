@@ -1695,20 +1695,21 @@ button.search-mark, .button.search-mark {
         max-width: 90%;
         color: $sliders-font;
         text-align: left;
-
+/* JD
         @media (max-width: $tablet-max) {
             padding: 10px;
             position: static;
             @include transform(none);
             background: $slider-mobile-caption-bg;
             max-width: none;
-        }
+        } */
 
         .title {
             font-size: 92px;
             line-height: 1.5em;
             margin-bottom: 15px;
             margin: 0;
+            display: none; //JD
 
             @media (max-width: $tablet-max) {
                 font-size: 16px;
@@ -1716,12 +1717,22 @@ button.search-mark, .button.search-mark {
         }
 
         .desc {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; // JD
             font-size: 48px;
             line-height: 2em;
             margin: 0;
+            color: #F5B718; //JD
+//JD
+            @media (max-width: $hidesktop-max) {
+                font-size: 46px;
+            }
+
+            @media (max-width: $desktop-max) {
+                font-size: 36px;
+            }
 
             @media (max-width: $tablet-max) {
-                font-size: 12px;
+                font-size: 28px;
             }
         }
     }

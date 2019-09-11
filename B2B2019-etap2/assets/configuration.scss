@@ -58,12 +58,14 @@ $flagSellerRecommendation: #64B5F6;
 // --- only for browsers which supports scroll change natively ------
 // webkits and IE
 $scrollbarBg: $thirdparty-color;
-$scrollbarThumb: #00aeef;
+$scrollbarThumb: #C0C0C0; // JD
 
 
 //responsive breakpoints
 $mobile-max: 768px;
 $tablet-max: 1024px;
+$desktop-max: 1200px; //JD
+$hidesktop-max: 1600px; //JD
 
 
 /* ----- advanced configuration ----- */
