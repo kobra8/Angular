@@ -162,7 +162,7 @@
 
                     </ng-container>
 
-                    <button class="action primary-action" [ngSwitch]="viewType">
+                    <button class="action primary-action login-btn" [ngSwitch]="viewType">
                         <ng-container *ngSwitchCase="0">{{r?.translations?.signIn}}</ng-container>
                         <ng-container *ngSwitchCase="1">{{r?.translations?.remind}}</ng-container>
                         <ng-container *ngSwitchCase="2">{{r?.translations?.resetPassword}}</ng-container>

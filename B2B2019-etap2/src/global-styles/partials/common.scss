@@ -1727,7 +1727,7 @@ button.search-mark, .button.search-mark {
                 font-size: 46px;
             }
 
-            @media (max-width: $desktop-max) {
+            @media (max-width: 1400px) {
                 font-size: 36px;
             }
 
@@ -1886,8 +1886,13 @@ button.search-mark, .button.search-mark {
             padding: 0;
             position: relative;
             width: $sidebars-width;
-            margin-left: $sidebars-width;
+            margin-left: $sidebars-width - 20px;
             line-height: $bar-height - 5px;
+
+            @media (max-width: $desktop-max) {
+                width: $sidebars-width - 20px;
+                margin-left: $sidebars-width - 130px;
+            }
 
             @media (max-width: $tablet-max) {
                 margin-left: 0;
@@ -1970,6 +1975,11 @@ button.search-mark, .button.search-mark {
         .primary-action {
             min-height: 40px;
             margin-top: 25px;
+            // JD
+            &.login-btn{
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                color: #F5B718;
+            }
         }
 
         .validation-error {
@@ -1996,6 +2006,14 @@ button.search-mark, .button.search-mark {
         .caption {
             color: #FFF;
             left: $sidebars-width*2 + 5px;
+            //JD
+            @media (max-width: 1400px) {
+                left: 50%;
+            }
+            @media (max-width: $desktop-max) {
+                left: calc(50% - 60px);
+                top: 42%;
+            }
         }
 
 
