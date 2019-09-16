@@ -18,8 +18,17 @@
     <div *ngIf="accountService.authenticated && !configService?.isMobile" class="bar top-bar inner-clear">
 
         <div class="content">
+                <div class="supervisor bar-item f-left">
+                        <a class="header-link" [routerLink]="['/contact']">
+                                <i class="ti-comments"></i>
+                                {{r?.translations?.supervisorContact}}
+                        </a>
+                        <a class="header-link" [routerLink]="['/download']">
+                                <i class="ti-download"></i>{{r?.translations?.filesToDownload}}
+                        </a>
+                </div>
 
-            <div class="supervisor bar-item f-left" *ngIf="customerService?.supervisor?.supervisor">
+            <!-- <div class="supervisor bar-item f-left" *ngIf="customerService?.supervisor?.supervisor">
 
                 <app-dropdown>
 
@@ -49,7 +58,8 @@
                     </content>
 
                 </app-dropdown>
-            </div>
+
+            </div> -->
 
 
 

@@ -120,7 +120,7 @@
         &.navBar-logo {
 
             max-width: 40%;
-     
+
 
             @media (max-width: $tablet-max) {
                 margin-right: auto;
@@ -665,5 +665,10 @@
 
     button:not(.close) {
         margin: 20px 10px 0;
+    }
+}
+.header-link {
+    &:nth-child(2) {
+    margin-left: 8px;
     }
 }

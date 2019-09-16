@@ -28,8 +28,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     safeContent: SafeHtml;
     dynamicSliders: ComponentRef<SliderComponent>[];
 
-    private homePageContent = '<template appSlider [items]="1" [slideBy]="1">   <div class="slide">       <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">       <div class="caption">           <p class="title">Bruk-Bet ® </p>           <p class="desc">Witamy w systemie B2B</p>       </div>   </div>    <div class="slide">     </div></template>';
-
     constructor(
         resourcesService: ResourcesService,
         public configService: ConfigService,
@@ -51,17 +49,10 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
 
 
         this.r.translationsPromise.then(() => {
-
+            // Get html homePage template form database translations and pass to slider component
              this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
-             // JD
-            // if (this.accountService.authenticated) {
-            //     this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.homePageContent);
-            // } else {
-            //     this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.homePageContent);
-            // }
 
             window.setTimeout(() => {
-
                 const sliders = this.container.element.nativeElement.querySelectorAll('[appslider], [appSlider]');
                 sliders.forEach(slider => {
                     this.dynamicSliders.push(UiUtils.createDynamicComponent(slider, this.container, SliderComponent, this.componentFactoryResolver));
