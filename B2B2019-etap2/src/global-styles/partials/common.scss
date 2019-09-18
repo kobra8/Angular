@@ -1343,6 +1343,12 @@ td {
         content: '\e6c8';
     }
 
+    //JD
+    &.navBar-businessterms::before {
+        //background-position: 0 -260px;
+        content: '\e6c7';
+    }
+
     &.navBar-promotions::before {
         //background-position: 0 -312px;
         content: '%';
@@ -1982,6 +1988,11 @@ button.search-mark, .button.search-mark {
             &.login-btn{
                 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
                 color: #F5B718;
+                &:hover {
+                    color: $primary-color;
+                    background: #C0C0C0;
+                    border-color: #C0C0C0;
+                }
             }
         }
 

@@ -23,9 +23,30 @@
                                 <i class="ti-comments"></i>
                                 {{r?.translations?.supervisorContact}}
                         </a>
-                        <a class="header-link" [routerLink]="['/download']">
-                                <i class="ti-download"></i>{{r?.translations?.filesToDownload}}
-                        </a>
+                        <app-dropdown>
+
+                                <trigger>
+                                    <i class="ti-download"></i>
+                                    {{r?.translations?.filesToDownload}}
+                                    <i class="ti-angle-down"></i>
+                                </trigger>
+
+                                <content>
+                                    <strong class="block">{{r?.translations?.filesToDownload}}</strong>
+
+                                    <a class="block" href="https://www.bruk-bet.pl/do-pobrania" target="blank">
+                                        <i class="ti-shift-right"></i>
+                                        Bruk-bet Sp. z o.o.
+                                    </a>
+
+                                    <a class="block" href="http://www.solar.bruk-bet.pl/wsparcie-b2b/do-pobrania/" target="blank">
+                                        <i class="ti-shift-right"></i>
+                                        Bruk-Bet Solar
+                                    </a>
+
+                                </content>
+
+                        </app-dropdown>
                 </div>
 
             <!-- <div class="supervisor bar-item f-left" *ngIf="customerService?.supervisor?.supervisor">

@@ -56,12 +56,12 @@ export class MenuService {
 
             this.fullMenuItemsPromise = this.requestMenuItems().then((res: b2b.MenuItem[]) => {
 
+                res.push({url: '/businessterms', position: 2, resourceKey: 'warunki_handlowe', cssClass: 'navBar-businessterms', key: 'businessterms'});
                 this.fullMenuItems = res.sort((item1, item2) => item1.position - item2.position).map(item => {
 
                     item.url = item.url.toLowerCase();
 
                     const root = item.url.split('/')[0];
-
                     switch (root) {
                         case 'items':
                             item.cssClass = 'navBar-items';
@@ -70,6 +70,10 @@ export class MenuService {
                         case 'promotions':
                             item.cssClass = 'navBar-promotions';
                             item.key = 'promotions';
+                            break;
+                        case 'businessterms': // JD
+                            item.cssClass = 'navBar-businessterms';
+                            item.key = 'businessterms';
                             break;
                         case 'quotes':
                             item.cssClass = 'navBar-quotes';
@@ -110,8 +114,8 @@ export class MenuService {
                             item.cssClass = 'ti-menu';
                             break;
                     }
-
-                    if (root !== '' && root !== 'items' && root !== 'carts' && root !== 'promotions'/* && root !== 'pending'*/) {
+                    // JD
+                    if (root !== '' && root !== 'items' && root !== 'carts' && root !== 'promotions' && root !== 'businessterms'/* && root !== 'pending'*/) {
                         item.url = this.configService.routePaths.profile + '/' + item.url;
                     }
 
@@ -136,15 +140,17 @@ export class MenuService {
                     });
 
                 }
-
+                // JD
                 this.defaultMenuItems = this.fullMenuItems.filter(
                     item => item.key === 'quotes'
+                            || item.key === 'businessterms'
                             || item.key === 'promotions'
                             || item.key === 'items'
                 );
-
+                // JD
                 this.profileSidebar = this.fullMenuItems.filter(
                     item => item.key !== 'items'
+                            && item.key !== 'businessterms'
                             && item.key !== 'promotions'
                             && item.key !== 'pending'
                 );
@@ -163,7 +169,7 @@ export class MenuService {
 
     convertLabelToBack(item: b2b.MenuItem, backName = 'backToShopping'): b2b.MenuItem {
 
-        item = Object.assign({}, item); 
+        item = Object.assign({}, item);
 
         item.cssClass = 'back';
         item.resourceKey = backName;
