@@ -34,14 +34,14 @@
                                 <content>
                                     <strong class="block">{{r?.translations?.filesToDownload}}</strong>
 
-                                    <a class="block" href="https://www.bruk-bet.pl/do-pobrania" target="blank">
+                                    <a class="block" href="{{r?.translations['downloadFilesUrl-1']}}" target="blank">
                                         <i class="ti-shift-right"></i>
-                                        Bruk-bet Sp. z o.o.
+                                        {{r?.translations['downloadFilesLabel-1']}}
                                     </a>
 
-                                    <a class="block" href="http://www.solar.bruk-bet.pl/wsparcie-b2b/do-pobrania/" target="blank">
+                                    <a class="block" href="{{r?.translations['downloadFilesUrl-2']}}" target="blank">
                                         <i class="ti-shift-right"></i>
-                                        Bruk-Bet Solar
+                                        {{r?.translations['downloadFilesLabel-2']}}
                                     </a>
 
                                 </content>
@@ -90,7 +90,8 @@
                     <i class="ti-alert danger" *ngIf="customerService?.creditInfo?.customerLimit < 0"></i>
                     {{r?.translations?.customerLimit}}:
                     <span [ngClass]="{'danger': customerService?.creditInfo?.customerLimit < 0}">{{customerService?.creditInfo?.customerLimit | toPrice }}</span>
-                    {{customerService?.creditInfo?.customerCurrency}}
+                    {{customerService?.creditInfo?.customerCurrency}}<br>
+                    {{r?.translations?.zwmValue}}:
                 </div>
 
                 <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">

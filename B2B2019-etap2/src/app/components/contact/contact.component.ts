@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ResourcesService } from 'src/app/model/resources.service';
+import { CustomerService } from 'src/app/model/customer.service';
 
 // JD
 @Component({
@@ -14,7 +15,9 @@ export class ContactComponent {
     r: ResourcesService;
 
     constructor(
-        resourcesService: ResourcesService,
+        public customerService: CustomerService,
+        resourcesService: ResourcesService
+
     ) {
         this.r = resourcesService;
     }
