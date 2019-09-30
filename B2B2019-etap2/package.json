@@ -3,7 +3,7 @@
     "version": "2019.1.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --proxy-config proxy.conf.json --source-map",
+        "start": "ng serve --proxy-config proxy.conf.json --source-map --port 4300",
         "ngsw-copy": "move /Y prod\\ngsw-worker.js .. && move /Y prod\\worker-basic.min.js .. && move /Y prod\\safety-worker.js .. && move /Y prod\\ngsw.json ..",
         "build": "ng build",
         "prod-build": "ng build --output-path=prod/ --deployUrl=/ClientApp/prod/ --prod && npm run ngsw-copy",

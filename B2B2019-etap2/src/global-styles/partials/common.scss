@@ -1701,14 +1701,10 @@ button.search-mark, .button.search-mark {
         max-width: 90%;
         color: $sliders-font;
         text-align: left;
-/* JD
+// JD
         @media (max-width: $tablet-max) {
-            padding: 10px;
-            position: static;
-            @include transform(none);
-            background: $slider-mobile-caption-bg;
-            max-width: none;
-        } */
+            left: 5%;
+        }
 
         .title {
             font-size: 92px;
@@ -1743,6 +1739,16 @@ button.search-mark, .button.search-mark {
         }
         .desc-logged {
             color: #fff;
+            font-size: 28px;
+            @media (max-width: $hidesktop-max) {
+                font-size: 24px;
+            }
+            @media (max-width: $desktop-max) {
+                font-size: 20px;
+            }
+            @media (max-width: 740px) {
+                font-size: 14px;
+            }
         }
     }
 

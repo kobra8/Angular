@@ -37,6 +37,9 @@
         color: $content-fcolor;
         width: calc(100% - 50px);
         text-align: left;
+        &:hover {
+            background-color: #7FBA00;
+        }
     }
 
     .full .group-label {
