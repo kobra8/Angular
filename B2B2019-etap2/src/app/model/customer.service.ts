@@ -36,6 +36,7 @@ export class CustomerService {
 
         const headerPromise = this.requestHeaderData().then((res) => {
 
+            console.log('Header data', res);
             this.creditInfo = res.set1[0];
             this.supervisor = res.set2[0];
             this.overduePayments = res.set3;
@@ -69,8 +70,8 @@ export class CustomerService {
     }
 
     loadCustomerData(): Promise<boolean> {
-
         return this.requestCustomerData().then(res => {
+            console.log('Customer data', res);
 
             this.details = res.set4[0];
             this.attachments = res.set2;
@@ -88,5 +89,5 @@ export class CustomerService {
     }
 
 
-    
+
 }

@@ -56,7 +56,7 @@ export class MenuService {
 
             this.fullMenuItemsPromise = this.requestMenuItems().then((res: b2b.MenuItem[]) => {
 
-                res.push({url: '/businessterms', position: 2, resourceKey: 'warunki_handlowe', cssClass: 'navBar-businessterms', key: 'businessterms'});
+                res.push({url: 'Businessterms', position: 2, resourceKey: 'warunki_handlowe', cssClass: 'navBar-businessterms', key: 'businessterms'});
                 this.fullMenuItems = res.sort((item1, item2) => item1.position - item2.position).map(item => {
 
                     item.url = item.url.toLowerCase();

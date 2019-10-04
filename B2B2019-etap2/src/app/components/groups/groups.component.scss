@@ -28,9 +28,9 @@
     }
 
     .change-group, .group-label {
-        line-height: 50px;
-        height: 50px;
-        white-space: nowrap;
+        line-height: 30px;
+        height: auto;
+        white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
