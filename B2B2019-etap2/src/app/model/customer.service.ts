@@ -13,6 +13,8 @@ export class CustomerService {
     details: b2b.CustomerDetails;
     attachments: b2b.CustomerAttachment[];
     employees: b2b.Employee[];
+    // JD
+    customerLimitInfo: any;
 
 
     constructor(private httpClient: HttpClient, private configService: ConfigService) {
@@ -28,6 +30,12 @@ export class CustomerService {
         return this.httpClient.get<b2b.CustomerHeaderResponse>('/api/customer/header').toPromise();
     }
 
+      /**
+      * JD - get customer limit info
+      */
+     private requestCustomerLimitInfo(clientAcronym): Promise<any> {
+        return this.httpClient.get<any>('/api/CustLimitInfo/'+ clientAcronym).toPromise();
+    }
 
     /**
      * Gets header data from server and updates model.
@@ -36,10 +44,24 @@ export class CustomerService {
 
         const headerPromise = this.requestHeaderData().then((res) => {
 
-            console.log('Header data', res);
             this.creditInfo = res.set1[0];
             this.supervisor = res.set2[0];
             this.overduePayments = res.set3;
+
+            // JD
+            this.requestCustomerLimitInfo(res.set1[0].customer).then(res => {
+                // Dane grupowane w tabeli - Indeksy potrzebnych danych:
+                // 2 - Zaległość standardowa
+                // 3 - ZWM
+                // 4 - Wolny limit
+                this.customerLimitInfo = {
+                    zalStandard:res[2].value, 
+                    zwm:res[3].value, 
+                    wolnyLimit:res[4].value };
+            }).catch(err => {
+                this.configService.handlePermissionsError(err);
+                return err;
+            });
 
             this.configService.setPermissions(res.set4, res.set1[0].applicationId);
 

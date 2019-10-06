@@ -82,19 +82,41 @@
 
             </div> -->
 
-
+          <!-- customerLimitInfo - nazwy limitów:
+            Zaległość standardowa - zalStandard
+            ZWM - zwm
+            Wolny limit - wolnyLimit
+         -->
 
             <div class="f-right">
 
                 <div class="limit bar-item">
-                    <i class="ti-alert danger" *ngIf="customerService?.creditInfo?.customerLimit < 0"></i>
+                    <!-- Wolny limit -->
+                    <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.wolnyLimit < 0"></i>
                     {{r?.translations?.customerLimit}}:
-                    <span [ngClass]="{'danger': customerService?.creditInfo?.customerLimit < 0}">{{customerService?.creditInfo?.customerLimit | toPrice }}</span>
+                    <span [ngClass]="{'danger': customerService?.customerLimitInfo?.wolnyLimit < 0}">{{customerService?.customerLimitInfo?.wolnyLimit | toPrice }}</span>
                     {{customerService?.creditInfo?.customerCurrency}}<br>
-                    {{r?.translations?.zwmValue}}:
+                    <!-- ZWM -->
+                    <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.zwm < 0"></i>
+                    {{r?.translations?.zwmValue}}: 
+                    <span [ngClass]="{'danger': customerService?.customerLimitInfo?.zwm < 0}">{{customerService?.customerLimitInfo?.zwm | toPrice}}</span>
+                    {{customerService?.creditInfo?.customerCurrency}}
                 </div>
+                <!-- Zaległość standardowa -->
+                <div class="payments bar-item inner-clear" *ngIf="customerService?.customerLimitInfo?.zalStandard">
 
-                <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">
+                    <div class="f-left">{{r?.translations?.overduePayments}}:</div>
+
+                    <div class="f-right">
+                        <div >
+                            <span>
+                                {{customerService?.customerLimitInfo?.zalStandard | toPrice }}
+                            </span>
+                            {{customerService?.creditInfo?.customerCurrency}}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">
 
                     <div class="f-left">{{r?.translations?.overduePayments}}:</div>
 
@@ -107,7 +129,7 @@
                             {{op.currency}}
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="bar-item">
                     <i class="ti-briefcase"></i>

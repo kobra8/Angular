@@ -67,7 +67,7 @@
         <ng-container *ngIf="menuItems?.length > 1">
 
 
-            <a *ngFor="let item of menuItems.slice(1)"
+            <button *ngFor="let item of menuItems.slice(1)"
                class="f-left menu-item button {{item.cssClass}}"
                [routerLink]="['/'+item.url]"
                routerLinkActive="active-top">
@@ -78,7 +78,7 @@
                     {{r?.translations[item?.resourceKey]}}<span *ngIf="item?.params?.id">: {{item?.params?.id}}</span>
                 </p>
 
-            </a>
+            </button>
 
         </ng-container>
 

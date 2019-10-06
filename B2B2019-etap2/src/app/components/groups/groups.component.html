@@ -45,7 +45,8 @@
                         'full': !item.isExpand}"
             class="category-item inner-clear">
 
-            <a class="group-label outline button f-left " *ngIf="!isProductsPage" [routerLink]="[configService.routePaths.items, item.id]">{{item.name}}</a>
+            <button class="group-label outline button f-left " *ngIf="!isProductsPage" 
+            [routerLink]="[configService.routePaths.items, item.id]">{{item.name}}</button>
 
             <button class="outline group-label f-left"
                     *ngIf="isProductsPage"

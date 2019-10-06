@@ -20,7 +20,7 @@
     button, .button {
         border-radius: 0;
         border: 0;
-        padding: 0 15px;
+        padding: 0 10px;
     }
 
     .active-left {
@@ -30,6 +30,7 @@
     .change-group, .group-label {
         line-height: 30px;
         height: auto;
+        min-height: 50px;
         white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -81,5 +82,18 @@
         text-align: left;
         @include transition-duration($little-transitions-time);
         @include transition-property(background-color, color, border-color);
+    }
+
+    .category-item > button.ti-angle-right {
+        background: #fff;
+        &.ti-angle-right:before {
+            display: inline-block;
+        }
+        &:hover {
+            color: #7FBA00;
+            &::before {
+                transform: scale(1.2);
+            }
+        }
     }
 }
