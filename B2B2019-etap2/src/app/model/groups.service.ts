@@ -3,6 +3,7 @@ import { b2b } from '../../b2b';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
+import { combineAll } from 'rxjs/operators';
 
 @Injectable()
 export class GroupsService {
@@ -46,6 +47,7 @@ export class GroupsService {
      * Loads group children, updates model and returns promise with updated groups data.
      */
     goToGroup(groupId = 0, isExpand: 0 | 1): Promise<b2b.GroupsData | HttpErrorResponse> {
+        console.log('========================================== Go to group method =============================================');
 
         if (Number.isNaN(groupId)) {
             return Promise.resolve({
@@ -67,7 +69,6 @@ export class GroupsService {
             if (isExpand === 1 || (!currentGroup && !this.isAnyActive)) {
 
                 promise = this.groupsRequest(groupId).then((res) => {
-
                     if (res.set1.length === 0 && (!res.set2 || res.set2.length === 0)) {
                         return this.groupsRequest(0);
                     }
@@ -75,15 +76,17 @@ export class GroupsService {
                     return res;
 
                 }).then((res) => {
-
                     this.childGroups = res.set1;
-
                     if (res.set2.length === 0) {
                         this.history = [this.childGroups[0]];
                     } else {
-                        this.history = res.set2;
+                        const historyFiltered = this.removeDuplicates(res.set2, 'id');
+                        console.log('Res.set2', res.set2);
+                      // JD  this.history = res.set2;
+                        this.history = historyFiltered;
                     }
-
+                    console.log('History length',this.history.length, this.history);
+                    console.log('isAnyActive', this.isAnyActive);
                     this.rootGroupId = this.history[0].id;
 
                 }).catch(err => {
@@ -124,7 +127,6 @@ export class GroupsService {
 
 
             return promise.then(() => {
-
                 this.currentGroupId = groupId;
 
                 this.isAnyActive = false;
@@ -175,7 +177,7 @@ export class GroupsService {
             });
 
         } else {
-
+            console.log('Group Id - Else:', groupId);
             this.groupsLoaded.next({ id: this.currentGroupId, history: this.history });
 
             return Promise.resolve({
@@ -191,11 +193,14 @@ export class GroupsService {
 
 
     backToPreviousGroup(): Promise<b2b.GroupsData | HttpErrorResponse> {
-
+      //  console.log('========================================== Back to previous group method =============================================');
+     //   console.log('History length', this.history.length, this.history);
         let previousGroup = this.history[this.history.length - 2];
+     //   console.log('Previous group', previousGroup);
         const isAnyActive = this.childGroups.find(group => group.isActive);
 
         if (isAnyActive) {
+            console.log('Is any active fired');
             previousGroup = this.history[this.history.length - 3];
         }
 
@@ -231,5 +236,11 @@ export class GroupsService {
             return Promise.reject(err);
         });
 
+    }
+
+     removeDuplicates(myArr, prop) {
+        return myArr.filter((obj, pos, arr) => {
+            return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+        });
     }
 }

@@ -98,7 +98,7 @@
                     {{customerService?.creditInfo?.customerCurrency}}<br>
                     <!-- ZWM -->
                     <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.zwm < 0"></i>
-                    {{r?.translations?.zwmValue}}: 
+                    {{r?.translations?.zwmValue}}:
                     <span [ngClass]="{'danger': customerService?.customerLimitInfo?.zwm < 0}">{{customerService?.customerLimitInfo?.zwm | toPrice}}</span>
                     {{customerService?.creditInfo?.customerCurrency}}
                 </div>
@@ -162,6 +162,9 @@
                 <img src="ClientApp/assets/images/logo.png" alt="" />
             </a>
 
+            <div class="bar-item brand-logos" *ngIf="accountService.authenticated ===  false">
+                    <img src="ClientApp/assets/images/loga_header.png" alt="" />
+            </div>
             <div class="bar-item access" *ngIf="accountService.authenticated ===  false">
                 <i class="ti-lock"></i>
                 {{r?.translations?.authenticatedUsersOnly}}

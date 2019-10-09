@@ -82,7 +82,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
         this.globalCartId = 1;
 
-        
+
     }
 
 
@@ -123,14 +123,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 this.configService.configPromise.then(() => {
                     this.isAnyFilterSelected = !this.productsList.areNoFilters();
                     this.visibleCurrentFilter = this.isAnyFilterSelected ? Object.assign({}, this.productsList.filters.currentFilter) : null;
-                 
+
                     this.changeDetector.markForCheck();
                     this.configService.loaderSubj.next(false);
                 });
 
             }
 
-            
+
 
         });
 
@@ -206,7 +206,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 this.message = this.r.translations.resultsNotFound;
             }
 
-            
+
             this.changeDetector.markForCheck();
 
 
@@ -331,7 +331,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             }
 
 
-        }, 0);
+        }, 1000);
     }
 
     imageLoaded(i: number) {

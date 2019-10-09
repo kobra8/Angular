@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "target": "es5",
     "skipLibCheck": true,
+    "downlevelIteration": true,
     "typeRoots": [
       "node_modules/@types"
     ],

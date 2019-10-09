@@ -67,7 +67,6 @@ export class ProductDetailsService extends ProductBase {
         }).then((res) => {
 
             const productRes = res;
-            console.log(productRes);
 
             this.details = this.calculateValues(<any>productRes.set1[0]);
             this.details.id = id;

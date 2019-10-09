@@ -128,6 +128,10 @@
             }
         }
 
+        &.brand-logos {
+            margin-left: auto;
+        }
+
         .navBar-item-image {
             margin: 0;
         }
@@ -302,7 +306,7 @@
 
 
         @media (min-width: #{$tablet-max + 1}) {
-            margin-left: auto;
+           // margin-left: auto;
         }
 
         i {

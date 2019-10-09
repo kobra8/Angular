@@ -221,13 +221,20 @@
 
                         <span class="pair-key">{{r?.translations?.availability}}: </span>
 
-                        <ng-container *ngIf="product.details.status !== 1" [ngSwitch]="product.details.status">
+                        <!-- <ng-container *ngIf="product.details.status !== 1" [ngSwitch]="product.details.status">
                             <ng-container *ngSwitchCase="0">{{r?.translations?.articleStatePreview}}</ng-container>
                             <ng-container *ngSwitchCase="2">{{r?.translations?.articleStateAvaliableOnRequest}}</ng-container>
                             <ng-container *ngSwitchCase="3">{{r?.translations?.articleStateUnavailable}}</ng-container>
+                        </ng-container> -->
+                        <!-- JD -->
+                        <ng-container *ngIf="stockLevelNumber === 0">
+                            {{r?.translations?.articleStateUnavailable}}
+                        </ng-container>
+                        <ng-container *ngIf="stockLevelNumber > 0">
+                            {{r?.translations?.articleStateAvailable}}
                         </ng-container>
 
-                        <ng-container *ngIf="product.details.status === 1" [ngSwitch]="product.details.availability">
+                        <!-- <ng-container *ngIf="product.details.status === 1" [ngSwitch]="product.details.availability">
                             <ng-container *ngSwitchCase="0">{{r?.translations?.articleAvailabilityAvaliableNow}}</ng-container>
                             <ng-container *ngSwitchCase="1">{{r?.translations?.articleAvailabilityAvaliableIn24H}}</ng-container>
                             <ng-container *ngSwitchCase="2">{{r?.translations?.articleAvailabilityAvaliableIn48H}}</ng-container>
@@ -235,7 +242,7 @@
                             <ng-container *ngSwitchCase="4">{{r?.translations?.articleAvailabilityAvaliableTo7Days}}</ng-container>
                             <ng-container *ngSwitchCase="5">{{r?.translations?.articleAvailabilityAvaliableTo14Days}}</ng-container>
                             <ng-container *ngSwitchCase="6">{{r?.translations?.articleAvailabilityAvaliableToOver14Days}}</ng-container>
-                        </ng-container>
+                        </ng-container> -->
 
                         <ng-container *ngIf="product.details.status === 1 && product.details.availability === -1">
                             {{r?.translations?.articleStateAvailable}}

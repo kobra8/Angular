@@ -31,20 +31,33 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     testHomepageContent =
      `
         <template appSlider [items]="1" [slideBy]="1" [autoplay]="true" [autoplayTimeout]="6000">
-        <div class="slide">
-        <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">
-        <div class="caption">
-        <p class="desc">Bruk-Bet ® </</p>
-        <p class="desc-logged">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o.</br> oraz Bruk-Bet SOLAR</p>
-        </div>
-        </div>
-        <div class="slide">
-        <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">
-        <div class="caption">
-        <p class="desc">Bruk-Bet ® </</p>
-        <p class="desc-logged">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o.</br> oraz Bruk-Bet SOLAR</p>
-        </div>
-        </div>
+            <div class="slide">
+                <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">
+                <div class="caption">
+                <p class="desc">Bruk-Bet ® </</p>
+                <p class="desc-logged">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o.</br> oraz Bruk-Bet SOLAR</p>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="ClientApp/assets/images/slider/slide2.jpg" alt="Platforma sprzedaży B2B">
+
+            </div>
+
+            <div class="slide">
+                <img src="ClientApp/assets/images/slider/slide3.jpg" alt="Platforma sprzedaży B2B">
+
+            </div>
+
+            <div class="slide">
+                <img src="ClientApp/assets/images/slider/slide4.jpg" alt="Platforma sprzedaży B2B">
+
+            </div>
+
+            <div class="slide">
+                <img src="ClientApp/assets/images/slider/slide5.jpg" alt="Platforma sprzedaży B2B">
+
+            </div>
         </template>`;
 
 

@@ -1680,9 +1680,9 @@ button.search-mark, .button.search-mark {
         margin-bottom: 0;
     }
 
-    img {
+    img.login-slider {
         //clear line-height and empty space under img
-        float: left;
+        max-height: 100%;
     }
 
     .tns-item {
@@ -1711,7 +1711,6 @@ button.search-mark, .button.search-mark {
             line-height: 1.5em;
             margin-bottom: 15px;
             margin: 0;
-            display: none; //JD
 
             @media (max-width: $tablet-max) {
                 font-size: 16px;
@@ -1724,6 +1723,8 @@ button.search-mark, .button.search-mark {
             line-height: 2em;
             margin: 0;
             color: #F5B718; //JD
+            background: $primary-color;
+            padding: 0 20px;
 //JD
             @media (max-width: $hidesktop-max) {
                 font-size: 46px;
