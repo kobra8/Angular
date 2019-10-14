@@ -2107,3 +2107,18 @@ button.search-mark, .button.search-mark {
 .section {
     padding: 15px;
 }
+
+.bg-navy-thead:not(button) {
+    background: $primary-color;
+    .name, .subtotal-price, .stock{
+        color: #F5B718;
+        font-weight: 700;
+    }
+    .to-cart {
+        padding-right: 4px!important;
+    }
+}
+
+.bg-yellow {
+    background: #F5B718;
+}

@@ -47,7 +47,6 @@ export class GroupsService {
      * Loads group children, updates model and returns promise with updated groups data.
      */
     goToGroup(groupId = 0, isExpand: 0 | 1): Promise<b2b.GroupsData | HttpErrorResponse> {
-        console.log('========================================== Go to group method =============================================');
 
         if (Number.isNaN(groupId)) {
             return Promise.resolve({
@@ -81,12 +80,9 @@ export class GroupsService {
                         this.history = [this.childGroups[0]];
                     } else {
                         const historyFiltered = this.removeDuplicates(res.set2, 'id');
-                        console.log('Res.set2', res.set2);
                       // JD  this.history = res.set2;
                         this.history = historyFiltered;
                     }
-                    console.log('History length',this.history.length, this.history);
-                    console.log('isAnyActive', this.isAnyActive);
                     this.rootGroupId = this.history[0].id;
 
                 }).catch(err => {

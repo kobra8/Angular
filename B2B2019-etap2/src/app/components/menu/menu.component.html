@@ -28,7 +28,7 @@
                 <p class="label">{{r?.translations[menuItems[0].resourceKey]}}</p>
             </a>
 
-            <app-dropdown *ngIf="!menuItems[0]?.cssClass?.includes('back') && groupsAsDrop" class="items-drop f-left">
+            <app-dropdown *ngIf="!menuItems[0]?.cssClass?.includes('back') && groupsAsDrop" class="items-drop f-left bg-yellow">
 
                 <trigger class="menu-item {{menuItems[0].cssClass}}">
                     <i class="navBar-item-image ti-menu {{menuItems[0].cssClass}}"></i>

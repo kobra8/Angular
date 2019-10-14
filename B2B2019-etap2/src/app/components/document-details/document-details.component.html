@@ -52,8 +52,8 @@
             </form>
 
             <a class="menu-item button print" *ngIf="configService?.permissions?.canPrint && detailsContext?.details?.printHref"
-               href="{{detailsContext.details.printHref}}"
-               target="{{configService.isFirefox ? '_blank' : '_self'}}">
+               href="{{detailsContext.details.printHref}}">
+               <!-- target="{{configService.isFirefox ? '_blank' : '_self'}}"> -->
                 <i class="ti-printer"></i>
                 {{r?.translations?.print}}
             </a>
