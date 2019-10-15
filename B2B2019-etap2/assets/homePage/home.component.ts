@@ -38,25 +38,25 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
                 <p class="desc-logged">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o.</br> oraz Bruk-Bet SOLAR</p>
                 </div>
             </div>
-
             <div class="slide">
-                <img src="ClientApp/assets/images/slider/slide2.jpg" alt="Platforma sprzedaży B2B">
-
+                <a href="https://www.bruk-bet.pl/produkty/kostka-brukowa" target="_blank">
+                    <img src="ClientApp/assets/images/slider/slide2.jpg" alt="Platforma sprzedaży B2B">
+                </a>
             </div>
-
             <div class="slide">
-                <img src="ClientApp/assets/images/slider/slide3.jpg" alt="Platforma sprzedaży B2B">
-
+                <a href="https://www.bruk-bet.pl/produkty/plyty-tarasowe/rezydencja-romantica" target="_blank">
+                    <img src="ClientApp/assets/images/slider/slide3.jpg" alt="Platforma sprzedaży B2B">
+                </a>
             </div>
-
             <div class="slide">
-                <img src="ClientApp/assets/images/slider/slide4.jpg" alt="Platforma sprzedaży B2B">
-
+                <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/glass-glass/" target="_blank">
+                    <img src="ClientApp/assets/images/slider/slide4.jpg" alt="Platforma sprzedaży B2B">
+                </a>
             </div>
-
             <div class="slide">
-                <img src="ClientApp/assets/images/slider/slide5.jpg" alt="Platforma sprzedaży B2B">
-
+                <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/prestige/bem-310wp/" target="_blank">
+                    <img src="ClientApp/assets/images/slider/slide5.jpg" alt="Platforma sprzedaży B2B">
+                </a>
             </div>
         </template>`;
 

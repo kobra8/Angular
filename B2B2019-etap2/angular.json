@@ -82,12 +82,6 @@
                         "browserTarget": "b2b-client-app:build"
                     }
                 },
-                //tests are not included in project, but some cli commands throws errors when the section is missing
-                //"test": {
-                //    "builder": "@angular-devkit/build-angular:karma",
-                //    "options": {
-                //    }
-                //},
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
