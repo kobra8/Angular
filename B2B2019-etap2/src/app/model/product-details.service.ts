@@ -57,24 +57,29 @@ export class ProductDetailsService extends ProductBase {
     /**
      * Makes request for loading product, updates model.
      */
-    loadProduct(id: number): Promise<void | number> {
+    loadProduct(id: number, warehouseId?: string): Promise<void | number> {
 
 
         return this.configService.configPromise.then(() => {
+            console.log('--------------------------- Request ------------------------------');
 
-            return this.loadProductRequest(id, '1', '0', this.configService.config.warehouseId + '');
+            console.log('Warehouse ID argument', warehouseId);
+           // console.log('Warehouse ID product service', this.config.warehouseId);
+
+            return this.loadProductRequest(id, '1', '0', warehouseId ? warehouseId : this.configService.config.warehouseId + '');
 
         }).then((res) => {
 
             const productRes = res;
 
+            console.log('Product res:', productRes);
             this.details = this.calculateValues(<any>productRes.set1[0]);
             this.details.id = id;
 
             this.config = productRes.set2[0];
             this.config.showHowMany = !!productRes.set2[0].applicationId;
-            this.config.warehouseId = this.configService.config.warehouseId + '';
-            this.config.warehouseName = this.configService.config.warehouseName + '';
+            this.config.warehouseId = productRes.set2[0].warehouseId + '';
+            this.config.warehouseName = productRes.set2[0].warehouseName + '';
 
             if (this.config.cartCount !== undefined && !(this.config.cartCount instanceof Array)) {
                 this.config.cartCount = ArrayUtils.toRangeArray<number>(this.config.cartCount, true);
@@ -106,6 +111,8 @@ export class ProductDetailsService extends ProductBase {
 
         const copy = Object.assign({}, item);
 
+
+
         const unitId: number = item.unitId || item.defaultUnitNo || 0;
 
         copy.cartId = 1;
@@ -136,7 +143,6 @@ export class ProductDetailsService extends ProductBase {
 
                 copy.subtotalBasicPrice = ConvertingUtils.calculateBasicPrice(subPrice, copy.denominator, copy.numerator);
                 copy.totalBasicPrice = ConvertingUtils.calculateBasicPrice(totPrice, copy.denominator, copy.numerator);
-
             } else {
 
                 copy.converter = '';
@@ -426,7 +432,9 @@ export class ProductDetailsService extends ProductBase {
             this.details.stockLevel = level;
             this.details.max = ConvertingUtils.stringToNum(level);
 
+            console.log('Warehouse chanaged: ', warehouseId);
             this.config.warehouseId = warehouseId;
+            this.loadProduct(this.details.id, warehouseId);
 
             if (warehouseName) {
                 this.config.warehouseName = warehouseName;

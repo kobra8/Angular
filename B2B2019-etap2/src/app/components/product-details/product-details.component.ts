@@ -90,7 +90,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             this.id = res.id;
 
             this.product.loadProduct(res.id).then(() => {
-
+                console.log('Component load subtotalPrice', this.product.details.subtotalBasicPrice);
                 if (this.warehousesService.lastSelectedForProducts !== undefined) {
                     this.selectWarehouse(this.warehousesService.lastSelectedForProducts.id, this.warehousesService.lastSelectedForProducts.text);
                 }
@@ -167,7 +167,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     selectWarehouse(warehouseId, warehouseName?) {
         this.detailsLoading = true;
         this.product.selectWarehouse(warehouseId, undefined, warehouseName).then(() => {
-            this.detailsLoading = false;
+            setTimeout(() => {
+                this.detailsLoading = false;
+            }, 1500);
         });
     }
 
