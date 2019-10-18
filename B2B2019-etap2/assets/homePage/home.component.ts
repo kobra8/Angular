@@ -84,6 +84,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
         this.r.translationsPromise.then(() => {
             // Get html homePage template form database translations and pass to slider component
            //  this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
+           console.log(this.r.translations.homePageContent);
              this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.testHomepageContent);
 
             window.setTimeout(() => {

@@ -72,13 +72,14 @@ export class ProductDetailsService extends ProductBase {
 
             const productRes = res;
 
-            console.log('Product res:', productRes);
+            console.log('Product net Price:', productRes.set1[0].netPrice);
+            console.log('Product stock level:', productRes.set1[0].stockLevel);
             this.details = this.calculateValues(<any>productRes.set1[0]);
             this.details.id = id;
 
             this.config = productRes.set2[0];
             this.config.showHowMany = !!productRes.set2[0].applicationId;
-            this.config.warehouseId = productRes.set2[0].warehouseId + '';
+            this.config.warehouseId = warehouseId ? warehouseId + '' : productRes.set2[0].warehouseId + '';
             this.config.warehouseName = productRes.set2[0].warehouseName + '';
 
             if (this.config.cartCount !== undefined && !(this.config.cartCount instanceof Array)) {
