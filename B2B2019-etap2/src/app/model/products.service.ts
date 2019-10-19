@@ -598,14 +598,15 @@ export class ProductsService extends ProductBase {
 
             const productsRes = res;
 
-            //products
+            // Products list viewed in product component
             if (productsRes.items && productsRes.items.set1 && productsRes.items.set1.length > 0) {
-
-                this.products = productsRes.items.set1.map(product => this.calculateProductValues(product));
-
+                this.products = productsRes.items.set1.map(product =>  {
+                    return  this.calculateProductValues(product);
+                })
             } else {
                 this.products = [];
             }
+            console.log(this.products);
 
 
 

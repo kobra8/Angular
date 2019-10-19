@@ -227,10 +227,10 @@
                             <ng-container *ngSwitchCase="3">{{r?.translations?.articleStateUnavailable}}</ng-container>
                         </ng-container> -->
                         <!-- JD -->
-                        <ng-container *ngIf="stockLevelNumber === 0">
+                        <ng-container *ngIf="product.details.stockLevelNumber === 0">
                             {{r?.translations?.articleStateUnavailable}}
                         </ng-container>
-                        <ng-container *ngIf="stockLevelNumber > 0">
+                        <ng-container *ngIf="product.details.stockLevelNumber > 0">
                             {{r?.translations?.articleStateAvailable}}
                         </ng-container>
 

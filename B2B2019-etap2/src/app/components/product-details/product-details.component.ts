@@ -46,8 +46,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     breadcrumbs: b2b.Breadcrumb[];
     groupsLoadedSub: Subscription;
 
-    stockLevelNumber: number;
-
     constructor(
         private activatedRoute: ActivatedRoute,
         public groupsService: GroupsService,
@@ -112,11 +110,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
                         }
                     });
                 }
-                // JD
-                if (this.product.details.stockLevel) {
-                    this.stockLevelNumber = Number(this.product.details.stockLevel.replace(/,/g, '.'));
-                }
-
 
                 this.tabsVisible = this.ifTabsVisible();
                 this.configService.loaderSubj.next(false);
@@ -166,9 +159,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     selectWarehouse(warehouseId, warehouseName?) {
         this.detailsLoading = true;
         this.product.selectWarehouse(warehouseId, undefined, warehouseName).then(() => {
-         //   setTimeout(() => {
+            setTimeout(() => {
                 this.detailsLoading = false;
-        //    }, 1500);
+           }, 1500);
         });
     }
 

@@ -43,7 +43,6 @@ export class ProductDetailsService extends ProductBase {
      * Makes request for loading product.
      */
     private loadProductRequest(id: number, cartId = '1', unitNo = '0', warehouseId = '0', features = ''): Promise<b2b.ProductResponse> {
-
         const productRequestParams: b2b.ProductRequestParams = {
             cartId: cartId,
             unitNo: unitNo,
@@ -61,10 +60,6 @@ export class ProductDetailsService extends ProductBase {
 
 
         return this.configService.configPromise.then(() => {
-            console.log('--------------------------- Request ------------------------------');
-
-            console.log('Warehouse ID argument', warehouseId);
-           // console.log('Warehouse ID product service', this.config.warehouseId);
 
             return this.loadProductRequest(id, '1', '0', warehouseId ? warehouseId : this.configService.config.warehouseId + '');
 
@@ -73,7 +68,6 @@ export class ProductDetailsService extends ProductBase {
             const productRes = res;
 
             console.log('Product net Price:', productRes.set1[0].netPrice);
-            console.log('Product stock level:', productRes.set1[0].stockLevel);
             this.details = this.calculateValues(<any>productRes.set1[0]);
             this.details.id = id;
 
@@ -130,6 +124,7 @@ export class ProductDetailsService extends ProductBase {
         }
 
         copy.max = ConvertingUtils.stringToNum(copy.stockLevel);
+        copy.stockLevelNumber = ConvertingUtils.stringToNum(copy.stockLevel);
 
         if (copy.unitId === undefined) {
 
@@ -171,6 +166,7 @@ export class ProductDetailsService extends ProductBase {
         unitData.numerator = copy.numerator;
         unitData.converter = (copy.denominator && copy.auxiliaryUnit) ? ConvertingUtils.unitConverterString(copy.denominator, copy.auxiliaryUnit, copy.numerator, copy.basicUnit) : '';
         unitData.stockLevel = copy.stockLevel;
+        unitData.stockLevelNumber = copy.stockLevelNumber;
         unitData.unitPrecision = copy.unitPrecision;
         unitData.currency = copy.currency;
         unitData.max = copy.max;
@@ -313,7 +309,9 @@ export class ProductDetailsService extends ProductBase {
             } else {
                 //product details
 
-                this.details = Object.assign(this.details, unitElement, { stockLevel: this.stockLevels[warehouseId + '|' + unitId] });
+                this.details = Object.assign(this.details, unitElement, { 
+                    stockLevel: this.stockLevels[warehouseId + '|' + unitId],
+                });
 
                 return Promise.resolve(-1);
             }
@@ -431,9 +429,9 @@ export class ProductDetailsService extends ProductBase {
         return levelPromise.then(level => {
 
             this.details.stockLevel = level;
+            this.details.stockLevelNumber = Number(level.replace(/,/g, '.'));
             this.details.max = ConvertingUtils.stringToNum(level);
 
-            console.log('Warehouse chanaged: ', warehouseId);
             this.config.warehouseId = warehouseId;
             this.loadProduct(this.details.id, warehouseId);
 

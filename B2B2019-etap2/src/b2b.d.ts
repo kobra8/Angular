@@ -644,6 +644,7 @@ export module b2b {
         denominator?: number;
         numerator?: number;
         stockLevel?: string;
+        stockLevelNumber?: number;
         unitPrecision?: number;
         currency?: string;
         converter?: string;
@@ -1435,6 +1436,7 @@ export module b2b {
         name: string;
         netPrice: string;
         stockLevel: string;
+        stockLevelNumber?: number;
         type: number;
         bruttoWeight?: number;
         nettoWeight?: number;

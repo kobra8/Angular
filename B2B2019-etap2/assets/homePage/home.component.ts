@@ -28,39 +28,6 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     safeContent: SafeHtml;
     dynamicSliders: ComponentRef<SliderComponent>[];
 
-    testHomepageContent =
-     `
-        <template appSlider [items]="1" [slideBy]="1" [autoplay]="true" [autoplayTimeout]="6000">
-            <div class="slide">
-                <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">
-                <div class="caption">
-                <p class="desc">Bruk-Bet ® </</p>
-                <p class="desc-logged">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o.</br> oraz Bruk-Bet SOLAR</p>
-                </div>
-            </div>
-            <div class="slide">
-                <a href="https://www.bruk-bet.pl/produkty/kostka-brukowa" target="_blank">
-                    <img src="ClientApp/assets/images/slider/slide2.jpg" alt="Platforma sprzedaży B2B">
-                </a>
-            </div>
-            <div class="slide">
-                <a href="https://www.bruk-bet.pl/produkty/plyty-tarasowe/rezydencja-romantica" target="_blank">
-                    <img src="ClientApp/assets/images/slider/slide3.jpg" alt="Platforma sprzedaży B2B">
-                </a>
-            </div>
-            <div class="slide">
-                <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/glass-glass/" target="_blank">
-                    <img src="ClientApp/assets/images/slider/slide4.jpg" alt="Platforma sprzedaży B2B">
-                </a>
-            </div>
-            <div class="slide">
-                <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/prestige/bem-310wp/" target="_blank">
-                    <img src="ClientApp/assets/images/slider/slide5.jpg" alt="Platforma sprzedaży B2B">
-                </a>
-            </div>
-        </template>`;
-
-
     constructor(
         resourcesService: ResourcesService,
         public configService: ConfigService,
@@ -83,9 +50,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
 
         this.r.translationsPromise.then(() => {
             // Get html homePage template form database translations and pass to slider component
-           //  this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
-           console.log(this.r.translations.homePageContent);
-             this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.testHomepageContent);
+             this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
 
             window.setTimeout(() => {
                 const sliders = this.container.element.nativeElement.querySelectorAll('[appslider], [appSlider]');
