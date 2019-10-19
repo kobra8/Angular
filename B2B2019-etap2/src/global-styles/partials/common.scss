@@ -1759,6 +1759,9 @@ button.search-mark, .button.search-mark {
 }
 
 .tns-inner {
+    .caption > .desc {
+        background: transparent; // JD
+    }
     @media (max-width: $tablet-max) {
         overflow: visible;
         width: 80%;
