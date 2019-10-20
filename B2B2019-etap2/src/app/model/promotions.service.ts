@@ -8,6 +8,8 @@ export class PromotionsService {
 
     paginationRepo: PaginationRepo;
     items: b2b.PromotionListItem[];
+    // JD
+    loadedOnce = false;
 
     constructor(private httpClient: HttpClient) {
 

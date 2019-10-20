@@ -3,6 +3,6 @@ export const enum DocumentType {
   quote = 5,
   inquiry = 6,
   payment = 7,
-  complaint = 9
-  
+  complaint = 9,
+  promotion = 8
 }

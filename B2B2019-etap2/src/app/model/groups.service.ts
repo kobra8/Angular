@@ -173,7 +173,6 @@ export class GroupsService {
             });
 
         } else {
-            console.log('Group Id - Else:', groupId);
             this.groupsLoaded.next({ id: this.currentGroupId, history: this.history });
 
             return Promise.resolve({
@@ -189,14 +188,12 @@ export class GroupsService {
 
 
     backToPreviousGroup(): Promise<b2b.GroupsData | HttpErrorResponse> {
-      //  console.log('========================================== Back to previous group method =============================================');
-     //   console.log('History length', this.history.length, this.history);
+ 
         let previousGroup = this.history[this.history.length - 2];
-     //   console.log('Previous group', previousGroup);
+    
         const isAnyActive = this.childGroups.find(group => group.isActive);
 
         if (isAnyActive) {
-            console.log('Is any active fired');
             previousGroup = this.history[this.history.length - 3];
         }
 

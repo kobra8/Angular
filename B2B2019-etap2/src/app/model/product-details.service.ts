@@ -67,7 +67,6 @@ export class ProductDetailsService extends ProductBase {
 
             const productRes = res;
 
-            console.log('Product net Price:', productRes.set1[0].netPrice);
             this.details = this.calculateValues(<any>productRes.set1[0]);
             this.details.id = id;
 
@@ -124,7 +123,7 @@ export class ProductDetailsService extends ProductBase {
         }
 
         copy.max = ConvertingUtils.stringToNum(copy.stockLevel);
-        copy.stockLevelNumber = ConvertingUtils.stringToNum(copy.stockLevel);
+        copy.stockLevelNumber = ConvertingUtils.stringToNum(copy.stockLevel); // JD
 
         if (copy.unitId === undefined) {
 
@@ -166,7 +165,7 @@ export class ProductDetailsService extends ProductBase {
         unitData.numerator = copy.numerator;
         unitData.converter = (copy.denominator && copy.auxiliaryUnit) ? ConvertingUtils.unitConverterString(copy.denominator, copy.auxiliaryUnit, copy.numerator, copy.basicUnit) : '';
         unitData.stockLevel = copy.stockLevel;
-        unitData.stockLevelNumber = copy.stockLevelNumber;
+        unitData.stockLevelNumber = copy.stockLevelNumber; // JD
         unitData.unitPrecision = copy.unitPrecision;
         unitData.currency = copy.currency;
         unitData.max = copy.max;

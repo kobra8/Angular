@@ -22,6 +22,7 @@ import { SharedModule } from './shared.module';
 import { ConfigService } from './model/config.service';
 import { b2b } from '../b2b';
 import { PendingService } from './model/pending.service';
+import { PromotionDetailsService } from './model/promotion-details.service';
 
 
 
@@ -48,7 +49,10 @@ const routes: b2b.RouteWithKey[] = [
     
     { path: 'delivery/:id', component: DocumentDetailsComponent, key: 'deliveryDetails', resolve: { detailsContext: DeliveryDetailsService } },
     { path: 'employees', component: CustomerDataComponent, key: 'employees' },
-    { path: 'pending', key: 'pending', component: DocumentsListComponent, resolve: { listContext: PendingService } }
+    { path: 'pending', key: 'pending', component: DocumentsListComponent, resolve: { listContext: PendingService } },
+    // JD
+    { path: 'promotions/:id', key: 'promotionDetails', component: DocumentDetailsComponent, resolve: { detailsContext: PromotionDetailsService } },
+
 ];
 
 
@@ -78,7 +82,8 @@ const routes: b2b.RouteWithKey[] = [
         DeliveryDetailsService,
         ComplaintDetailsService,
         PendingService,
-        OrdersService
+        OrdersService,
+        PromotionDetailsService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

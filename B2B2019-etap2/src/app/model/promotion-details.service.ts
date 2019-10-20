@@ -1,23 +1,36 @@
 import { Injectable } from '@angular/core';
+import { DocumentDetails } from './shared/document-details';
 import { HttpClient } from '@angular/common/http';
 import { PaginationRepo } from './shared/pagination-repo';
 import { b2b } from '../../b2b';
+import { DocumentType } from './enums/document-type.enum';
 import { ArrayUtils } from '../helpers/array-utils';
 import { ConfigService } from './config.service';
+import { AccountService } from './account.service';
 
 @Injectable()
-export class PromotionDetailsService {
+export class PromotionDetailsService extends DocumentDetails {
 
     id: number;
     paginationRepo: PaginationRepo;
-    details: b2b.PromotionDetails;
+ //   details: b2b.PromotionDetails;
+ //  products: b2b.PromotionProduct[];
     params: b2b.PromotionDetailsDefaultParams;
-    products: b2b.PromotionProduct[];
     columns: b2b.ColumnConfig[];
+    states: Map<number, string>;
+    headerResource: string;
     config: b2b.Permissions & b2b.CustomerConfig;
+    //JD
+    deliveryMethods: b2b.PromotionDeliveryMethod[];
+    filter = '';
 
-    constructor(private httpClient: HttpClient, private configService: ConfigService) {
-
+    constructor(
+        httpClient: HttpClient,
+        configService: ConfigService,
+        accountService: AccountService
+      ) {
+        super(httpClient, configService, accountService);
+        this.headerResource = 'promotionDetails';
         this.paginationRepo = new PaginationRepo();
         this.params = this.getDefaultParams();
 
@@ -44,48 +57,61 @@ export class PromotionDetailsService {
 
     protected requestDetails(id = this.id): Promise<b2b.PromotionDetailsResponse> {
 
-        const paginationParams = this.paginationRepo.getRequestParams();
+       const paginationParams = this.paginationRepo.getRequestParams();
 
         const params = Object.assign(
             this.params,
-            { skip: paginationParams.skip, top: paginationParams.top }
+            { filter: this.filter, skip: paginationParams.skip, top: paginationParams.top }
         );
 
-        return this.httpClient.get<b2b.PromotionDetailsResponse>('/api/promotions/' + id, { params: params }).toPromise();
+        return this.httpClient.get<b2b.PromotionDetailsResponse>('/api/promotions/' + id, {params: params}).toPromise();
     }
 
 
     loadDetails(id = this.id): Promise<b2b.PromotionDetailsResponse> {
 
-        const detailsPromise = this.requestDetails(id);
-        const configPromise = this.configService.allConfigsPromise;
+       //  const detailsPromise = this.requestDetails(id);
+       //  const configPromise = this.configService.allConfigsPromise;
 
-        return Promise.all([detailsPromise, configPromise]).then((res) => {
+        return super.loadDetails(id).then((res) => {
 
-            const detailsRes = res[0];
+        this.details.printHref = 'printhandler.ashx?pageId=' + DocumentType.promotion + '&documentId=' + this.id;
 
-            this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
+        this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
 
-            this.id = id;
-            this.details = detailsRes.items.set4[0];
-
+        this.id = id;
+        if (res.items.set4 instanceof Array && res.items.set4.length > 0) {
+            this.details = res.items.set4[0];
             if (this.details.cartCount !== undefined) {
-                this.details.cartCount = ArrayUtils.toRangeArray(<any>detailsRes.items.set4[0].cartCount, true);
-            }
+                this.details.cartCount = ArrayUtils.toRangeArray(<any>res.items.set4[0].cartCount, true);
+                }
+        }
 
-            this.products = detailsRes.items.set5.map(item => {
+        if (res.items.set5 instanceof Array && res.items.set5.length > 0) {
+            this.products = res.items.set5.map(item => {
                 item.quantity = item.quantity || 0;
                 item.cartId = 1;
                 return item;
             });
+        } else {
+            this.products = [];
+        }
 
-            this.paginationRepo.pagination.isNextPage = detailsRes.hasMore;
+        if (res.items.set6 instanceof Array && res.items.set6.length > 0) {
+            this.deliveryMethods = res.items.set6.map(item => {
+                item.no = item.no;
+                item.name = item.name;
+                return item;
+            })
+        } else {
+            this.deliveryMethods = [];
+        }
 
-            return detailsRes;
+        this.paginationRepo.pagination.isNextPage = res.hasMore;
+        return res;
         });
 
     }
-
 
     getDefaultParams(): b2b.PromotionDetailsDefaultParams {
 

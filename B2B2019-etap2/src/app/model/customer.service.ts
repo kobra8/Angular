@@ -93,8 +93,7 @@ export class CustomerService {
 
     loadCustomerData(): Promise<boolean> {
         return this.requestCustomerData().then(res => {
-            console.log('Customer data', res);
-
+            
             this.details = res.set4[0];
             this.attachments = res.set2;
 

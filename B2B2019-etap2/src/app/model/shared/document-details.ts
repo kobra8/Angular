@@ -11,7 +11,7 @@ export abstract class DocumentDetails implements Resolve<any> {
 
 
     id: number;
-    details: b2b.InquiryDetails & b2b.QuoteDetails & b2b.OrderDetails & b2b.PaymentDetails & b2b.ComplaintDetails & b2b.DeliveryDetails;
+    details: b2b.InquiryDetails & b2b.QuoteDetails & b2b.OrderDetails & b2b.PaymentDetails & b2b.ComplaintDetails & b2b.DeliveryDetails & b2b.PromotionDetails;
     attachments: b2b.ProductAttachement[];
     products: (b2b.OrderProduct & b2b.PaymentProduct & b2b.PromotionProduct & b2b.ComplaintProduct & b2b.DeliveryProduct & b2b.InquiryProduct & any)[];
     abstract states: Map<number, string>;
@@ -59,16 +59,25 @@ export abstract class DocumentDetails implements Resolve<any> {
             const detailsRes = res[1];
 
             this.id = id;
-            this.details = detailsRes.set4[0] || {};
+           // JD changed form 
+           // this.details = detailsRes.set4[0] || {};
+           // to
+            this.details = detailsRes.items ? detailsRes.items.set4[0] || {} : detailsRes.set4[0] || {};
+
             this.attachments = detailsRes.set2;
 
             if (this.type !== undefined) {
                 this.type = type;
             }
-
+            // JD changed from
+            // if (this.details && this.details.cartCount !== undefined) {
+            //     this.details.cartCount = ArrayUtils.toRangeArray<number>(detailsRes.set4[0].cartCount, true);
+            // }
+            // to
             if (this.details && this.details.cartCount !== undefined) {
-                this.details.cartCount = ArrayUtils.toRangeArray<number>(detailsRes.set4[0].cartCount, true);
+                this.details.cartCount = ArrayUtils.toRangeArray<number>(detailsRes.items ? detailsRes.items.set4[0].cartCount : detailsRes.set4[0].cartCount, true);
             }
+
             if (this.details && this.configService.config.priceMode !== undefined) {
                 this.configService.config.priceMode = Number(this.configService.config.priceMode);
             }

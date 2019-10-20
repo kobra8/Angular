@@ -606,9 +606,6 @@ export class ProductsService extends ProductBase {
             } else {
                 this.products = [];
             }
-            console.log(this.products);
-
-
 
             if (this.products.length > 0) {
 

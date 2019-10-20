@@ -18,6 +18,8 @@ export class PromotionsComponent implements OnInit {
     activePromotionId: number; 
     message: string;
 
+    // JD
+
     constructor(
         resourcesService: ResourcesService,
         public promotionsService: PromotionsService,
@@ -29,7 +31,9 @@ export class PromotionsComponent implements OnInit {
 
     ngOnInit() {
         this.promotionsService.paginationRepo.changePage(0);
-        this.loadList(true, true, true);
+        if (!this.promotionsService.loadedOnce) {
+            this.loadList(true, true, true);
+        }
 
     }
 
@@ -40,14 +44,16 @@ export class PromotionsComponent implements OnInit {
 
         return this.promotionsService.loadList(getFilter, updateFilter, controlDate).then((res) => {
             this.message = null;
-
+            
             if (this.promotionsService.items.length > 0) {
+                this.configService.loaderSubj.next(false);
+            // JD
+                this.promotionsService.loadedOnce = true;
 
                 this.activePromotionId = this.promotionsService.items[0].id;
-
-                this.loadDetails(this.activePromotionId).then(() => {
-                    this.configService.loaderSubj.next(false);
-                });
+            // JD
+             //   this.loadDetails(this.activePromotionId).then(() => {
+            //    });
 
             } else {
                 this.promotionDetailsService.products = [];

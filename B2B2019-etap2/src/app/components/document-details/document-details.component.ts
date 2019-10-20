@@ -1,6 +1,6 @@
 
 import { Subscription, combineLatest } from 'rxjs';
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResourcesService } from '../../model/resources.service';
 import { b2b } from '../../../b2b';
@@ -16,6 +16,7 @@ import { PromotionDetailsService } from '../../model/promotion-details.service';
 import { ConfigService } from '../../model/config.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InquiriesService } from '../../model/inquiries.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-document-details',
@@ -24,7 +25,7 @@ import { InquiriesService } from '../../model/inquiries.service';
     host: { class: 'app-document-details' },
     encapsulation: ViewEncapsulation.None
 })
-export class DocumentDetailsComponent implements OnInit, OnDestroy {
+export class DocumentDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     url: string;
     url2: string;
@@ -49,6 +50,13 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
     changePage: Function;
 
     detailsConfig: b2b.CustomerConfig & b2b.Permissions;
+
+     // JD
+     onlySpacesInSearchForm = false;
+     private formSubscription = new Subscription;
+ 
+     @ViewChild('promotionProductForm')
+     searchForm: NgForm;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -117,14 +125,34 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
             this.menuService.loadFullMenuItems().then(() => {
                 this.backMenuItem = Object.assign({}, this.menuService.fullMenuItems.find(item => item.url.includes(this.url)));
                 this.backMenuItem = this.menuService.convertLabelToBack(this.backMenuItem, 'back');
+                if (this.detailsContext instanceof PromotionDetailsService) {
+                    this.backMenuItem = {
+                        resourceKey: 'backToList',
+                        cssClass: 'back',
+                        url: '/promotions',
+                        position: 0
+                    };
+                }
             });
-
 
             this.loadDetails(this.id, this.type);
 
 
         });
 
+    }
+
+    ngAfterViewInit() {
+        //JD request after form input 'x' click
+        if (this.detailsContext instanceof PromotionDetailsService) {
+            this.formSubscription.add(this.searchForm.valueChanges.subscribe(x => {
+                if (this.searchForm.dirty && x.searchPhrase === '') {
+                        this.detailsContext.filter = '';
+                        this.loadDetails(this.id, this.type);
+                    }
+                })
+            );
+        }
     }
 
     changeVisibility(section: 'details' | 'confirmModal', isVisible?: boolean) {
@@ -150,7 +178,8 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
 
             this.configService.loaderSubj.next(false);
 
-            if (this.detailsContext.products.length === 0) {
+             //JD
+             if (this.detailsContext.products.length === 0 && !(this.detailsContext instanceof PromotionDetailsService)) {
                 //no products received when user has no permission to the document
                 this.router.navigate([this.configService.routePaths.home]);
                 return;
@@ -169,10 +198,22 @@ export class DocumentDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
+      // JD
+      search(formValid, formValue) {
+        if (formValid) {
+            this.detailsContext.filter = formValue.searchPhrase;
+            this.loadDetails(this.id, this.type);
+        }
+    }
+    searchInputKeyPress(event) {
+        const trimmedValue = event.target.value.trim();
+        (trimmedValue.length > 0) ? this.onlySpacesInSearchForm = false : this.onlySpacesInSearchForm = true;
+    }
 
     ngOnDestroy(): void {
 
         this.activatedRouteSubscription.unsubscribe();
+        this.formSubscription.unsubscribe();
 
     }
 

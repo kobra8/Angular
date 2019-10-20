@@ -1899,6 +1899,11 @@ export module b2b {
         isCyclic: boolean;
         id: number;
         name: string;
+        // JD
+        effectiveFrom: any;
+        until: any;
+        validInHoursFrom: any;
+        validInHoursTo: any;
     }
 
     /**
@@ -1927,6 +1932,10 @@ export module b2b {
         completedQuantity: number;
         quantityToComplete: number;
         uom: number;
+         //JD
+         numberWm: string;
+         numberWz: string;
+         quantityWm: number;
 
     }
 
@@ -2384,7 +2393,7 @@ export module b2b {
         set6: ComplaintCompletion[];
     }
 
-    interface PromotionDetails {
+    interface PromotionDetails extends CustomerListDetails {
         applicationId: 0;
         cartCount: number[];
         comment: string;
@@ -2394,6 +2403,9 @@ export module b2b {
         until: any;
         validInHoursFrom: string;
         validInHoursTo: string;
+        // JD
+        calculateDiscount?: boolean;
+        deliveryMethods?: PromotionDeliveryMethod
     }
 
     interface PromotionProduct {
@@ -2413,6 +2425,12 @@ export module b2b {
         status: ProductStatus;
     }
 
+     //JD
+     interface PromotionDeliveryMethod {
+        no: number;
+        name: string;
+    }
+
     interface PromotionDetailsResponse extends CustomerListDetailsResponse {
         hasMore: boolean;
         items: {
@@ -2421,6 +2439,8 @@ export module b2b {
             set3: any[];
             set4: PromotionDetails[];
             set5: PromotionProduct[];
+            // JD
+            set6: PromotionDeliveryMethod[];
         };
     }
 
