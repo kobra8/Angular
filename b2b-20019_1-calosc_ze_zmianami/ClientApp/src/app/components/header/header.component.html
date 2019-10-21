@@ -1,0 +1,473 @@
+<header class="main-header">
+
+    <div *ngIf="accountService.authenticated === false && r.languages"
+         class="content inner-clear languages-scroll-container">
+
+        <div class="languages-container f-right">
+
+            <button *ngFor="let lang of r.languages"
+               [disabled]="lang?.Id === r?.languageId"
+               class="covering-link flags-sprite flags-{{lang?.LanguageCode?.slice(0,2)}}"
+               title="{{lang?.Name}}"
+               (click)="changeLang(lang?.LanguageCode, lang?.Id)"></button>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="accountService.authenticated && !configService?.isMobile" class="bar top-bar inner-clear">
+
+        <div class="content">
+                <div class="supervisor bar-item f-left">
+                        <a class="header-link" [routerLink]="['/contact']">
+                                <i class="ti-comments"></i>
+                                {{r?.translations?.supervisorContact}}
+                        </a>
+                        <app-dropdown>
+
+                                <trigger>
+                                    <i class="ti-download"></i>
+                                    {{r?.translations?.filesToDownload}}
+                                    <i class="ti-angle-down"></i>
+                                </trigger>
+
+                                <content>
+                                    <strong class="block">{{r?.translations?.filesToDownload}}</strong>
+
+                                    <a class="block" href="{{r?.translations?.downloadFilesUrl_1}}" target="blank">
+                                        <i class="ti-shift-right"></i>
+                                        {{r?.translations?.downloadFilesLabel_1}}
+                                    </a>
+
+                                    <a class="block" href="{{r?.translations?.downloadFilesUrl_2}}" target="blank">
+                                        <i class="ti-shift-right"></i>
+                                        {{r?.translations?.downloadFilesLabel_2}}
+                                    </a>
+
+                                </content>
+
+                        </app-dropdown>
+                </div>
+
+            <!-- <div class="supervisor bar-item f-left" *ngIf="customerService?.supervisor?.supervisor">
+
+                <app-dropdown>
+
+                    <trigger>
+                        <i class="ti-comments"></i>
+                        {{r?.translations?.supervisorContact}}
+                        <i class="ti-angle-down"></i>
+                    </trigger>
+
+                    <content>
+                        <strong class="block">{{customerService?.supervisor?.supervisor}}</strong>
+
+                        <a *ngIf="customerService?.supervisor?.supervisorEmail"
+                           class="block"
+                           href="mailto:{{customerService?.supervisor?.supervisorEmail}}">
+                            <i class="ti-email"></i>
+                            {{customerService?.supervisor?.supervisorEmail}}
+                        </a>
+
+                        <a *ngIf="customerService?.supervisor?.supervisorTelephone"
+                           class="block"
+                           href="tel:{{customerService?.supervisor?.supervisorTelephone}}">
+                            <i class="ti-headphone-alt"></i>
+                            {{customerService?.supervisor?.supervisorTelephone}}
+                        </a>
+
+                    </content>
+
+                </app-dropdown>
+
+            </div> -->
+
+          <!-- customerLimitInfo - nazwy limitów:
+            Zaległość standardowa - zalStandard
+            ZWM - zwm
+            Wolny limit - wolnyLimit
+         -->
+
+            <div class="f-right">
+
+                <div class="limit bar-item">
+                    <!-- Wolny limit -->
+                    <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.wolnyLimit < 0"></i>
+                    {{r?.translations?.customerLimit}}:
+                    <span [ngClass]="{'danger': customerService?.customerLimitInfo?.wolnyLimit < 0}">{{customerService?.customerLimitInfo?.wolnyLimit | toPrice }}</span>
+                    {{customerService?.creditInfo?.customerCurrency}}<br>
+                    <!-- ZWM -->
+                    <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.zwm < 0"></i>
+                    {{r?.translations?.zwmValue}}:
+                    <span [ngClass]="{'danger': customerService?.customerLimitInfo?.zwm < 0}">{{customerService?.customerLimitInfo?.zwm | toPrice}}</span>
+                    {{customerService?.creditInfo?.customerCurrency}}
+                </div>
+                <!-- Zaległość standardowa -->
+                <div class="payments bar-item inner-clear" *ngIf="customerService?.customerLimitInfo?.zalStandard">
+
+                    <div class="f-left">{{r?.translations?.overduePayments}}:</div>
+
+                    <div class="f-right">
+                        <div >
+                            <span>
+                                {{customerService?.customerLimitInfo?.zalStandard | toPrice }}
+                            </span>
+                            {{customerService?.creditInfo?.customerCurrency}}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">
+
+                    <div class="f-left">{{r?.translations?.overduePayments}}:</div>
+
+                    <div class="f-right">
+                        <div *ngFor="let op of customerService?.overduePayments">
+                            <i class="ti-alert danger" *ngIf="op.value > 0"></i>
+                            <span [ngClass]="{'danger': op.value > 0}">
+                                {{op.value | toPrice }}
+                            </span>
+                            {{op.currency}}
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="bar-item">
+                    <i class="ti-briefcase"></i>
+
+                    <span>{{customerService?.creditInfo?.customer}}</span>
+                </div>
+
+                <div class="bar-item">
+                    <i class="ti-lock"></i>
+                    <span>{{customerService?.creditInfo?.contact}}</span>
+                </div>
+
+                <div class="bar-item">
+                    <button class="pure" (click)="logOut()">
+                        <i class="ti-power-off"></i>
+                        <span>{{r?.translations?.logout}}</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bar middle-bar inner-clear">
+
+        <div class="content flex flex-wrap space-between align-items-center">
+
+            <a class="bar-item block navBar-logo" [routerLink]="configService.routePaths.home">
+                <img src="ClientApp/assets/images/logo.png" alt="" />
+            </a>
+
+            <div class="bar-item brand-logos" *ngIf="accountService.authenticated ===  false">
+                    <img src="ClientApp/assets/images/loga_header.png" alt="" />
+            </div>
+            <div class="bar-item access" *ngIf="accountService.authenticated ===  false">
+                <i class="ti-lock"></i>
+                {{r?.translations?.authenticatedUsersOnly}}
+            </div>
+
+            <ng-container *ngIf="accountService.authenticated">
+
+                <div class="bar-item search-bar">
+
+                    <form *ngIf="configService?.permissions?.showProducts"
+                          #searchForm="ngForm"
+                          role="search"
+                          [attr.aria-label]="r?.translations?.searchItem"
+                          (ngSubmit)="search(searchForm.valid, searchForm.value)">
+
+                        <app-floating-label-input [type]="'search'"
+                                                  ngModel
+                                                  name="searchPhrase"
+                                                  (keyup)="searchInputKeyPress($event)"
+                                                  [minlength]="2"
+                                                  [ariaLabel]="r?.translations?.enterThePhrase"
+                                                  [required]="true">
+                            {{r?.translations?.searchItem}}
+                        </app-floating-label-input>
+
+
+                        <button class="search-button pure ti-search" [attr.aria-label]="r?.translations?.searchItem"></button>
+
+                        <span class="validation-error danger"
+                              *ngIf="onlySpacesInSearchForm && searchForm?.controls?.searchPhrase?.value?.length > 0">
+                            {{r?.translations?.searchErrorOnlySpaces}}
+                        </span>
+
+                        <span class="validation-error danger"
+                              *ngIf="searchForm?.invalid && searchForm?.dirty && searchForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
+                            {{r?.translations?.searchErrorMsgTooShortPhrase}}
+                        </span>
+                    </form>
+
+                </div>
+
+                <a class="button outline box-link pending" *ngIf="pendingMenuItem" [routerLink]="pendingMenuItem.url" routerLinkActive="active">
+                    <i class="navBar-item-image ti-package {{pendingMenuItem.cssClass}}"></i>
+                    <p class="box-label">{{r?.translations[pendingMenuItem?.resourceKey]}}</p>
+                </a>
+
+
+                <div class="profile-menu-adapter" *ngIf="configService?.permissions?.showProfile">
+
+                    <a class="button outline box-link profile"
+                       [routerLink]="configService.routePaths.profile"
+                       routerLinkActive="active"
+                       [ngClass]="{'unactivate': router.url === configService.routePaths.pending}">
+                        <i class="ti-user"></i>
+                        <p class="box-label">{{r?.translations?.customerProfile}}</p>
+                    </a>
+
+                    <app-dropdown *ngIf="configService?.isMobile" class="profile-drop">
+
+                        <trigger class="profile-menu-trigger">
+                        </trigger>
+
+                        <content>
+
+                            <div class="title-bar app-menu">
+                                <div class="title-label active-top">{{r?.translations?.customerProfile}}</div>
+                            </div>
+
+                            <div class="overflow-container clear">
+
+                                <app-collapser class="supervisor" *ngIf="customerService?.supervisor?.supervisor">
+
+                                    <trigger class="flex align-items-center menu-item">
+                                        <i class="navBar-item-image ti-comments"></i>
+                                        <span>{{r?.translations?.supervisorContact}}</span>
+                                        <i class="ti-angle-down arrow"></i>
+                                    </trigger>
+
+                                    <collapsing class="menu-item">
+                                        <strong class="block">{{customerService?.supervisor?.supervisor}}</strong>
+
+                                        <a *ngIf="customerService?.supervisor?.supervisorEmail"
+                                           class="block"
+                                           href="mailto:{{customerService?.supervisor?.supervisorEmail}}">
+                                            <i class="ti-email"></i>
+                                            {{customerService?.supervisor?.supervisorEmail}}
+                                        </a>
+
+                                        <a *ngIf="customerService?.supervisor?.supervisorTelephone"
+                                           class="block"
+                                           href="tel:{{customerService?.supervisor?.supervisorTelephone}}">
+                                            <i class="ti-headphone-alt"></i>
+                                            {{customerService?.supervisor?.supervisorTelephone}}
+                                        </a>
+                                    </collapsing>
+
+                                </app-collapser>
+
+                                <app-profile-menu class="filters-section clear"></app-profile-menu>
+
+                            </div>
+
+                            <div class="static-container">
+
+                                <button class="menu-item pure" (click)="logOut()">
+                                    <i class="ti-power-off navBar-item-image"></i>
+                                    <span>{{r?.translations?.logout}}</span>
+                                </button>
+
+                                <div class="menu-item credit-info">
+
+                                    <div class="limit f-left">
+
+                                        <small class="block">
+                                            <i class="ti-alert danger" *ngIf="customerService?.creditInfo?.customerLimit < 0"></i>
+                                            {{r?.translations?.customerLimit}}:
+                                        </small>
+                                        <span [ngClass]="{'danger': customerService?.creditInfo?.customerLimit < 0}">
+                                            {{customerService?.creditInfo?.customerLimit | toPrice }}
+                                        </span>
+                                        {{customerService?.creditInfo?.customerCurrency}}
+
+                                    </div>
+
+                                    <div class="payments f-right">
+
+                                        <small class="block">
+                                            <i class="ti-alert danger" *ngIf="customerService?.creditInfo?.overduePayments > 0"></i>
+                                            {{r?.translations?.overduePayments}}:
+                                        </small>
+                                        <span [ngClass]="{'danger': customerService?.creditInfo?.overduePayments > 0}">{{customerService?.creditInfo?.overduePayments | toPrice }}</span>
+                                        {{customerService?.creditInfo?.customerCurrency}}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </content>
+                    </app-dropdown>
+
+                </div>
+                <div *ngIf="configService?.permissions?.showCarts">
+
+                    <ng-container *ngIf="configService?.isOnline || carts?.carts?.size > 0; else browserOffline">
+
+                        <app-dropdown class="f-right carts-section"
+                                      [isOpen]="cartListDisplay">
+
+                            <trigger class="user-cart"
+                                     [ngClass]="{'many-currencies' : carts?.summariesByCurrency?.size}">
+
+                                <small class="carts-amount f-left">
+                                    {{r?.translations?.carts}}: {{carts.cartsAmount}}
+                                </small>
+
+                                <div class="cart-icon-container f-right">
+                                    <span class="products-amount">{{carts.totalProductsAmount}}</span>
+                                    <i class="ti-shopping-cart cart-icon"></i>
+                                </div>
+
+                                <ng-container *ngIf="configService?.permissions?.pricesVisibility && carts?.summariesByCurrency">
+                                    <div class="summary clear" *ngFor="let summary of carts.summariesByCurrency | iterableToArray">
+                                        <div>{{summary[1].totalNetAmount | toPrice }} <small>{{summary[0]}}</small></div>
+                                    </div>
+                                </ng-container>
+                            </trigger>
+
+                            <content *ngIf="configService.isOnline || (!configService.isOnline && carts.carts.size > 0)">
+
+                                <p class="cart-empty" *ngIf="carts?.cartsAmount === 0">
+
+                                    <i class="ti-shopping-cart"></i>
+                                    {{r?.translations?.emptyCartsMessage}}
+
+                                </p>
+
+                                <nav *ngIf="carts?.carts && carts?.cartsAmount > 0"
+                                     class="carts-list"
+                                     [ngStyle]="{'paddingBottom.px': 53 * carts.summariesByCurrency.size + 30}">
+
+                                    <ul class="inner-carts-container">
+                                        <li class="cart-item block inner-clear hover-shadow" *ngFor="let cartPosition of carts?.carts | iterableToArray">
+
+                                            <a class="cart-link covering-link" [routerLink]="[configService.routePaths.cart, cartPosition[0]]"></a>
+
+                                            <div class="f-left">
+                                                <p class="cart-name">{{r?.translations?.cart}} {{cartPosition[0]}}</p>
+
+                                                <small class="products-amount">
+                                                    {{r?.translations?.packageArticlesCount}}: {{cartPosition[1].count}}
+                                                </small>
+                                            </div>
+
+                                            <div class="currency-cart-items f-right" *ngIf="configService?.permissions?.pricesVisibility">
+
+                                                <div *ngFor="let item of cartPosition[1].currencies" class="currency-cart-item">
+
+                                                    <div class="amounts">
+
+                                                        <div class="net-amount net" *ngIf="configService?.config?.priceMode !== 1">
+                                                            {{item?.netAmount | toPrice }} {{item?.currency}} <small>{{r?.translations?.net}}</small>
+                                                        </div>
+
+                                                        <div class="gross-amount" *ngIf="configService?.config?.priceMode !== 0">
+                                                            {{item?.grossAmount | toPrice }} {{item?.currency}} <small>{{r?.translations?.gross}}</small>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clear options">
+
+                                                <a class="button cart" [routerLink]="[configService.routePaths.cart, cartPosition[0]]">
+                                                    <i class="ti-bag"></i> {{r?.translations?.makeOrder}}
+                                                </a>
+
+                                                <button (click)="confirmModalVisibility(cartPosition[0], true)"
+                                                        [disabled]="!configService.isOnline"
+                                                        class="remove-button">
+                                                    <i class="ti-trash"></i>
+                                                    {{r?.translations?.remove}}
+                                                </button>
+
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <div class="drop-summary inner-clear"
+                                     *ngIf="carts?.carts && carts?.cartsAmount > 0"
+                                     [ngStyle]="{'height.px': 53 * carts?.summariesByCurrency?.size + 30}">
+
+                                    <div class="f-left">
+
+                                        <p class="cart-name">{{r?.translations?.total}}</p>
+                                        <small class="products-amount">{{r?.translations?.packageArticlesCount}}: {{carts.totalProductsAmount}}</small>
+                                    </div>
+
+                                    <div class="currency-cart-items f-right">
+                                        <div class="summarries"
+                                             *ngFor="let summary of carts.summariesByCurrency | iterableToArray"
+                                             [ngStyle]="{'height.px': 53}">
+
+                                            <div class="net-amount net">
+                                                {{summary[1].totalNetAmount | toPrice }} {{summary[0]}}
+                                                <small>{{r?.translations?.net}}</small>
+                                            </div>
+
+                                            <div class="gross-amount">
+                                                {{summary[1].totalGrossAmount | toPrice }} {{summary[0]}}
+                                                <small>{{r?.translations?.gross}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </content>
+                        </app-dropdown>
+
+
+                        <app-modal class="confirm-remove-modal"
+                                   *ngIf="configService.isOnline"
+                                   [isOpened]="removeConfirmModal.visibility"
+                                   [autoClose]="false"
+                                   (close)="confirmModalVisibility(0, false)">
+
+                            <p>{{r?.translations?.removeCartDialogMessage | format: removeConfirmModal.cartId}}</p>
+
+                            <button (click)="carts.removeCart(removeConfirmModal.cartId); confirmModalVisibility(0, false);">{{r?.translations?.dialogYes}}</button>
+                            <button class="pure" (click)="confirmModalVisibility(0, false)">{{r?.translations?.dialogNo}}</button>
+
+                        </app-modal>
+
+                    </ng-container>
+
+
+                    <ng-template #browserOffline>
+                        <trigger class="user-cart block unavailable">
+
+                            <small class="carts-amount f-left">
+                                {{r?.translations?.carts}}: {{carts.cartsAmount}}
+                            </small>
+
+                            <div class="cart-icon-container f-right">
+                                <span class="products-amount">{{carts.totalProductsAmount}}</span>
+                                <i class="ti-shopping-cart cart-icon"></i>
+                            </div>
+
+                            <span class="f-left msg">
+                                {{r.translations.cartUnavailableOffline}}
+                            </span>
+
+                        </trigger>
+                    </ng-template>
+                </div>
+
+            </ng-container>
+
+        </div>
+    </div>
+
+</header>

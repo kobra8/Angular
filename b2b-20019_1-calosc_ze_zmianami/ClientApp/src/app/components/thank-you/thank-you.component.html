@@ -1,0 +1,75 @@
+<app-menu *ngIf="backMenuItem" [menuItems]="[backMenuItem]">
+    <div class="menu-item active-top">
+        {{ r?.translations?.selectedCart }}:
+        {{ cartId }}
+    </div>
+</app-menu>
+
+<div class="summary">
+    <span class="summary-title summary-header">{{ r?.translations?.thankYouMessage }}</span>
+    <span class="summary-title">{{ r?.translations?.orderDetailsEmailMessage }}</span>
+    <div class="summary-table">
+        <div class="summary-section">
+            <div class="summary-row">
+                <span class="summary-label">{{ r?.translations?.orderNumber }}</span>
+                <span class="summary-data">
+                    <a [routerLink]="[configService.routePaths.orders, orderDetailsService?.id]">{{ orderDetailsService?.details?.number }}</a>
+                </span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">{{ r?.translations?.date }}</span>
+                <span class="summary-data">{{ orderDetailsService?.details?.issueDate }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">{{ r?.translations?.orderState }}</span>
+                <span class="summary-data">{{ r?.translations[orderDetailsService?.states?.get(orderDetailsService?.details?.state)] }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">{{ r?.translations?.packageArticlesCount }}</span>
+                <span class="summary-data"> {{ productsCount }}</span>
+            </div>
+        </div>
+
+        <div class="summary-section" *ngIf="configService?.permissions?.pricesVisibility">
+
+            <div class="summary-row inner-clear">
+                <span class="summary-label">{{ r?.translations?.subtotalOrderValue }}</span>
+                <span class="summary-data summary-highlight  f-right"
+                      *ngFor="let paymentDetails of orderDetailsService?.summaries">
+                    {{ paymentDetails?.net | toPrice }} {{ paymentDetails?.currency }}
+                </span>
+            </div>
+            <div class="summary-row inner-clear">
+                <span class="summary-label">{{ r?.translations?.totalOrderValue }}</span>
+                <span class="summary-data f-right"
+                      *ngFor="let paymentDetails of orderDetailsService?.summaries">
+                    {{ paymentDetails?.gross | toPrice }} {{ paymentDetails?.currency }}
+                </span>
+            </div>
+            <div class="summary-row inner-clear">
+                <span class="summary-label">{{ r?.translations?.vatValue }}</span>
+                <span class="summary-data f-right" *ngFor="let paymentDetails of orderDetailsService?.summaries">
+                    {{ paymentDetails?.gross - paymentDetails?.net | toPrice }} {{ paymentDetails?.currency }}
+                </span>
+            </div>
+        </div>
+        <div class="summary-section"
+             *ngIf="orderDetailsService?.weight?.costValue && orderDetailsService?.details?.showDeliveryCost && configService?.permissions?.pricesVisibility">
+
+            <div class="summary-row">
+                <span class="summary-label">{{ r?.translations?.deliveryCost }}</span>
+                <span class="summary-data">{{ orderDetailsService?.weight?.costValue}}</span>
+            </div>
+        </div>
+        <div class="summary-section" *ngIf="configService?.permissions?.pricesVisibility">
+            <div class="summary-row inner-clear">
+                <span class="summary-label">{{ r?.translations?.totalToPay }}</span>
+                <span class="summary-data f-right"
+                      *ngFor="let paymentDetails of orderDetailsService?.summaries">
+                    {{ paymentDetails?.gross | toPrice }} {{ paymentDetails?.currency }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <span class="summary-title">{{ r?.translations?.seeYouAgain }}</span>
+</div>
