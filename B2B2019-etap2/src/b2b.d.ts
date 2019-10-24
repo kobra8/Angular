@@ -579,6 +579,10 @@ export module b2b {
          * XL only
          * */
         availableFrom?: string;
+
+        // JD
+
+        archived: boolean;
     }
 
 

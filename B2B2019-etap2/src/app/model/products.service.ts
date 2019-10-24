@@ -600,7 +600,9 @@ export class ProductsService extends ProductBase {
 
             // Products list viewed in product component
             if (productsRes.items && productsRes.items.set1 && productsRes.items.set1.length > 0) {
-                this.products = productsRes.items.set1.map(product =>  {
+                // JD - filter non archived products
+                this.products = productsRes.items.set1.filter(x => !x.archived).map(product =>  {
+                    console.log(product)
                     return  this.calculateProductValues(product);
                 })
             } else {
