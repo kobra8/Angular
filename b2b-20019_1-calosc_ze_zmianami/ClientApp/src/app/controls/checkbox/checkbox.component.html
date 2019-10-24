@@ -1,0 +1,27 @@
+
+<label [ngClass]="{'disabled': disabled}">
+
+    <input type="checkbox"
+           #focusable
+           [tabindex]="tabindex"
+           [attr.aria-label]="ariaLabel"
+           [attr.aria-labelledby]="ariaLabel ? null : name + '-label'"
+           [attr.aria-describedby]="required ? name + '-requiredMark' : null"
+           name="{{name}}"
+           [required]="required"
+           [checked]="value"
+           [aria-selected]="value"
+           (change)="changeMiddleware($event.target.checked)"
+           [disabled]="disabled">
+
+    <i class="ti-check check" aria-hidden="true"></i>
+
+    <span class="label" id="{{name}}-label" [attr.aria-hidden]="!!ariaLabel">
+        <ng-content></ng-content>
+    </span>
+
+    <span *ngIf="required"
+          id="{{name}}-requiredMark"
+          class="required mark"
+          [attr.aria-label]="r?.translations?.fieldRequiredMark"></span>
+</label>

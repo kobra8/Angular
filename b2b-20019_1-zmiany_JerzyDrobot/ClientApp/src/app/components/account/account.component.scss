@@ -1,0 +1,11 @@
+.password-input-wrapper {
+    position: relative;
+
+    .show-hide-passwd-icon {
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        padding: 11px;
+        position: absolute;
+    }
+}

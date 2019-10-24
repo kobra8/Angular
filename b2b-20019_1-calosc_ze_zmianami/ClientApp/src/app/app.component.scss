@@ -1,0 +1,98 @@
+@import 'configuration.scss';
+
+
+.website-grid {
+    min-height: 100vh;
+    display: grid;
+    align-content: start;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 100%;
+}
+
+.added-to-cart {
+
+    .modal-window {
+        width: 600px;
+    }
+
+    .modal-content {
+        width: 100%;
+        margin: 0;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 20px;
+        min-height: 120px;
+
+        .check {
+            color: $cart-button-bg;
+        }
+    }
+
+    .cart {
+        margin-right: 15px;
+        padding: 0 35px;
+    }
+
+    .options {
+       // background: $thirdparty-color;
+        min-height: 105px;
+        //border-top: 1px solid $border-color;
+        text-align: left;
+        padding: 35px;
+    }
+
+    .app-checkbox {
+        padding-top: 10px;
+    }
+
+    .pure {
+        height: 40px;
+        vertical-align: top;
+    }
+}
+
+.offline-mode {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    position: fixed;
+    height: $offline-message-height;
+}
+
+.install-app-prompt {
+    font-size: 18px;
+
+    .modal-window {
+        margin: 0 auto;
+        margin-top: 25px;
+        min-height: 280px;
+    }
+
+    .modal-wrapper {
+        bottom: auto;
+    }
+
+    .modal-content {
+        margin: auto 40px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .app-name {
+        margin: 35px 0;
+    }
+
+    img {
+        width: 40px;
+        margin-right: 10px;
+    }
+
+    .buttons {
+        text-align: center;
+        border-top: 1px solid $border-color;
+        padding-top: 25px;
+    }
+}

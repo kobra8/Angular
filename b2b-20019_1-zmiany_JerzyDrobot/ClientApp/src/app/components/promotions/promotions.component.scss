@@ -1,0 +1,142 @@
+@import 'configuration.scss';
+
+.app-promotions {
+    display: block;
+
+    .app-menu {
+        margin-bottom: 30px;
+    }
+
+    .promo-title > .covering-link {
+        position: relative;
+        padding: 5px;
+        font-size: 20px;;
+    }
+
+    .narrow-content:not(.trow) {
+        @media (max-width: $tablet-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+
+    .promotions, .app-products-table {
+        @media (max-width: $tablet-max) {
+            padding-top: 30px;
+        }
+    }
+
+    .emphasised {
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .header-item {
+        padding-right: 30px;
+    }
+
+    .ribbon {
+        margin-left: auto;
+        font-size: 1em;
+        font-weight: inherit;
+        padding: 0 10px;
+        margin: 0;
+        position: absolute;
+        top: -1px;
+        right: -10px;
+
+        &::before {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 10px 0 0;
+            border-color: shade($warning, 20%) transparent transparent transparent;
+            left: auto;
+            right: 0;
+            top: 100%;
+        }
+    }
+
+
+    .few .tns-outer {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+
+    .tns-outer {
+        margin-bottom: 75px;
+    }
+
+    .tns-nav {
+        bottom: -40px;
+    }
+
+    .tns-item {
+        padding: 10px 15px !important;
+        border: 0 !important;
+        box-shadow: none;
+
+        .box {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        &.active {
+
+            .box {
+                background: $solid-button-bg;
+                border-color: $solid-button-bg;
+
+
+                &, .emphasised {
+                    color: $solid-button-fcolor;
+                }
+
+                &::after {
+                    content: '';
+                 //   position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 100%;
+                    margin: auto;
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 10px 0 10px;
+                    border-color: $solid-button-bg transparent transparent transparent;
+                }
+            }
+
+            .ribbon::before {
+                z-index: -1;
+            }
+        }
+
+        &:not(.active) .box {
+            cursor: pointer;
+        }
+
+
+        .desc {
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 1.5em;
+            max-height: 4.5em;
+            overflow: hidden;
+        }
+
+        .f-right {
+            text-align: right;
+        }
+    }
+
+    .tns-slider, .box {
+        //slider script sometimes resizes font to 0 when route change
+        font-size: inherit !important;
+        width: 33.3333%;
+    }
+}

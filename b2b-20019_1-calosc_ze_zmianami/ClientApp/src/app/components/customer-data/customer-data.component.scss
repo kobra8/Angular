@@ -1,0 +1,62 @@
+@import 'configuration.scss';
+
+.app-customer-data {
+
+    p {
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    .profile-container {
+
+        .employees, .my-data {
+
+            @media (max-width: $tablet-max) {
+                margin: 0;
+                padding-top: 30px;
+            }
+        }
+
+        .flex {
+            @media (max-width: $tablet-max) {
+                -ms-flex-direction: column;
+                @include flex-direction(column);
+            }
+        }
+    }
+
+
+
+    .box, .section-title {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .box {
+        min-width: calc(33.333% - 30px);
+
+        @media (max-width: $tablet-max) {
+            margin: 0;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+
+        .label {
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        i {
+            padding-right: 5px;
+
+            &.ti-desktop, &.ti-email, &.ti-skype {
+                padding-right: 7px;
+            }
+        }
+    }
+
+    .tel {
+        margin-right: 10px;
+    }
+}
