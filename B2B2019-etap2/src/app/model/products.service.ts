@@ -602,9 +602,8 @@ export class ProductsService extends ProductBase {
             if (productsRes.items && productsRes.items.set1 && productsRes.items.set1.length > 0) {
                 // JD - filter non archived products
                 this.products = productsRes.items.set1.filter(x => !x.archived).map(product =>  {
-                    console.log(product)
                     return  this.calculateProductValues(product);
-                })
+                });
             } else {
                 this.products = [];
             }
@@ -859,7 +858,7 @@ export class ProductsService extends ProductBase {
 
         } else {
 
-            //change unit data 
+            //change unit data
 
             this.products[index] = Object.assign(this.products[index], unitElement);
 
