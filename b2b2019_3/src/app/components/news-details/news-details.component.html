@@ -1,0 +1,81 @@
+<app-menu class="profile-bar" [menuItems]="menuItems"></app-menu>
+
+<nav class="sidebar filters-section" *ngIf="!configService.isMobile">
+
+    <div class="sticky app-profile-menu">
+
+
+        <app-profile-menu></app-profile-menu>
+  
+
+    </div>
+</nav>
+
+<div class="clear section news-details-page grid" [ngClass]="{'full': !configService?.permissions?.hasAccessToArticleList}">
+
+
+    <div class="site-map inner-clear tablet-hidden">
+
+        <a [routerLink]="menuService.routePaths.home" class="pure breadcrumb inline-block ti-home"></a>
+
+        <a [routerLink]="menuService.routePaths.news" class="pure breadcrumb inline-block">
+            <i class="ti-angle-right separator"></i>
+            {{r?.translations?.news}}
+        </a>
+
+        <div class="pure breadcrumb inline-block multiline-ellipsis">
+
+            <i class="ti-angle-right separator"></i>
+            {{newsService?.details?.title}}
+
+        </div>
+
+    </div>
+
+    <div class="articles no-results-with-svg no-results" *ngIf="error">
+
+        <app-svg-image [svgId]="'Quotes'"></app-svg-image>
+
+        <div class="no-results-message">
+            <p>{{error}}</p>
+        </div>
+
+    </div>
+
+    <article class="news" *ngIf="newsService?.details">
+
+        <p class="active-left category">{{newsService?.details?.category}}</p>
+
+        <div class="content">
+
+            <h1 class="title">{{newsService?.details?.title}}</h1>
+
+            <span class="date pair-key">{{r?.translations?.dateOfPublication}}: <time>{{newsService?.details?.creationDate}}</time></span>
+
+            <div class="news-content" #contentContainer [innerHTML]="newsService?.details?.content">
+            </div>
+
+            <div *ngIf="newsService?.details?.attachemnts?.length > 0" class="attachments flex flex-wrap">
+
+                <a *ngFor="let attachment of newsService?.details?.attachemnts"
+                   class="attachment"
+                   [attr.href]="attachment.url">
+                    <app-file-icon [extension]="attachment.extension"></app-file-icon>
+                    {{attachment.name}}.{{attachment.extension}}
+                </a>
+            </div>
+        </div>
+    </article>
+
+
+    <app-lazy-image *ngIf="newsService?.details?.image"
+                    class="main-image"
+                    [id]="newsService.details.image.id"
+                    [width]="newsService.details.image.width"
+                    [height]="newsService.details.image.height"
+                    [alt]="newsService.details.title">
+    </app-lazy-image>
+
+
+
+</div>

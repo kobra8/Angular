@@ -1,0 +1,43 @@
+@import 'configuration.scss';
+
+.app-svg-image {
+
+
+    svg {
+        width: 263px;
+        height: 263px;
+        display: inline-block;
+        vertical-align: middle;
+
+        @media (max-width: $tablet-max) {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+    &.file-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .bg {
+        background: url("src/global-styles/svg/svg-sprite.svg") no-repeat;
+    }
+
+    [fill="#004D8A"] {
+        fill: $primary-color;
+    }
+
+    [stroke="#004D8A"] {
+        stroke: $primary-color;
+    }
+
+
+    [fill="#7FBA00"] {
+        fill: $secondary-color;
+    }
+
+    [stroke="#7FBA00"] {
+        stroke: $secondary-color;
+    }
+}

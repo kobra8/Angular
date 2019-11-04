@@ -1,0 +1,30 @@
+
+<input #inputField
+       id="{{name}}-field"
+       type="{{type}}"
+       name="{{name}}"
+       [autofocus]="autofocus"
+       [tabindex]="tabindex"
+       [attr.aria-label]="ariaLabel"
+       [attr.aria-describedby]="required ? name + '-requiredMark' : null"
+       [disabled]="disabled"
+       [value]="value"
+       [required]="required"
+       [maxlength]="maxlength"
+       [minlength]="minlength"
+       [autocomplete]="autocomplete"
+       (input)="inputMiddleware($event.target.value)" />
+
+<span [ngClass]="{'top': value?.length > 0}" class="floating-label" (click)="focusInput()">
+
+    <label [attr.aria-labelledby]="ariaLabel ? null : name + '-field'"
+           [attr.aria-hidden]="!!ariaLabel">
+        <ng-content></ng-content>
+    </label>
+
+    <span *ngIf="required"
+          id="{{name}}-requiredMark"
+          class="required mark"
+          [attr.aria-label]="r?.translations?.fieldRequiredMark"></span>
+</span>
+
