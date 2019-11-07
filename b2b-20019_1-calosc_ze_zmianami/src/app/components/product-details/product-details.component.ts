@@ -180,7 +180,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         let reqObj: b2b.AddToCartRequest;
 
         if (index === undefined || index === null || index < 0) {
-
+            console.log('Add to cart warehouseId: ', this.product.config.warehouseId);
             reqObj = {
                 id: this.product.details.cartId || this.product.details.cartId,
                 articleId: this.product.details.id || this.product.details.id,

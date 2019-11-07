@@ -244,6 +244,7 @@ export class CartsService {
             return this.requestAddToCart(productData).then((res: b2b.CartPreviewItemResponse[]) => {
 
                 if (res) {
+                    console.log('Add to cart res: ', res);
                     this.setListData(res);
                     this.productAdded.next({ cartId: productData.id, addedCount: 1, notAddedCount: 0 });
 

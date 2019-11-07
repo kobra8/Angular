@@ -66,9 +66,9 @@ export class ProductDetailsService extends ProductBase {
         }).then((res) => {
 
             const productRes = res;
-            
+
             this.details = this.calculateValues(<any>productRes.set1[0]);
-            console.log('Details of product: ', this.details);
+          //  console.log('Details of product: ', this.details);
             this.details.id = id;
 
             this.config = productRes.set2[0];
@@ -110,7 +110,7 @@ export class ProductDetailsService extends ProductBase {
 
         const unitId: number = item.unitId || item.defaultUnitNo || 0;
 
-        copy.cartId = 1;
+       // copy.cartId = 1; // JD
         copy.quantity = 1;
         copy.manufacturer = copy.manufacturer ? copy.manufacturer.trim() : '';
         copy.manager = copy.manager ? copy.manager.trim() : '';
@@ -309,7 +309,7 @@ export class ProductDetailsService extends ProductBase {
             } else {
                 //product details
 
-                this.details = Object.assign(this.details, unitElement, { 
+                this.details = Object.assign(this.details, unitElement, {
                     stockLevel: this.stockLevels[warehouseId + '|' + unitId],
                 });
 
@@ -439,7 +439,6 @@ export class ProductDetailsService extends ProductBase {
                 this.config.warehouseName = warehouseName;
 
             } else if (this.warehousesService.warehouses) {
-
                 this.config.warehouseName = this.warehousesService.getWarehouseName(warehouseId);
             }
         });
