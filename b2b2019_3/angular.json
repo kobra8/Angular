@@ -64,7 +64,8 @@
                     "builder": "ngx-build-plus:dev-server",
                     "options": {
                         "browserTarget": "b2b-client-app:build:serve",
-                        "proxyConfig": "proxy.conf.json"
+                        "proxyConfig": "proxy.conf.json",
+                        "port": 4300
                     },
                     "configurations": {
                         "production": {

@@ -276,7 +276,7 @@ a:not(.button):not(.block):not(.covering-link), .link {
     cursor: pointer;
     color: $linksColor;
     transition-duration: $little-transitions-time;
-    transition-property: color, box-shadow; 
+    transition-property: color, box-shadow;
 
     &:hover {
         color: $linksHover;
@@ -1704,7 +1704,7 @@ button.search-mark, .button.search-mark {
         }
 
         .title {
-            font-size: 92px;
+            font-size: 48px;
             line-height: 1.5em;
             margin-bottom: 15px;
             margin: 0;
@@ -2030,7 +2030,7 @@ ul.dashes {
         }
     }
 
-    
+
 
     .box-message:not(.no-results) {
         margin-bottom: 15px;

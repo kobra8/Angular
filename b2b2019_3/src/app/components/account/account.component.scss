@@ -153,10 +153,17 @@
         min-height: 650px;
 
         .caption {
-            color: #FFF;
+            color: #f5b718; // JD
             left: $sidebars-width*2 + 5px;
-        }
 
+            .title { // JD
+                background: #203864;
+            }
+        }
+        img.login-slider { // JD
+            display: block;
+            margin: 0 auto;
+        }
 
         @media (max-width: $tablet-max) {
             display: none !important;
