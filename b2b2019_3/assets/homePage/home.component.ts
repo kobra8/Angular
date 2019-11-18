@@ -28,7 +28,38 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     safeContent: SafeHtml;
     dynamicSliders: ComponentRef<SliderComponent>[];
 
-    dynamicImages: ComponentRef<LazyImageComponent>[]; 
+    dynamicImages: ComponentRef<LazyImageComponent>[];
+
+    homePageContent = `
+    <template appSlider [items]="1" [slideBy]="1" [autoplay]="true" [autoplayTimeout]="6000">
+    <div class="slide">
+    <img src="ClientApp/assets/images/slider/slide1.png" alt="Platforma sprzedaży B2B">
+    <div class="caption">
+    <p class="title">Bruk-Bet ® </p>
+    <p class="desc">Witamy w systemie sprzedaży firmy Bruk-Bet Sp. z o.o. oraz Bruk-Bet SOLAR</p>
+    </div>
+    </div>
+    <div class="slide">
+    <a href="https://www.bruk-bet.pl/produkty/kostka-brukowa&quot; target="_blank">
+    <img src="ClientApp/assets/images/slider/slide2.jpg" alt="Platforma sprzedaży B2B">
+    </a>
+    </div>
+    <div class="slide">
+    <a href="https://www.bruk-bet.pl/produkty/plyty-tarasowe/rezydencja-romantica&quot; target="_blank">
+    <img src="ClientApp/assets/images/slider/slide3.jpg" alt="Platforma sprzedaży B2B">
+    </a>
+    </div>
+    <div class="slide">
+    <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/glass-glass/&quot; target="_blank">
+    <img src="ClientApp/assets/images/slider/slide4.jpg" alt="Platforma sprzedaży B2B">
+    </a>
+    </div>
+    <div class="slide">
+    <a href="https://solar.bruk-bet.pl/panele-moduly-fotowoltaiczne/prestige/bem-310wp/&quot; target="_blank">
+    <img src="ClientApp/assets/images/slider/slide5.jpg" alt="Platforma sprzedaży B2B">
+    </a>
+    </div>
+    </template>`;
 
     constructor(
         resourcesService: ResourcesService,
@@ -54,7 +85,8 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
 
         this.r.translationsPromise.then(() => {
 
-            this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
+          //  this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.r.translations.homePageContent);
+            this.safeContent = this.domSanitizer.bypassSecurityTrustHtml(this.homePageContent);
 
             window.setTimeout(() => {
 
@@ -78,7 +110,7 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
             }, 0);
         });
 
-        
+
     }
 
 

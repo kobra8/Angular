@@ -1690,7 +1690,7 @@ button.search-mark, .button.search-mark {
         transform: translateY(-50%);
         overflow: hidden;
         max-height: 80%;
-        left: 10%;
+        left: 6%;
         max-width: 90%;
         color: $sliders-font;
         text-align: left;
@@ -1704,10 +1704,20 @@ button.search-mark, .button.search-mark {
         }
 
         .title {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; // JD
+            color: $sliders-title-font; // JD
             font-size: 48px;
-            line-height: 1.5em;
-            margin-bottom: 15px;
+            line-height: 2em; //JD
             margin: 0;
+            background: transparent; // JD
+
+            @media (max-width: $hidesktop-max) {
+                font-size: 46px;
+            }
+
+            @media (max-width: 1400px) {
+                font-size: 36px;
+            }
 
             @media (max-width: $tablet-max) {
                 font-size: 16px;
@@ -1715,10 +1725,15 @@ button.search-mark, .button.search-mark {
         }
 
         .desc {
-            font-size: 48px;
-            line-height: 2em;
+            font-size: 28px;
+            line-height: 1.5em; // JD
             margin: 0;
-
+            @media (max-width: $hidesktop-max) {
+                font-size: 20px;
+            }
+            @media (max-width: $desktop-max) {
+                font-size: 17px;
+            }
             @media (max-width: $tablet-max) {
                 font-size: 12px;
             }

@@ -19,7 +19,11 @@
 
         .nav-container {
             grid-template-columns: $sidebars-width;
-            margin-left: $sidebars-width;
+            margin-left: $sidebars-width - 20px; // JD
+
+            @media (max-width: $desktop-max) { // JD
+                margin-left: 133px;
+            }
 
             @media (max-width: $tablet-max) {
                 grid-template-columns: 100%;
@@ -153,11 +157,17 @@
         min-height: 650px;
 
         .caption {
+            top: 405px;
             color: #f5b718; // JD
             left: $sidebars-width*2 + 5px;
 
             .title { // JD
                 background: #203864;
+                padding: 0 20px;
+            }
+            @media (max-width: $desktop-max) {
+                top: 416px;
+                left: 500px;
             }
         }
         img.login-slider { // JD

@@ -8,7 +8,7 @@ $background: #fff;
 
 $border-color: #d9d9d9; //also used for no-photo icon color
 
-$primary-color: #004d8a;
+$primary-color: #203864; // JD
 $fcolor-for-primary: #fff;
 
 $secondary-color: #7FBA00;
@@ -28,6 +28,7 @@ $warning: #F9A825;
 $info: $thirdparty-color;
 
 $sliders-font: $primary-color;
+$sliders-title-font: #F5B718; //JD
 $slider-mobile-caption-bg: $thirdparty-color;
 
 $netto-prices-color: $secondary-color;
@@ -56,7 +57,7 @@ $flagSellerRecommendation: #64B5F6;
 
 // --- only for webkit ------
 $scrollbarBg: $thirdparty-color;
-$scrollbarThumb: #00aeef;
+$scrollbarThumb: #C0C0C0; //JD
 
 
 //responsive breakpoints

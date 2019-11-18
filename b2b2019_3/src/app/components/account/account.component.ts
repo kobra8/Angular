@@ -141,7 +141,7 @@ export class AccountComponent implements OnInit, OnDestroy {
 
         });
 
-        
+
     }
 
 
@@ -156,7 +156,7 @@ export class AccountComponent implements OnInit, OnDestroy {
                 this.loginConfirmationHtml = '';
             }
 
-            
+
         }
 
     }
