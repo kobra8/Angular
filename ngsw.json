@@ -1,76 +1,120 @@
 {
-  "configVersion": 1,
-  "index": "/",
-  "assetGroups": [
-    {
-      "name": "app",
-      "installMode": "prefetch",
-      "updateMode": "prefetch",
-      "urls": [],
-      "patterns": [
-        "\\/"
-      ]
-    },
-    {
-      "name": "assets",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "urls": [],
-      "patterns": [
-        "\\/remindpassword\\/passwordreminder"
-      ]
-    }
-  ],
-  "dataGroups": [
-    {
-      "name": "api-data",
-      "patterns": [
-        "\\/api\\/configuration\\/getforcustomer",
-        "\\/api\\/common\\/menuitems",
-        "\\/account\\/isloggedin",
-        "\\/account\\/getcompanies",
-        "\\/account\\/getapplicationtype",
-        "\\/account\\/isloginconfirmationrequired",
-        "\\/languages\\/getactive",
-        "\\/resources\\/getbylanguageid",
-        "\\/api\\/carts\\/[^/]*",
-        "\\/api\\/customer\\/header\\/",
-        "\\/api\\/orders\\/[^/]*",
-        "\\/api\\/inquiries\\/[^/]*",
-        "\\/api\\/offers\\/[^/]*",
-        "\\/api\\/payments\\/[^/]*",
-        "\\/api\\/delivery\\/[^/]*",
-        "\\/api\\/complaints\\/[^/]*",
-        "\\/api\\/customer",
-        "\\/api\\/customer\\/contacts\\/",
-        "\\/api\\/payments\\/[^/]*",
-        "\\/api\\/items\\/[^/]*",
-        "\\/api\\/promotions\\/[^/]*",
-        "\\/imagehandler\\.aspx"
-      ],
-      "strategy": "freshness",
-      "maxSize": 300,
-      "maxAge": 1800000,
-      "version": 1
-    }
-  ],
-  "hashTable": {},
-  "navigationUrls": [
-    {
-      "positive": true,
-      "regex": "^\\/.*$"
-    },
-    {
-      "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
-    },
-    {
-      "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
-    },
-    {
-      "positive": false,
-      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
-    }
-  ]
+    "configVersion": 1,
+    "timestamp": 1574169166735,
+    "index": "/index",
+    "assetGroups": [
+        {
+            "name": "app",
+            "installMode": "prefetch",
+            "updateMode": "prefetch",
+            "urls": [],
+            "patterns": [
+                "\\/index"
+            ]
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "urls": [],
+            "patterns": []
+        }
+    ],
+    "dataGroups": [
+        {
+            "name": "api-fresh",
+            "patterns": [
+                "\\/account\\/isloggedin",
+                "\\/api\\/carts[^/]*",
+                "\\/account\\/isloginconfirmationrequired"
+            ],
+            "strategy": "freshness",
+            "maxSize": 5000,
+            "maxAge": 300000,
+            "version": 1
+        },
+        {
+            "name": "api-purchase-documents",
+            "patterns": [
+                "\\/api\\/orders[^/]*",
+                "\\/api\\/quotes[^/]*",
+                "\\/api\\/payments[^/]*"
+            ],
+            "strategy": "performance",
+            "maxSize": 5000,
+            "maxAge": 300000,
+            "version": 1
+        },
+        {
+            "name": "api-documents",
+            "patterns": [
+                "\\/api\\/inquiries[^/]*",
+                "\\/api\\/payments[^/]*",
+                "\\/api\\/delivery[^/]*",
+                "\\/api\\/complaints[^/]*",
+                "\\/api\\/items[^/]*",
+                "\\/api\\/promotions[^/]*",
+                "\\/api\\/news[^/]*",
+                "\\/api\\/serviceJob[^/]*"
+            ],
+            "strategy": "performance",
+            "maxSize": 5000,
+            "maxAge": 900000,
+            "version": 1
+        },
+        {
+            "name": "api-long-term",
+            "patterns": [
+                "\\/languages\\/getactive",
+                "\\/resources\\/getbylanguageid",
+                "\\/api\\/common\\/menuitems",
+                "\\/account\\/getcompanies",
+                "\\/account\\/getapplicationtype",
+                "\\/api\\/configuration\\/getforcustomer",
+                "\\/api\\/customer[^/]*",
+                "\\/api\\/files\\/getfilesbycustomer",
+                "\\/imagehandler\\.aspx",
+                "\\/filehandler\\.aspx"
+            ],
+            "strategy": "performance",
+            "maxSize": 5000,
+            "maxAge": 1209600000,
+            "version": 1
+        }
+    ],
+    "hashTable": {},
+    "navigationUrls": [
+        {
+            "positive": true,
+            "regex": "^\\/.*$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/remindpassword\\/passwordreminder$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/account\\/login$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/swagger\\/login$"
+        },
+        {
+            "positive": false,
+            "regex": "^\\/swaggerapidocumentation\\/index$"
+        }
+    ]
 }

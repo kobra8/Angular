@@ -72,6 +72,8 @@ export class MenuService {
             this.fullMenuItemsPromise = Promise.all([this.requestMenuItems(), this.configService.permissionsPromise]).then((res) => {
 
                 const menuRes: b2b.MenuItem[] = res[0];
+                menuRes.push({url: 'Businessterms', position: 2, resourceKey: 'warunki_handlowe', cssClass: 'navBar-businessterms', key: 'businessterms'});
+                console.log(menuRes);
 
                 this.fullMenuItems = menuRes.map((item, i, arr) => {
 
@@ -88,6 +90,10 @@ export class MenuService {
                             item.cssClass = 'navBar-promotions';
                             item.key = 'promotions';
                             item.position = 5;
+                            break;
+                            case 'businessterms': // JD
+                            item.cssClass = 'navBar-businessterms';
+                            item.key = 'businessterms';
                             break;
                         case 'quotes':
                             item.cssClass = 'navBar-quotes';
@@ -138,7 +144,7 @@ export class MenuService {
                             break;
                     }
 
-                    if (root !== '' && root !== 'items' && root !== 'carts') {
+                    if (root !== '' && root !== 'items' && root !== 'carts' && root !== 'businessterms') { // JD
                         item.url = this.routePaths.profile + '/' + item.url;
                     }
 
@@ -175,7 +181,7 @@ export class MenuService {
                             cssClass: 'employees',
                             url: this.routePaths.employees,
                             key: 'employees',
-                            position: this.fullMenuItems.length 
+                            position: this.fullMenuItems.length
                         }
                     );
 
@@ -200,12 +206,14 @@ export class MenuService {
 
                 this.defaultMenuItems = this.fullMenuItems.filter(
                     item => item.key === 'quotes'
+                        || item.key === 'businessterms' // JD
                         || item.key === 'promotions'
                         || item.key === 'items'
                 );
 
                 this.profileSidebar = this.fullMenuItems.filter(
                     item => item.key !== 'items'
+                        && item.key !== 'businessterms' // JD
                         && item.key !== 'pending'
                 );
 

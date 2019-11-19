@@ -28,6 +28,8 @@ import { LazyImageComponent } from './controls/lazy-image/lazy-image.component';
 import { of, Observable } from 'rxjs';
 import { CommonModalService } from './model/shared/common-modal.service';
 import { CommonAvailableCartsService } from './model/shared/common-available-carts.service';
+import { ContactComponent } from './components/contact/contact.component';
+import { BusinessTermsComponent } from './components/business-terms/business-terms.component';
 //test compilation
 
 
@@ -46,6 +48,9 @@ const routes: b2b.RouteWithKey[] = [
     { path: 'itemdetails/:id', key: 'itemDetails', component: ProductDetailsComponent, canActivate: [AccountService] },
 
     { path: 'carts', key: 'cart', canActivate: [AccountService], loadChildren: () => import('./cart.module').then(m => m.CartModule) },
+
+    { path: 'contact', key: 'contact', component: ContactComponent, canActivate: [AccountService] },
+    { path: 'businessterms', key: 'businessterms', component: BusinessTermsComponent, canActivate: [AccountService] },
 
     { path: 'login', key: 'login', component: AccountComponent, canActivate: [AccountService] },
     { path: 'remind', key: 'remindPassword', component: AccountComponent, canActivate: [AccountService] },
@@ -92,7 +97,9 @@ export function registerSW() {
         ProductsComponent,
         ProductDetailsComponent,
         AccountComponent,
-        ProductFlagsComponent
+        ProductFlagsComponent,
+        ContactComponent,
+        BusinessTermsComponent
     ],
     entryComponents: [SliderComponent, LazyImageComponent],
     imports: [

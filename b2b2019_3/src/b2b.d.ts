@@ -69,6 +69,7 @@ export module b2b {
          * Array of all user permissions
          **/
         //set4: { rightId: RightXL & RightAltum }[];
+
     }
 
     interface Header {
@@ -1079,7 +1080,7 @@ export module b2b {
         volume: number;
 
         /**
-         * Delivery cost (may not exist) 
+         * Delivery cost (may not exist)
          */
         costValue?: string;
         gidService?: number;
@@ -3189,7 +3190,9 @@ export module b2b {
         | 'news'
         | 'newsDetails'
         | 'serviceJobs'
-        | 'serviceJobDetails';
+        | 'serviceJobDetails'
+        | 'contact' //JD
+        | 'businessterms'; // JD
 
 
 

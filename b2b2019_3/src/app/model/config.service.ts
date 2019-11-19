@@ -51,7 +51,7 @@ export class ConfigService {
 
     constructor(private httpClient: HttpClient, private router: Router) {
 
-        
+
         this.loaderSubj = new Subject<boolean>();
         this.searchEvent = new Subject<{ searchPhrase: string }>();
 
@@ -94,7 +94,7 @@ export class ConfigService {
         this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 
-        
+
     }
 
 
@@ -190,7 +190,7 @@ export class ConfigService {
             hasAccessToChangeOrderWarehouse: applicationId === 0 ? permissions.hasAccessToChangeOrderWarehouse : permissions.hasAccessToWarehouseChange,
             hasAccessToDiscount: applicationId === 0 ? permissions.hasAccessToDiscount : permissions.hasAccessToRebate,
             hasAccessToEditQuantityInQuotes: applicationId === 0 ? permissions.hasAccessToEditQuantityInQuotes : permissions.hasAccessToEditQuantityInQuote
-           
+
         };
 
         if (applicationId === 1) {
@@ -230,5 +230,5 @@ export class ConfigService {
     }
 
 
-    
+
 }

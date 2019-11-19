@@ -19,64 +19,74 @@
 
         <div class="content">
 
-            <div class="supervisor bar-item f-left" *ngIf="customerService?.supervisor?.supervisor">
-
-                <app-dropdown>
-
-                    <trigger>
+            <div class="supervisor bar-item f-left">
+                <a class="header-link" [routerLink]="['/contact']">
                         <i class="ti-comments"></i>
                         {{r?.translations?.supervisorContact}}
-                        <i class="ti-angle-down"></i>
-                    </trigger>
+                </a>
+                <app-dropdown>
 
-                    <content>
+                        <trigger>
+                            <i class="ti-download"></i>
+                            {{r?.translations?.filesToDownload}}
+                            <i class="ti-angle-down"></i>
+                        </trigger>
 
-                        <app-lazy-image *ngIf="customerService?.supervisor?.imageId"
-                                        class="f-left"
-                                        [id]="customerService.supervisor.imageId"
-                                        [width]="100"
-                                        [height]="100"
-                                        [alt]="customerService?.supervisor?.supervisor">
-                        </app-lazy-image>
+                        <content>
+                            <strong class="block">{{r?.translations?.filesToDownload}}</strong>
 
-
-                        <strong class="block f-left" [ngClass]="{'with-photo': customerService?.supervisor?.imageId}">
-                            {{customerService?.supervisor?.supervisor}}
-                        </strong>
-
-                        <div class="contacts clear">
-                            <a *ngIf="customerService?.supervisor?.supervisorEmail"
-                               class="block"
-                               href="mailto:{{customerService?.supervisor?.supervisorEmail}}">
-                                <i class="ti-email"></i>
-                                {{customerService?.supervisor?.supervisorEmail}}
+                            <a class="block" href="{{r?.translations?.downloadFilesUrl_1}}" target="blank">
+                                <i class="ti-shift-right"></i>
+                                {{r?.translations?.downloadFilesLabel_1}}
                             </a>
 
-                            <a *ngIf="customerService?.supervisor?.supervisorTelephone"
-                               class="block"
-                               href="tel:{{customerService?.supervisor?.supervisorTelephone}}">
-                                <i class="ti-headphone-alt"></i>
-                                {{customerService?.supervisor?.supervisorTelephone}}
+                            <a class="block" href="{{r?.translations?.downloadFilesUrl_2}}" target="blank">
+                                <i class="ti-shift-right"></i>
+                                {{r?.translations?.downloadFilesLabel_2}}
                             </a>
-                        </div>
 
-                    </content>
+                        </content>
 
                 </app-dropdown>
+        </div>
+
+           <!-- customerLimitInfo - nazwy limitów:
+            Zaległość standardowa - zalStandard
+            ZWM - zwm
+            Wolny limit - wolnyLimit
+         -->
+
+
+         <div class="f-right">
+
+            <div class="limit bar-item">
+                <!-- Wolny limit -->
+                <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.wolnyLimit < 0"></i>
+                {{r?.translations?.customerLimit}}:
+                <span [ngClass]="{'danger': customerService?.customerLimitInfo?.wolnyLimit < 0}">{{customerService?.customerLimitInfo?.wolnyLimit | toPrice }}</span>
+                {{customerService?.creditInfo?.customerCurrency}}<br>
+                <!-- ZWM -->
+                <i class="ti-alert danger" *ngIf="customerService?.customerLimitInfo?.zwm < 0"></i>
+                {{r?.translations?.zwmValue}}:
+                <span [ngClass]="{'danger': customerService?.customerLimitInfo?.zwm < 0}">{{customerService?.customerLimitInfo?.zwm | toPrice}}</span>
+                {{customerService?.creditInfo?.customerCurrency}}
+            </div>
+            <!-- Zaległość standardowa -->
+            <div class="payments bar-item inner-clear" *ngIf="customerService?.customerLimitInfo?.zalStandard">
+
+                <div class="f-left">{{r?.translations?.overduePayments}}:</div>
+
+                <div class="f-right">
+                    <div >
+                        <span>
+                            {{customerService?.customerLimitInfo?.zalStandard | toPrice }}
+                        </span>
+                        {{customerService?.creditInfo?.customerCurrency}}
+                    </div>
+                </div>
             </div>
 
-
-
-            <div class="f-right">
-
-                <div class="limit bar-item" *ngIf="customerService?.creditInfo">
-                    <i class="ti-alert danger" *ngIf="customerService?.creditInfo?.customerLimit < 0"></i>
-                    {{r?.translations?.customerLimit}}:
-                    <span [ngClass]="{'danger': customerService?.creditInfo?.customerLimit < 0}">{{customerService?.creditInfo?.customerLimit | toPrice }}</span>
-                    {{customerService?.creditInfo?.customerCurrency}}
-                </div>
-
-                <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">
+                <!-- <div class="payments bar-item inner-clear" *ngIf="customerService?.overduePayments?.length > 0">
 
                     <div class="f-left">{{r?.translations?.overduePayments}}:</div>
 
@@ -89,7 +99,7 @@
                             {{op.currency}}
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="bar-item">
                     <i class="ti-briefcase"></i>
