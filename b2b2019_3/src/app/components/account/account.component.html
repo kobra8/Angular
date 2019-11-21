@@ -166,7 +166,7 @@
 
                     </ng-container>
 
-                    <button class="action primary-action"
+                    <button class="action primary-action login-btn"
                             [ngSwitch]="viewType"
                             *ngIf="accountService?.isLoginConfirmationRequired !== undefined || viewType !== 0">
                         <ng-container *ngSwitchCase="0">{{r?.translations?.signIn}}</ng-container>

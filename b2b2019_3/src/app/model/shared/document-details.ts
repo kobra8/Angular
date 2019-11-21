@@ -61,8 +61,13 @@ export abstract class DocumentDetails implements Resolve<any> {
             const detailsRes = res.items || res;
 
             this.id = id;
-            this.details = detailsRes.set4[0] || {};
-            this.attachments = detailsRes.set2;
+
+            // JD changed form
+           // this.details = detailsRes.set4[0] || {};
+           // to
+           this.details = detailsRes.items ? detailsRes.items.set4[0] || {} : detailsRes.set4[0] || {};
+
+        this.attachments = detailsRes.set2;
 
             if (this.type !== undefined) {
                 this.type = type;

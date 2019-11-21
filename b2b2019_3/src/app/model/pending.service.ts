@@ -24,6 +24,7 @@ export class PendingService extends DocumentsList {
         super(httpClient, configService, menuService, accountService);
 
         this.columns = [
+            {   property: 'numberWm'}, //JD
             {
                 property: 'name',
                 type: 'productName',
@@ -39,12 +40,14 @@ export class PendingService extends DocumentsList {
                 translation: 'myNumber',
                 filter: { property: 'documentOwnNumberFilter', type: 'text' }
             },
+            { property: 'numberWz'}, // JD
             { property: 'issueDate' },
             { property: 'orderedQuantity' },
             { property: 'completedQuantity' },
             { property: 'quantityToComplete' },
+            { property: 'quantityWm' }, // JD
             { property: 'basicUnit', translation: '', type: 'unit' },
-            { property: 'expectedDate' }
+          //  { property: 'expectedDate' } //JD
         ];
     }
 
@@ -82,6 +85,17 @@ export class PendingService extends DocumentsList {
 
         return super.loadList(getFilter, updateFilter, controlDate).then((res: b2b.PendingListResponse) => {
             this.details = res.items.set2[0];
+
+                 // JD
+                 const resSet1Arr = JSON.parse(JSON.stringify(res.items.set1)); // Deep copy of arr set 1
+                 res.items.set1.forEach((x, i) => {
+                    if (x.numberWm === '') {
+                         x.numberWm = 'brak nr WM';
+                    } else if (i > 0 && x.numberWm === resSet1Arr[i - 1].numberWm) {
+                         x.numberWm = ' ';
+                    }
+                    return x;
+                 });
 
             return res;
         });

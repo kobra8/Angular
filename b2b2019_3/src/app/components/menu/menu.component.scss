@@ -108,7 +108,7 @@
         margin-top: -1px;
 
         &, &:hover {
-            background: $bar-active-bg;
+            background: #F5B718; // JD
             color: inherit;
 
             @media (max-width: $tablet-max) {

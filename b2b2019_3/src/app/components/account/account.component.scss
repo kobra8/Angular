@@ -134,6 +134,16 @@
         .primary-action {
             min-height: 40px;
             margin-top: 25px;
+              // JD
+              &.login-btn{
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                color: #F5B718;
+                &:hover {
+                    color: $primary-color;
+                    background: #C0C0C0;
+                    border-color: #C0C0C0;
+                }
+            }
         }
 
         .validation-error {

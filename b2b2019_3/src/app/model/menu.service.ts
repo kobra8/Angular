@@ -73,7 +73,6 @@ export class MenuService {
 
                 const menuRes: b2b.MenuItem[] = res[0];
                 menuRes.push({url: 'Businessterms', position: 2, resourceKey: 'warunki_handlowe', cssClass: 'navBar-businessterms', key: 'businessterms'});
-                console.log(menuRes);
 
                 this.fullMenuItems = menuRes.map((item, i, arr) => {
 

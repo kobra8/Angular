@@ -2203,7 +2203,10 @@ export module b2b {
         completedQuantity: number;
         quantityToComplete: number;
         uom: number;
-
+        //JD
+        numberWm: string;
+        numberWz: string;
+        quantityWm: number;
     }
 
     /**
