@@ -788,6 +788,7 @@ export module b2b {
         denominator: number;
         numerator: number;
         stockLevel: string;
+        stockLevelNumber: number; // JD
         unitPrecision: number;
         currency: string;
         converter: string;
@@ -1529,6 +1530,7 @@ export module b2b {
         manufacturerUrl: string;
         name: string;
         stockLevel: string;
+        stockLevelNumber?: number; // JD
         type: number;
         bruttoWeight: number;
         nettoWeight: number;

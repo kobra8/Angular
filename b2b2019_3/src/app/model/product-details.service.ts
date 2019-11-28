@@ -114,6 +114,7 @@ export class ProductDetailsService extends ProductBase {
         }
 
         copy.max = ConvertingUtils.stringToNum(copy.stockLevel);
+        copy.stockLevelNumber = ConvertingUtils.stringToNum(copy.stockLevel); // JD
 
         copy.unitId = item.defaultUnitNo || 0;
 
@@ -163,6 +164,7 @@ export class ProductDetailsService extends ProductBase {
             denominator: product.denominator,
             numerator: product.numerator,
             stockLevel: product.stockLevel,
+            stockLevelNumber: ConvertingUtils.stringToNum(product.stockLevel), // JD
             max: ConvertingUtils.stringToNum(product.stockLevel),
             netPrice: product.netPrice,
             grossPrice: product.grossPrice,
@@ -550,6 +552,7 @@ export class ProductDetailsService extends ProductBase {
         product.unitNetPrice = unitsRes.unitNetPrice;
 
         product.stockLevel = unitsRes.stockLevel;
+        product.stockLevelNumber =  ConvertingUtils.stringToNum(unitsRes.stockLevel); // JD
         product.max = ConvertingUtils.stringToNum(this.details.stockLevel);
     }
 

@@ -149,7 +149,7 @@ html, :root {
 }
 
 .narrow-content {
-    width: 80%;
+    width: 88%; // JD
     margin: auto;
 
     @media (max-width: $tablet-max) {
@@ -2120,4 +2120,22 @@ ul.dashes {
     &.top {
         font-weight: 600;
     }
+}
+
+/*
+JD styles
+*/
+.bg-navy-thead:not(button) {
+    background: $primary-color;
+    .name, .subtotal-price, .stock{
+        color: #F5B718;
+        font-weight: 700;
+    }
+    .to-cart {
+        padding-right: 4px!important;
+    }
+}
+
+.bg-yellow {
+    background: #F5B718;
 }
