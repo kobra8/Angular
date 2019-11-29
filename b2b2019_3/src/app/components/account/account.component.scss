@@ -189,6 +189,14 @@
             display: none !important;
         }
     }
+    .confirmation-label { //JD
+        margin-bottom: 0!important;
+    }
+    .doc-link { // JD
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0 5px 15px 0;
+    }
 }
 
 

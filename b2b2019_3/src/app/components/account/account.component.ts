@@ -44,6 +44,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     backBtn: boolean;
 
     loginConfirmationHtml: SafeHtml;
+    loginConfirmationHtmlLocal: SafeHtml;
 
     languageChangeSub: Subscription;
 
@@ -147,11 +148,15 @@ export class AccountComponent implements OnInit, OnDestroy {
 
     refreshLoginConfirmationHtml() {
 
+        this.loginConfirmationHtmlLocal = 'Zapoznałem się i w pełni akceptuję politykę RODO';
         if (this.accountService.loginConfirmationResourceKey) {
 
             if (this.r.translations[this.accountService.loginConfirmationResourceKey]) {
+
                 const loginConfirmationOriginalHTML = this.r.translations[this.accountService.loginConfirmationResourceKey].replace('href="', 'href="//');
-                this.loginConfirmationHtml = this.domSanitizer.bypassSecurityTrustHtml(loginConfirmationOriginalHTML);
+                this.loginConfirmationHtml = this.loginConfirmationHtmlLocal;
+                //this.loginConfirmationHtml = this.domSanitizer.bypassSecurityTrustHtml(loginConfirmationOriginalHTML);
+                console.log(this.loginConfirmationHtml);
             } else {
                 this.loginConfirmationHtml = '';
             }

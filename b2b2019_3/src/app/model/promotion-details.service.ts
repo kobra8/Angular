@@ -18,6 +18,9 @@ export class PromotionDetailsService extends ProductBase {
     pagination: Pagination;
     productsOrDetails: b2b.PromotionProduct[];
     config: b2b.Permissions & b2b.CustomerConfig;
+    //JD
+    deliveryMethods: b2b.PromotionDeliveryMethod[];
+    filter = '';
 
     logoutSub: Subscription;
 
@@ -120,7 +123,7 @@ export class PromotionDetailsService extends ProductBase {
 
                     this.fillUnitMapElement(index, this.productsOrDetails[index].defaultUnitNo, defaultUnitData, this.productsOrDetails);
                 });
-                
+
             }
 
         });

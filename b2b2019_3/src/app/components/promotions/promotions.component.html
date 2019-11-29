@@ -107,6 +107,35 @@
             <div class="knt-discount" *ngIf="activePromotion?.type === 1">
                 {{promotionDetailsService.productsOrDetails[0].value | percentOrEmpty}}
             </div>
+   <!-- JD -->
+    <!-- Promotion details product search bar -->
+    <div class="search-bar">
+        <form novalidate #promotionProductForm="ngForm"
+        role="search"
+        aria-label="Szukaj towaru w promocji"
+        (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
+            <app-floating-label-input [type]="'search'"
+            ngModel
+            name="searchPhrase"
+            (keyup)="searchInputKeyPress($event)"
+            [minlength]="2"
+            ariaLabel="Wpisz szukane słowo"
+            [required]="false">
+            Szukaj towaru w promocji...
+            </app-floating-label-input>
+            <button class="search-button pure ti-search"></button>
+
+            <span class="validation-error danger"
+                *ngIf="onlySpacesInSearchForm && promotionProductForm?.controls?.searchPhrase?.value?.length > 0">
+                    {{r?.translations?.searchErrorOnlySpaces}}
+            </span>
+
+            <span class="validation-error danger"
+                  *ngIf="promotionProductForm?.invalid && searchForm?.dirty && promotionProductForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
+                {{r?.translations?.searchErrorMsgTooShortPhrase}}
+            </span>
+        </form>
+</div>
 
             <app-products-table *ngIf="activePromotion?.type !== 1"
                                 [disabled]="!configService?.isOnline"

@@ -2692,6 +2692,12 @@ export module b2b {
 
     }
 
+      //JD
+      interface PromotionDeliveryMethod {
+        no: number;
+        name: string;
+    }
+
 
     interface PromotionProductResponse extends PromotionProductBase {
         /**
@@ -2719,6 +2725,8 @@ export module b2b {
         items: {
             set1: T;
             set2: { haveAccess: boolean }[];
+            // JD
+            set6: PromotionDeliveryMethod[];
         };
         paging: PaginationResponse;
 

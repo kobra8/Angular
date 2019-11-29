@@ -127,7 +127,7 @@
 
                         <app-checkbox name="rememberMe" ngModel>{{r?.translations?.rememberMe}}</app-checkbox>
 
-                        <app-checkbox *ngIf="accountService.isLoginConfirmationRequired"
+                        <app-checkbox class="confirmation-label" *ngIf="accountService.isLoginConfirmationRequired"
                                       name="LoginConfirmation"
                                       [required]="true"
                                       ngModel>
@@ -135,10 +135,10 @@
                         </app-checkbox>
 
                         <small class="validation-error danger"
-                               *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
-                            {{r?.translations?.checkOrRadioRequired}}
+                        *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
+                        {{r?.translations?.checkOrRadioRequired}}
                         </small>
-
+                        <small class="doc-link"><a href="#">Pobierz politykę RODO</a> </small>
                     </ng-container>
 
                     <ng-container *ngIf="viewType === 2">

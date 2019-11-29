@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy } from '@angular/core';
 import { PromotionsService } from '../../model/promotions.service';
 import { ResourcesService } from '../../model/resources.service';
 import { PromotionDetailsService } from '../../model/promotion-details.service';
@@ -10,6 +10,8 @@ import { FormatPipe } from 'src/app/helpers/pipes/format.pipe';
 import { ConvertingUtils } from 'src/app/helpers/converting-utils';
 import { PromotionType } from 'src/app/model/enums/promotion-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-promotions',
@@ -18,7 +20,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     host: { class: 'app-promotions view-with-sidebar' },
     encapsulation: ViewEncapsulation.None,
 })
-export class PromotionsComponent implements OnInit {
+export class PromotionsComponent implements OnInit, OnDestroy {
 
     r: ResourcesService;
     activePromotionId: number;
@@ -26,6 +28,12 @@ export class PromotionsComponent implements OnInit {
     menuItems: b2b.MenuItem[];
     activePromotion: b2b.PromotionsListItem & { cyclicityInfo?: string[]; index: number };
     columns: b2b.ColumnConfig[];
+
+    // JD
+    onlySpacesInSearchForm = false;
+    private formSubscription = new Subscription;
+    @ViewChild('promotionProductForm', {static: false})
+     searchForm: NgForm;
 
     constructor(
         resourcesService: ResourcesService,
@@ -73,7 +81,7 @@ export class PromotionsComponent implements OnInit {
         this.configService.loaderSubj.next(true);
 
         return this.promotionsService.loadList().then((res) => {
-            
+
 
             if (this.promotionsService.items.length === 0) {
                 this.error = this.r.translations.noPromotions;
@@ -143,7 +151,7 @@ export class PromotionsComponent implements OnInit {
     changeDetailsPage(pageNumber) {
 
         this.promotionDetailsService.pagination.changePage(pageNumber, undefined, this.configService.isMobile);
-        
+
 
         this.loadDetails(this.activePromotionId);
     }
@@ -384,5 +392,24 @@ export class PromotionsComponent implements OnInit {
         this.activePromotion = <any>{};
         this.activePromotionId = undefined;
         this.promotionDetailsService.pagination.goToStart();
+    }
+
+// JD
+    search(formValid, formValue) {
+        if (formValid) {
+            console.log('Search item in promotion fired');
+         //   this.detailsContext.filter = formValue.searchPhrase;
+         //   this.loadDetails(this.id, this.type);
+        }
+    }
+// JD
+    searchInputKeyPress(event) {
+        const trimmedValue = event.target.value.trim();
+        (trimmedValue.length > 0) ? this.onlySpacesInSearchForm = false : this.onlySpacesInSearchForm = true;
+    }
+
+    ngOnDestroy(): void {
+        this.formSubscription.unsubscribe();
+
     }
 }
