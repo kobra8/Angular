@@ -23,7 +23,6 @@
 
     <ng-container *ngIf="promotionsService?.items">
 
-
         <div *ngFor="let listItem of promotionsService?.items; let i = index"
              class="promotions-list-item shadow inner-clear"
              [ngClass]="{'active-item': listItem.id === activePromotionId, 'hover-shadow': listItem.id !== activePromotionId}"
@@ -44,7 +43,7 @@
             </div>
 
             <p class="title ellipsis">{{listItem.name}}</p>
-
+            <!-- JD
             <div *ngIf="listItem?.validInHoursFrom || listItem?.validInHoursTo">
 
                 <small class="block">{{r?.translations?.validInHours}}</small>
@@ -58,7 +57,7 @@
                     {{r?.translations?.toHour?.toLowerCase()}}
                     {{listItem?.validInHoursTo}}
                 </ng-container>
-            </div>
+            </div> -->
 
             <p class="desc ellipsis pair-key" *ngIf="listItem.comment">{{listItem.comment}}</p>
 
@@ -68,15 +67,11 @@
 
         </div>
 
-
-
         <app-old-pager *ngIf="promotionsService?.items?.length > 0 && (promotionsService?.pagination?.isNextPage || promotionsService?.pagination?.currentPage > 0)"
                    [currentPage]="promotionsService?.pagination?.currentPage"
                    [isNextPage]="promotionsService?.pagination?.isNextPage"
                    (changePage)="changePage($event);">
         </app-old-pager>
-
-
 
         <form class="promotion-details"
               *ngIf="promotionsService?.items?.length > 0 && promotionDetailsService.productsOrDetails"
@@ -107,45 +102,46 @@
             <div class="knt-discount" *ngIf="activePromotion?.type === 1">
                 {{promotionDetailsService.productsOrDetails[0].value | percentOrEmpty}}
             </div>
-   <!-- JD -->
-    <!-- Promotion details product search bar -->
-    <div class="search-bar">
-        <form novalidate #promotionProductForm="ngForm"
-        role="search"
-        aria-label="Szukaj towaru w promocji"
-        (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
-            <app-floating-label-input [type]="'search'"
-            ngModel
-            name="searchPhrase"
-            (keyup)="searchInputKeyPress($event)"
-            [minlength]="2"
-            ariaLabel="Wpisz szukane słowo"
-            [required]="false">
-            Szukaj towaru w promocji...
-            </app-floating-label-input>
-            <button class="search-button pure ti-search"></button>
 
-            <span class="validation-error danger"
-                *ngIf="onlySpacesInSearchForm && promotionProductForm?.controls?.searchPhrase?.value?.length > 0">
-                    {{r?.translations?.searchErrorOnlySpaces}}
-            </span>
+            <!-- JD -->
+            <!-- Promotion details product search bar -->
+            <div class="search-bar">
+                <form novalidate #promotionProductForm="ngForm"
+                role="search"
+                aria-label="Szukaj towaru w promocji"
+                (ngSubmit)="search(promotionProductForm.valid, promotionProductForm.value)">
+                    <app-floating-label-input [type]="'search'"
+                    ngModel
+                    name="searchPhrase"
+                    (keyup)="searchInputKeyPress($event)"
+                    [minlength]="2"
+                    ariaLabel="Wpisz szukane słowo"
+                    [required]="false">
+                    Szukaj towaru w promocji...
+                    </app-floating-label-input>
+                    <button class="search-button pure ti-search"></button>
 
-            <span class="validation-error danger"
-                  *ngIf="promotionProductForm?.invalid && searchForm?.dirty && promotionProductForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
-                {{r?.translations?.searchErrorMsgTooShortPhrase}}
-            </span>
-        </form>
-</div>
+                    <span class="validation-error danger"
+                        *ngIf="onlySpacesInSearchForm && promotionProductForm?.controls?.searchPhrase?.value?.length > 0">
+                            {{r?.translations?.searchErrorOnlySpaces}}
+                    </span>
+
+                    <span class="validation-error danger"
+                          *ngIf="promotionProductForm?.invalid && searchForm?.dirty && promotionProductForm?.controls?.searchPhrase?.value?.trim()?.length > 0">
+                        {{r?.translations?.searchErrorMsgTooShortPhrase}}
+                    </span>
+                </form>
+            </div>
 
             <app-products-table *ngIf="activePromotion?.type !== 1"
-                                [disabled]="!configService?.isOnline"
-                                [products]="promotionDetailsService?.productsOrDetails"
-                                [cartCount]="promotionsService?.config?.cartCount"
-                                [columns]="columns"
-                                [config]="promotionDetailsService.config"
-                                [pagination]="promotionDetailsService?.pagination"
-                                (changePage)="changeDetailsPage($event)"
-                                (unitConverter)="unitConverter($event)">
+                            [disabled]="!configService?.isOnline"
+                            [products]="promotionDetailsService?.productsOrDetails"
+                            [cartCount]="promotionsService?.config?.cartCount"
+                            [columns]="columns"
+                            [config]="promotionDetailsService.config"
+                            [pagination]="promotionDetailsService?.pagination"
+                            (changePage)="changeDetailsPage($event)"
+                            (unitConverter)="unitConverter($event)">
             </app-products-table>
 
             <button class="tablet-block full" type="button" (click)="clearDetails()">{{r?.translations?.hideDetails}}</button>
@@ -153,9 +149,4 @@
 
     </ng-container>
 
-
-
-
 </section>
-
-

@@ -10,6 +10,7 @@ import { ConvertingUtils } from '../helpers/converting-utils';
 import { ProductStatus } from './enums/product-status.enum';
 import { Subscription } from 'rxjs';
 import { AccountService } from './account.service';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class PromotionDetailsService extends ProductBase {
@@ -20,7 +21,7 @@ export class PromotionDetailsService extends ProductBase {
     config: b2b.Permissions & b2b.CustomerConfig;
     //JD
     deliveryMethods: b2b.PromotionDeliveryMethod[];
-    filter = '';
+    filter: string;
 
     logoutSub: Subscription;
 
@@ -34,14 +35,15 @@ export class PromotionDetailsService extends ProductBase {
             this.productsOrDetails = undefined;
             this.config = undefined;
             this.id = undefined;
+            this.filter = undefined; // JD
         });
 
     }
 
-    protected requestDetails(id = this.id): Promise<b2b.PromotionDetailsResponseConverted> {
+    protected requestDetails(id = this.id, filter): Promise<b2b.PromotionDetailsResponseConverted> {
 
         const params = Object.assign(
-            { groupId: 0 },
+            { groupId: 0, filter }, // JD
             this.pagination.getRequestParams()
         );
 
@@ -64,13 +66,14 @@ export class PromotionDetailsService extends ProductBase {
     }
 
 
-    loadDetails(id = this.id): Promise<b2b.PromotionDetailsResponseConverted> {
+    loadDetails(id = this.id, filter = this.filter): Promise<b2b.PromotionDetailsResponseConverted> {
 
-        return this.requestDetails(id).then((res) => {
+        return this.requestDetails(id, filter).then((res) => {
 
             this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
 
             this.id = id;
+            this.filter = filter; //JD
 
             this.productsOrDetails = <b2b.PromotionProduct[]>res.items.set1.map((item: b2b.PromotionProduct) => {
                 item.quantity = item.quantity || 0;

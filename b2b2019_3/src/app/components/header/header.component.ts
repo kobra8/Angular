@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     carts: CartsService;
     r: ResourcesService;
     pendingMenuItem: b2b.MenuItem;
-    
+
 
     routeSubscription: Subscription;
 
@@ -126,10 +126,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
             return Promise.all([cartPromise, pendingMenuItemPromise, headerPromise]);
         });
-        
+
     }
 
-    
+
 
 
     search(formValid, formValue) {
@@ -139,7 +139,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             const trimmedValue = formValue.searchPhrase.trim();
 
             if (trimmedValue.length > 0) {
-                
+
                 this.productsService.filters.currentFilter.filter = trimmedValue;
                 this.productsService.pagination.goToStart();
 
@@ -148,7 +148,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     this.router.navigateByUrl(this.menuService.routePaths.items);
 
                 } else {
-                   
+
                     this.configService.searchEvent.next({ searchPhrase: trimmedValue });
                     this.searchForm.reset();
                 }

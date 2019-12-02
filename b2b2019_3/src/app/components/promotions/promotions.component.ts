@@ -32,8 +32,9 @@ export class PromotionsComponent implements OnInit, OnDestroy {
     // JD
     onlySpacesInSearchForm = false;
     private formSubscription = new Subscription;
+    private formSubActive = false;
     @ViewChild('promotionProductForm', {static: false})
-     searchForm: NgForm;
+    searchForm: NgForm;
 
     constructor(
         resourcesService: ResourcesService,
@@ -73,7 +74,6 @@ export class PromotionsComponent implements OnInit, OnDestroy {
 
         }
     }
-
 
     loadList(): Promise<b2b.PromotionsListResponse | null> {
         this.error = null;
@@ -117,11 +117,11 @@ export class PromotionsComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadDetails(id): Promise<b2b.PromotionDetailsResponse | null> {
+    loadDetails(id, filter?): Promise<b2b.PromotionDetailsResponse | null> {
 
         this.configService.loaderSubj.next(true);
 
-        return this.promotionDetailsService.loadDetails(id).then(() => {
+        return this.promotionDetailsService.loadDetails(id, filter).then(() => {
 
             this.configService.loaderSubj.next(false);
 
@@ -170,7 +170,6 @@ export class PromotionsComponent implements OnInit, OnDestroy {
             this.loadDetails(id).then(() => {
 
                 this.setActivePromotionData(id, index);
-
 
                 if (this.activePromotion.type !== PromotionType.PLT && this.activePromotion.type !== PromotionType.KNT) {
 
@@ -396,10 +395,18 @@ export class PromotionsComponent implements OnInit, OnDestroy {
 
 // JD
     search(formValid, formValue) {
+        // JD - clear filter request after form input 'x' click
+        if (!this.formSubActive) {
+             this.formSubscription.add(this.searchForm.valueChanges.subscribe(x => {
+                 if (x.searchPhrase === '') {
+                     this.loadDetails(this.activePromotionId, null);
+                    }
+                })
+            );
+            this.formSubActive = true;
+        }
         if (formValid) {
-            console.log('Search item in promotion fired');
-         //   this.detailsContext.filter = formValue.searchPhrase;
-         //   this.loadDetails(this.id, this.type);
+            this.loadDetails(this.activePromotionId, formValue.searchPhrase);
         }
     }
 // JD
@@ -407,9 +414,9 @@ export class PromotionsComponent implements OnInit, OnDestroy {
         const trimmedValue = event.target.value.trim();
         (trimmedValue.length > 0) ? this.onlySpacesInSearchForm = false : this.onlySpacesInSearchForm = true;
     }
-
+// JD
     ngOnDestroy(): void {
         this.formSubscription.unsubscribe();
-
+        this.formSubActive = false;
     }
 }
