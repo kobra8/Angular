@@ -105,7 +105,7 @@
 
             <!-- JD -->
             <!-- Promotion details product search bar -->
-            <div class="search-bar">
+            <div class="search-bar" *ngIf="!grouptype">
                 <form novalidate #promotionProductForm="ngForm"
                 role="search"
                 aria-label="Szukaj towaru w promocji"

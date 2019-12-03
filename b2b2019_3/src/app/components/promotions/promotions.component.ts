@@ -30,6 +30,7 @@ export class PromotionsComponent implements OnInit, OnDestroy {
     columns: b2b.ColumnConfig[];
 
     // JD
+    grouptype = false;
     onlySpacesInSearchForm = false;
     private formSubscription = new Subscription;
     private formSubActive = false;
@@ -315,7 +316,7 @@ export class PromotionsComponent implements OnInit, OnDestroy {
     switchColumns(type?: PromotionType | 'onlyGroups') {
 
         if (type === PromotionType.PLT) {
-
+            this.grouptype = false;
             this.columns = [
 
                 { property: 'name', translation: 'paymentForm' },
@@ -337,7 +338,7 @@ export class PromotionsComponent implements OnInit, OnDestroy {
             ];
 
         } else if (type === 'onlyGroups') {
-
+            this.grouptype = true;
             this.columns = [
 
                 { property: 'name', translation: 'articles' },
@@ -360,7 +361,7 @@ export class PromotionsComponent implements OnInit, OnDestroy {
 
 
         } else {
-
+            this.grouptype = false;
             this.columns = [
 
                 { property: 'name', translation: 'codeName', type: 'productName' },

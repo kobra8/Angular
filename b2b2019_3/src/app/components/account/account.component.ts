@@ -142,7 +142,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 
         });
 
-
     }
 
 
@@ -156,7 +155,6 @@ export class AccountComponent implements OnInit, OnDestroy {
                 const loginConfirmationOriginalHTML = this.r.translations[this.accountService.loginConfirmationResourceKey].replace('href="', 'href="//');
                 this.loginConfirmationHtml = this.loginConfirmationHtmlLocal;
                 //this.loginConfirmationHtml = this.domSanitizer.bypassSecurityTrustHtml(loginConfirmationOriginalHTML);
-                console.log(this.loginConfirmationHtml);
             } else {
                 this.loginConfirmationHtml = '';
             }
