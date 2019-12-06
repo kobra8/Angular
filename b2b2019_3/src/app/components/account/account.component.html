@@ -138,7 +138,9 @@
                         *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
                         {{r?.translations?.checkOrRadioRequired}}
                         </small>
-                        <small class="doc-link"><a href="#">Pobierz politykę RODO</a> </small>
+                        <small class="doc-link">
+                            <a href="ClientApp/assets/B2B_BrukBet_Polityka prywatnosci.pdf">Pobierz dokument</a>
+                        </small>
                     </ng-container>
 
                     <ng-container *ngIf="viewType === 2">
