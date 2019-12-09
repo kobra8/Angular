@@ -18,7 +18,7 @@
     <div *ngIf="accountService.authenticated && !configService?.isMobile" class="bar top-bar inner-clear">
 
         <div class="content">
-
+<!-- JD -->
             <div class="supervisor bar-item f-left">
                 <a class="header-link" [routerLink]="['/contact']">
                         <i class="ti-comments"></i>
@@ -35,12 +35,12 @@
                         <content>
                             <strong class="block">{{r?.translations?.filesToDownload}}</strong>
 
-                            <a class="block" href="{{r?.translations?.downloadFilesUrl_1}}" target="blank">
+                            <a class="block" href="{{r?.translations?.downloadFilesUrl_1}}" target="_blank">
                                 <i class="ti-shift-right"></i>
                                 {{r?.translations?.downloadFilesLabel_1}}
                             </a>
 
-                            <a class="block" href="{{r?.translations?.downloadFilesUrl_2}}" target="blank">
+                            <a class="block" href="{{r?.translations?.downloadFilesUrl_2}}" target="_blank">
                                 <i class="ti-shift-right"></i>
                                 {{r?.translations?.downloadFilesLabel_2}}
                             </a>
