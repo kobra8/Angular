@@ -105,7 +105,8 @@
 
             <!-- JD -->
             <!-- Promotion details product search bar -->
-            <div class="search-bar" *ngIf="!grouptype">
+            <!-- Zdecydowano ukryć wyszukiwarkę z powodu wystarczających możliwości wyszukiwarki głównej w headerze -->
+            <!-- <div class="search-bar" *ngIf="!grouptype">
                 <form novalidate #promotionProductForm="ngForm"
                 role="search"
                 aria-label="Szukaj towaru w promocji"
@@ -131,7 +132,7 @@
                         {{r?.translations?.searchErrorMsgTooShortPhrase}}
                     </span>
                 </form>
-            </div>
+            </div> -->
 
             <app-products-table *ngIf="activePromotion?.type !== 1"
                             [disabled]="!configService?.isOnline"
