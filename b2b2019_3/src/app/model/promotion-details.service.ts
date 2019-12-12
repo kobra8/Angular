@@ -40,10 +40,10 @@ export class PromotionDetailsService extends ProductBase {
 
     }
 
-    protected requestDetails(id = this.id, filter): Promise<b2b.PromotionDetailsResponseConverted> {
+    protected requestDetails(id = this.id, filter, isNameFiltered): Promise<b2b.PromotionDetailsResponseConverted> {
 
         const params = Object.assign(
-            { groupId: 0, filter }, // JD
+            { groupId: 0, filter, isNameFiltered }, // JD
             this.pagination.getRequestParams()
         );
 
@@ -68,7 +68,7 @@ export class PromotionDetailsService extends ProductBase {
 
     loadDetails(id = this.id, filter = this.filter): Promise<b2b.PromotionDetailsResponseConverted> {
 
-        return this.requestDetails(id, filter).then((res) => {
+        return this.requestDetails(id, filter, true).then((res) => {
 
             this.config = Object.assign({}, this.configService.permissions, this.configService.config, { calculateDiscount: true, showState: false });
 

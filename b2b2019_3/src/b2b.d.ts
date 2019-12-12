@@ -2163,6 +2163,7 @@ export module b2b {
     */
     interface PromotionListFilter {
         filter?: string;
+        isNameFiltered?: boolean;
         searchText?: string;
     }
 
