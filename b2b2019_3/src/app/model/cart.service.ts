@@ -263,9 +263,9 @@ export class CartService extends ProductBase {
         if ((<b2b.CartProductsConvertedResponse>listData).items.set3[0] && (<b2b.CartProductsConvertedResponse>listData).items.set3[0].headerId !== undefined) {
             this.setHeaderData((<b2b.CartProductsConvertedResponse>listData).items.set3[0]);
         }
-
-        if ((<b2b.CartProductsConvertedResponse>listData).items.set6[0] && (<b2b.CartProductsConvertedResponse>listData).items.set6[0].weightGross !== undefined) {
-            this.weight = (<b2b.CartProductsConvertedResponse>listData).items.set6[0];
+// JD
+        if ((<b2b.CartProductsConvertedResponse>listData).items.set7[0] && (<b2b.CartProductsConvertedResponse>listData).items.set7[0].weightGross !== undefined) {
+            this.weight = (<b2b.CartProductsConvertedResponse>listData).items.set7[0];
         } else {
             this.weight = (<b2b.CartProductRemoveResponseConverted>listData).items.set5[0];
         }

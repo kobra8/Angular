@@ -1124,13 +1124,16 @@ export module b2b {
         * Weight and volume for all of products.
         * (All pages).
         */
-        set6?: CartWeight[];
+       // JD
+        set6?: any;
 
         /**
          * Altum only
          * For XL - cartHeader (set3)
          * */
-        set7?: { changeWarehouseEnabled: true }[];
+        set7?: CartWeight[];
+        //JD
+     //   set7?: { changeWarehouseEnabled: true }[];
     }
 
     interface CartProductsResponseItems extends CartProductsResponseItemsBase {
