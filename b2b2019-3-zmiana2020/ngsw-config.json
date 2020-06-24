@@ -1,0 +1,115 @@
+{
+    "index": "/index",
+    "assetGroups": [
+        {
+            "name": "app",
+            "installMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/ClientApp/assets/favicon.ico",
+                    "/ClientApp/assets/images/logo.png",
+                    "/ClientApp/prod/*.js",
+                    "/ClientApp/prod/*.css"
+                ],
+                "urls": [
+                    "/index"
+                ]
+            }
+        },
+        {
+            "name": "assets",
+            "installMode": "lazy",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/ClientApp/prod/*.eot",
+                    "/ClientApp/prod/*.woff",
+                    "/ClientApp/prod/*.ttf",
+                    "/ClientApp/prod/*.svg",
+                    "/ClientApp/prod/*.png",
+                    "/ClientApp/assets/images/flags/*",
+                    "/ClientApp/assets/images/slider/*",
+                    "/ClientApp/assets/images/icons/*"
+
+                ]
+            }
+        }
+    ],
+    "dataGroups": [
+        {
+            "name": "api-fresh",
+            "urls": [
+                "/account/isloggedin",
+                "/api/carts*",
+                "/account/isloginconfirmationrequired"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "5m",
+                "strategy": "freshness"
+            }
+        },
+        {
+            "name": "api-purchase-documents",
+            "urls": [
+                "/api/orders*",
+                "/api/quotes*",
+                "/api/payments*"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "5m",
+                "strategy": "performance"
+            }
+        },
+        {
+            "name": "api-documents",
+            "urls": [
+                "/api/inquiries*",
+                "/api/payments*",
+                "/api/delivery*",
+                "/api/complaints*",
+                "/api/items*",
+                "/api/promotions*",
+                "/api/news*",
+                "/api/serviceJob*"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "15m",
+                "strategy": "performance"
+            }
+        },
+        {
+            "name": "api-long-term",
+            "urls": [
+                "/languages/getactive",
+                "/resources/getbylanguageid",
+                "/api/common/menuitems",
+                "/account/getcompanies",
+                "/account/getapplicationtype",
+                "/api/configuration/getforcustomer",
+                "/api/customer*",
+                "/api/files/getfilesbycustomer",
+                "/imagehandler.aspx",
+                "/filehandler.aspx"
+            ],
+            "cacheConfig": {
+                "maxSize": 5000,
+                "maxAge": "14d",
+                "strategy": "performance"
+            }
+        }
+    ],
+
+    "navigationUrls": [
+        "/**",
+        "!/**/*.*",
+        "!/**/*__*",
+        "!/**/*__*/**",
+        "!/remindpassword/passwordreminder",
+        "!/account/login",
+        "!/swagger/login",
+        "!/swaggerapidocumentation/index"
+    ]
+}

@@ -1,0 +1,87 @@
+@import 'configuration.scss';
+
+.app-select {
+    display: inline-block;
+    position: relative;
+
+    &.opened:not(.disabled) {
+        &, .options {
+            box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+        }
+
+        i {
+            transform: rotate(180deg);
+        }
+    }
+
+    &:not(.disabled) .value {
+        cursor: pointer;
+    }
+
+    .value, .app-option {
+        padding: 0 10px;
+        font-size: inherit;
+        width: 100%;
+    }
+
+    i {
+        transform: rotate(0);
+        text-align: center;
+        font-size: inherit;
+        display: inline-block;
+        vertical-align: top;
+        float: right;
+        transition: transform $little-transitions-time;
+    }
+
+    .value {
+        position: relative;
+        z-index: 1;
+
+        > span {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-right: 10px;
+            flex-grow: 1;
+            line-height: 38px;
+        }
+    }
+
+    .options {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: 100;
+        min-width: 100%;
+        cursor: pointer;
+
+        @media (max-width: $tablet-max) {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba($background, 0.7);
+            font-size: 1.2rem;
+        }
+    }
+
+    .centering-wrapper {
+        width: 100%;
+
+        @media (max-width: $tablet-max) {
+            min-width: 80%;
+            width: auto;
+            max-width: 100%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            max-height: 100%;
+            overflow: auto;
+        }
+    }
+
+    .overlay {
+        position: absolute;
+    }
+}
