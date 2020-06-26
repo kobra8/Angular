@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
 
     private addingToCartSub: Subscription;
     private showModalSub: Subscription;
+    private showCommercialSub: Subscription;
 
     afterAddingToCartModal: {
         opened: boolean;
@@ -36,6 +37,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         isOpened: boolean;
         message?: string;
     };
+    showCommercial = false;
 
     noPermissions: boolean;
 
@@ -68,6 +70,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         this.modalData = {
             isOpened: false
         };
+      //  this.showCommercial = false;
 
         this.noPermissions = false;
         this.installPromptOpened = false;
@@ -85,6 +88,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
             window.location.reload();
         });
 
+      
     }
 
     ngOnInit() {
@@ -101,6 +105,10 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
             this.modalData.message = res;
         });
 
+        this.showCommercialSub = this.commonModalService.showCommercialEmited$.subscribe((res) => {
+                this.showCommercial = res;
+
+        });
 
         this.configService.permissionsPromise.then(() => {
             this.noPermissions = Object.values(this.configService.permissions).filter(value => value).length === 0;
@@ -199,6 +207,10 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         this.beforeInstallPromptEvent.prompt();
     }
 
+    hideCommercial() {
+        this.commonModalService.showModalCommercial(false);
+    }
+
 
     ngOnDestroy(): void {
 
@@ -211,6 +223,7 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         }
 
         this.loaderSub.unsubscribe();
+        this.showCommercialSub.unsubscribe();
         this.configService.loaderSubj.unsubscribe();
 
         if (this.beforeInstallPromptSub && !this.beforeInstallPromptSub.closed) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { ResourcesService } from '../resources.service';
 import { ModalMessageType } from './enums/modal-message-type';
 
@@ -7,6 +7,8 @@ import { ModalMessageType } from './enums/modal-message-type';
 export class CommonModalService {
 
     showModalSubject: Subject<string>;
+    private showCommercialSubject = new BehaviorSubject<boolean>(false);
+    showCommercialEmited$ = this.showCommercialSubject.asObservable();
 
     constructor(private resourcesService: ResourcesService) {
         this.showModalSubject = new Subject<string>();
@@ -14,6 +16,10 @@ export class CommonModalService {
 
     showModalMessage(message: string) {
         this.showModalSubject.next(message);
+    }
+
+    showModalCommercial(value: boolean) {
+        this.showCommercialSubject.next(value);
     }
 
     showModalMessageType(messageType: ModalMessageType) {

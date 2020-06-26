@@ -221,7 +221,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
                 this.message = this.r.translations.resultsNotFound;
             }
 
-
+            this.commonModalService.showModalCommercial(true);
             this.changeDetector.markForCheck();
 
 

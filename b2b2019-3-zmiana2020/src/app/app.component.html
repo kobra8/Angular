@@ -4,11 +4,11 @@
 </div>
 
 <div class="website-grid" [attr.fixHeightWhenSelectOpened]="true">
-    <div class="modal-commercial">
+    <div class="modal-commercial" *ngIf="showCommercial">
         <div>
             <img src="/ClientApp/assets/images/promocja-microtec-oryg.jpg" alt="reklama">
         </div>
-        <button class="ti-close close"></button>
+        <button class="ti-close close" (click)="hideCommercial()"></button>
     </div>
     <app-header></app-header>
 
