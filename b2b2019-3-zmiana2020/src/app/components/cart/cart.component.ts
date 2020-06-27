@@ -19,6 +19,7 @@ import { UiUtils } from '../../helpers/ui-utils';
 import { CartDetailType } from 'src/app/model/cart/enums/cart-detail-type.enum';
 import { ApplicationType } from 'src/app/model/enums/application-type.enum';
 import { CommonAvailableCartsService } from 'src/app/model/shared/common-available-carts.service';
+import { CommonModalService } from 'src/app/model/shared/common-modal.service';
 
 @Component({
     selector: 'app-cart',
@@ -89,7 +90,8 @@ export class CartComponent implements OnInit, OnDestroy {
         private menuService: MenuService,
         public cartsService: CartsService,
         cartService: CartService,
-        private commonAvailableCartsService: CommonAvailableCartsService
+        private commonAvailableCartsService: CommonAvailableCartsService,
+        private commonModalService: CommonModalService
     ) {
 
         this.r = resourcesService;
@@ -127,6 +129,7 @@ export class CartComponent implements OnInit, OnDestroy {
                 //cart config options are in both objects, but table component requires single config object
                 this.productTableConfig = Object.assign({}, this.configService.config, this.cart.config, this.cart.headerData);
                 this.configService.loaderSubj.next(false);
+                this.commonModalService.showModalCommercial(true);
 
             }).catch(() => {
 

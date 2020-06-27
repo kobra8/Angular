@@ -12,6 +12,16 @@
         top: 2rem;
         left: 299px;
         z-index: 200;
+        line-height: normal;
+        max-height: 365px;
+        box-shadow: -10px 10px 5px 0px rgba(179,173,179,0.41);
+        animation-name:slider;
+        animation-duration:2s;
+        animation-timing-function: ease-in-out;
+        @keyframes slider {
+            from { transform: translateX(800px); }
+            to { transform: translateX(0px); }
+        }
         .ti-close {
             color: #fff;
             font-size: 16px;
