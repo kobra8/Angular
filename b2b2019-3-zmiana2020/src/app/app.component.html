@@ -4,10 +4,12 @@
 </div>
 
 <div class="website-grid" [attr.fixHeightWhenSelectOpened]="true">
-    <div class="modal-commercial" *ngIf="showCommercial">
+    <!-- JD -->
+    <div class="modal-commercial" [ngClass]="{'show': showCommercial, 'hide': !showCommercial}">
         <img src="/ClientApp/assets/images/promocja-microtec-oryg.jpg" alt="reklama">
         <button class="ti-close close" (click)="hideCommercial()"></button>
     </div>
+    <!-- Koniec zmiany -->
     <app-header></app-header>
 
     <router-outlet class="views-container"></router-outlet>

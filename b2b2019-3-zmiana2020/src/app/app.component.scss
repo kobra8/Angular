@@ -7,6 +7,8 @@
     align-content: start;
     grid-template-rows: auto auto 1fr auto;
     grid-template-columns: 100%;
+    
+    /* JD */
     .modal-commercial {
         position: absolute;
         top: 2rem;
@@ -15,13 +17,6 @@
         line-height: normal;
         max-height: 365px;
         box-shadow: -10px 10px 5px 0px rgba(179,173,179,0.41);
-        animation-name:slider;
-        animation-duration:2s;
-        animation-timing-function: ease-in-out;
-        @keyframes slider {
-            from { transform: translateX(800px); }
-            to { transform: translateX(0px); }
-        }
         .ti-close {
             color: #fff;
             font-size: 16px;
@@ -33,6 +28,26 @@
             &:hover {
                 background-color: #fff;
                 color: #203864;
+            }
+        }
+        &.show {
+            animation-name: slide-in;
+            animation-duration:1s;
+            animation-timing-function: ease-in-out;
+            transform: translateX(0px);
+            @keyframes slide-in {
+                from { transform: translateX(2000px); }
+                to { transform: translateX(0px); }
+            }
+        }
+        &.hide {
+            animation-name:slide-out;
+            animation-duration:1s;
+            animation-timing-function: ease-in-out;
+            transform: translateX(2000px);
+            @keyframes slide-out {
+                from { transform: translateX(0px); }
+                to { transform: translateX(2000px); }
             }
         }
     }

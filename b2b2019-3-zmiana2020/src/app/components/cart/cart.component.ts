@@ -129,6 +129,7 @@ export class CartComponent implements OnInit, OnDestroy {
                 //cart config options are in both objects, but table component requires single config object
                 this.productTableConfig = Object.assign({}, this.configService.config, this.cart.config, this.cart.headerData);
                 this.configService.loaderSubj.next(false);
+                //JD
                 this.commonModalService.showModalCommercial(true);
 
             }).catch(() => {

@@ -7,6 +7,7 @@ import { ModalMessageType } from './enums/modal-message-type';
 export class CommonModalService {
 
     showModalSubject: Subject<string>;
+    //JD
     private showCommercialSubject = new BehaviorSubject<boolean>(false);
     showCommercialEmited$ = this.showCommercialSubject.asObservable();
 
@@ -17,7 +18,7 @@ export class CommonModalService {
     showModalMessage(message: string) {
         this.showModalSubject.next(message);
     }
-
+    //JD
     showModalCommercial(value: boolean) {
         this.showCommercialSubject.next(value);
     }
