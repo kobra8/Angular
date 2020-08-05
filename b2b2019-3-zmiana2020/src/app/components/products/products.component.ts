@@ -220,8 +220,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
             if (this.productsList.products.length === 0) {
                 this.message = this.r.translations.resultsNotFound;
             }
-            // JD
-           // this.commonModalService.showModalCommercial(true);
+
 
             this.changeDetector.markForCheck();
 

@@ -43,9 +43,9 @@ export class CommonModalService {
 
     // JD
     preloadCommercialImage(){
-        this.httpClient.get('/ClientApp/assets/images/promocja-microtec-komp.jpg', { responseType: 'blob' }).toPromise().then(
+        this.httpClient.get('/ClientApp/assets/images/multicolor.png', { responseType: 'blob' }).toPromise().then(
           ( image => {
-              const blob: Blob = new Blob([image], { type: 'image/jpeg' });
+              const blob: Blob = new Blob([image], { type: 'image/png' });
             })
           )
     }
