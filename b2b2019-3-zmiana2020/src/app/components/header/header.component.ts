@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { AccountService } from '../../model/account.service';
 import { ConfigService } from '../../model/config.service';
 import { filter } from 'rxjs/operators';
+import { CommonModalService } from 'src/app/model/shared/common-modal.service';
 
 @Component({
     selector: 'app-header',
@@ -58,7 +59,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         public configService: ConfigService,
         cartsService: CartsService,
         private productsService: ProductsService,
-        public menuService: MenuService
+        public menuService: MenuService,
+        private commonModalService: CommonModalService
     ) {
 
         this.carts = cartsService;
@@ -123,6 +125,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     this.searchForm.form.markAsPristine();
                 }
             });
+              // JD - show commercial only after login
+                this.commonModalService.showModalCommercial(true);
 
             return Promise.all([cartPromise, pendingMenuItemPromise, headerPromise]);
         });
