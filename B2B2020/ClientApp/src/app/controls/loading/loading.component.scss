@@ -1,0 +1,54 @@
+@import 'configuration.scss';
+@import 'partials/mixins.scss';
+
+
+.app-loading {
+    display: block;
+
+    &.overlay {
+        z-index:1000;
+    }
+}
+
+.loader, .loader-before::before, .loader-after::after {
+    content: '\e684';
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    font-size: 4rem;
+    animation: load8 1.1s infinite linear;
+    margin: auto;
+    color: $primary-color;
+}
+
+.loader-before::before, .loader-after::after {
+    @include themify-style();
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+}
+
+
+
+.small {
+    &.loader, .loader, &.loader-before::before, .loader-before::before, &.loader-after::after, .loader-after::after {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+    }
+}
+
+@keyframes load8 {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

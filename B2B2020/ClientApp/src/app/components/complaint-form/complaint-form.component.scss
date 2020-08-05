@@ -1,0 +1,101 @@
+@import 'configuration.scss';
+
+.app-complaint-form {
+    display: block;
+
+    .articles {
+        padding-top: 30px;
+    }
+
+    .narrow-content {
+        @media(max-width:$tablet-max) {
+            padding: 0;
+        }
+    }
+
+    .product {
+        border: 1px solid $border-color;
+        border-bottom: 0;
+
+        @media(max-width:$tablet-max) {
+            flex-direction: column;
+            border: 0;
+        }
+    }
+
+    .image-container {
+        @media(max-width:$tablet-max) {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 85px;
+            min-width: 0;
+            min-height: 0;
+        }
+    }
+
+    .converter, .pair-key {
+        display: block;
+    }
+
+    .source-document .pair-key {
+        display: inline-block;
+    }
+
+    .summary-col .product {
+        margin-bottom: 30px;
+        border: 1px solid $border-color;
+    }
+
+
+    .product-desc {
+        margin-top: 0;
+    }
+
+    .product-info, .product-form {
+        padding: 15px;
+
+        @media(max-width:$tablet-max) {
+            padding: 10px;
+        }
+    }
+
+    .product-info {
+        position: relative;
+        border-right: 1px solid $border-color;
+
+        @media(max-width: $tablet-max) {
+            padding-left: 70px;
+        }
+    }
+
+    .pair-key:not(:first-child) {
+        margin-top: 20px;
+    }
+
+    .complaint-options input, select, textarea {
+        width: 100%;
+    }
+
+    .complaint-options {
+        padding: 20px 0;
+        border-top: 1px solid $border-color;
+
+        @media(max-width: $tablet-max) {
+            padding: 10px;
+        }
+    }
+
+    .note {
+        margin-bottom: 20px;
+
+        button {
+            margin: 10px 0;
+        }
+    }
+
+    .app-stepper {
+        margin-right: 8px;
+    }
+}

@@ -1,0 +1,139 @@
+@import 'configuration.scss';
+
+.app-promotions {
+
+
+    .app-menu .nav-container {
+        @media (min-width: $tablet-max + 1) {
+            grid-template-columns: $sidebars-width calc(30% - 110px) repeat(auto-fit, minmax(245px, max-content));
+        }
+    }
+
+    .profile-container {
+        display: grid;
+        grid-template-columns: calc(30% - 50px) 70%;
+        grid-gap: 50px;
+
+        @media (max-width: $tablet-max) {
+            grid-template-columns: 100%;
+            padding: 20px;
+            grid-gap: 25px;
+        }
+    }
+
+    .box-message, .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+    }
+
+    .promotions-list-item, .app-pager {
+        grid-column: 1;
+    }
+
+    .promotion-details {
+        grid-column: 2 / -1;
+
+        @media (min-width: $tablet-max + 1) {
+            grid-row: 1 / -1 !important;
+        }
+
+        @media (max-width: $tablet-max) {
+            grid-column: 1;
+            padding-top: 15px;
+            margin-top: -25px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .emphasised {
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .header-item {
+        padding-right: 30px;
+    }
+
+
+    .promotions-list-item {
+
+        &:not(.active-item) {
+            cursor: pointer;
+        }
+    }
+
+    .active-item {
+        background: $thirdparty-color;
+    }
+
+    .ribbon {
+        margin-left: auto;
+        font-size: 1em;
+        font-weight: inherit;
+        padding: 0 10px;
+        margin: 0;
+        position: absolute;
+        top: -1px;
+        right: -10px;
+
+        &::before {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 10px 0 0;
+            border-color: shade($warning, 20%) transparent transparent transparent;
+            left: auto;
+            right: 0;
+            top: 100%;
+        }
+    }
+
+    .active-promotion-title {
+        color: $primary-color;
+    }
+
+
+
+    .show-details {
+        margin: 20px -15px -15px;
+        padding: 10px;
+        text-align: center;
+        border-top: 1px solid $thirdparty-color;
+        font-size: 0.9em;
+        color: $primary-color;
+    }
+
+
+    .app-products-table .narrow-content {
+        width: 100%;
+    }
+
+    .title {
+        font-weight: 600;
+    }
+
+    .cyclicity-info {
+        margin: 20px 0;
+
+        ul {
+            margin: 0;
+            padding-left: 25px;
+        }
+    }
+
+    .app-products-table .value-col {
+        width: 80px !important;
+    }
+
+    .knt-discount {
+        font-size: 90px;
+    }
+
+
+    .active-promotion-title, .knt-discount, .active-promotion-desc, .cyclicity-info {
+        @media (max-width: $tablet-max) {
+            padding: 0 15px;
+        }
+    }
+}

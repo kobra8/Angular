@@ -1,0 +1,19 @@
+.app-lazy-image {
+    position: relative;
+    display: inline-flex;
+    align-self: flex-start;
+
+    &.loading {
+        min-height: 65px;
+        min-width: 65px;
+    }
+
+    .app-loading, .overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 0;
+    }
+}

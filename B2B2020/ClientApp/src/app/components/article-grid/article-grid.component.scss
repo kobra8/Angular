@@ -1,0 +1,225 @@
+@import 'configuration.scss';
+
+.app-article-grid {
+    font-size: 0.9em;
+    display: block;
+
+    .converter {
+        display: block;
+    }
+
+    .tcell {
+        padding: 7px;
+    }
+
+    .tbody, .tfoot {
+
+        .tcell {
+
+            @media (max-width: $tablet-max) {
+                padding: 0;
+            }
+        }
+    }
+
+    .thead {
+
+        .tcell {
+            @media (max-width: $tablet-max) {
+                padding: 7px 0;
+            }
+        }
+
+        .trow {
+            > :not(.selected-item-col) {
+                @media (max-width: $tablet-max) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+
+    .quantity-col {
+        width: 500px;
+
+        @media (max-width: $laptop-max) {
+            width: 400px;
+        }
+
+        @media (max-width: $tablet-max) {
+            width: 80px;
+        }
+
+        &.read-only {
+            width: 150px;
+            z-index: auto;
+
+            @media (max-width: $tablet-max) {
+                display: flex;
+                flex-flow: column;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
+        }
+    }
+
+
+    .app-stepper {
+        margin-right: 8px;
+        position: relative;
+        z-index: 1;
+
+        @media (max-width: $tablet-max) {
+            margin: 0;
+        }
+    }
+
+    .image-container {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .name-col {
+        min-width: 0;
+
+        @media (max-width: $tablet-max) {
+            min-width: 85px;
+        }
+    }
+
+    .tbody {
+
+        button, .button {
+            @media (max-width: $tablet-max) {
+                padding: 0;
+                font-size: 12px;
+            }
+        }
+
+        .tcell:not(.name-col):not(.quantity-col) {
+            @media (max-width: $tablet-max) {
+                width: auto !important;
+                padding-right: 20px !important;
+            }
+        }
+
+        .trow:not(.pager-col) {
+            @media (max-width: $tablet-max) {
+                padding: 10px;
+            }
+        }
+
+        .trow.flex {
+            @media (max-width: $tablet-max) {
+                flex-wrap: wrap;
+            }
+        }
+
+        .name-col {
+            @media (max-width: $tablet-max) {
+                max-width: 170px;
+                align-self: center;
+            }
+        }
+
+        .quantity-col {
+            @media (max-width: $tablet-max) {
+                width: 100px;
+                text-align: right;
+            }
+
+            .unit {
+                @media (max-width: $tablet-max) {
+                    color: inherit
+                }
+            }
+        }
+
+
+        .product-name {
+            @media (max-width: $tablet-max) {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .tfoot {
+        position: relative;
+        overflow: hidden;
+
+        .tcell {
+            @media (max-width: $tablet-max) {
+                width: 100% !important;
+            }
+        }
+
+        .trow:not(.pager-col) {
+            @media (max-width: $tablet-max) {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+        }
+
+        .name-col span {
+            margin-right: 20px;
+        }
+    }
+
+    .name-col, .quantity-col {
+        @media (max-width: $tablet-max) {
+            /*order: -1;*/
+        }
+    }
+
+    .quantity-col, .name-col {
+        &::before {
+            content: none;
+        }
+    }
+
+    .remove-col {
+        font-size: large;
+        z-index: 1;
+        position: relative;
+        width: 60px !important;
+
+        .remove-item .ti-trash {
+            &:hover {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .selected-item-col {
+        width: 200px;
+        position: relative;
+        z-index: 1;
+
+        .select-all-items {
+            font-size: 0.8em;
+
+            & label {
+                padding: 0;
+                padding-top: 5px;
+            }
+        }
+    }
+
+    .app-pager {
+        @media (max-width: $tablet-max) {
+            position: relative;
+        }
+    }
+
+    .mobile-left-actions {
+        @media (max-width: $tablet-max) {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            padding-right: 5px;
+        }
+    }
+}

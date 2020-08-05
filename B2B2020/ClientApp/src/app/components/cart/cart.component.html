@@ -1,0 +1,761 @@
+<app-menu *ngIf="backMenuItem" [menuItems]="[backMenuItem]">
+
+    <div class="menu-item active-top cart-menu-item">
+
+        <span>
+            {{r?.translations?.selectedCart}}:
+        </span>
+
+        <app-select class="choosen-cart"
+                    name="choosenCartId"
+                    [(ngModel)]="id"
+                    (changeValue)="changeCart(id)">
+
+            <app-option *ngFor="let cartItem of cartsService?.carts | iterableToArray"
+                        [value]="cartItem[0]"
+                        [label]="cartItem[1]?.currencies[0]?.cartName || cartItem[0]">
+                {{cartItem[1]?.currencies[0]?.cartName || cartItem[0]}}
+            </app-option>
+
+        </app-select>
+
+    </div>
+
+</app-menu>
+
+<div class="cart block clear">
+
+    <div class="box-message"
+         *ngIf="cart?.products?.length === 0 ">
+
+        <i class="ti-na"></i>
+        {{r?.translations?.emptyCartsMessage}}
+
+    </div>
+
+    <div class="no-results box-message" *ngIf="message">
+        <i class="ti-na"></i>
+        <span>{{message}}</span>
+    </div>
+
+    <div class="no-results box-message" *ngIf="cart?.forbiddenOrder">
+        <i class="ti-na"></i>
+        <span>{{r?.translations?.forbiddenOrder}}</span>
+    </div>
+
+    <form #cartForm="ngForm" name="cartForm" *ngIf="cart?.products?.length > 0">
+
+        <div class="cart-from-quote-message" *ngIf="cart?.selectedDocumentId === 0">
+            <div class="box-message info" *ngIf="cart?.isCartFromQuote">
+                <i class="ti-book"></i>
+                <span>
+                    {{r?.translations?.quoteRealization}}:
+                    <a class="quote-number" [routerLink]="[menuService.routePaths.quotes, cart.headerData.fromQuote]">{{ cart.headerData.quoteNumber }}</a>
+                </span>
+            </div>
+        </div>
+
+        <div class="box-message"
+             [ngClass]="{'danger': cart?.stockLevelBehaviour === 0,
+             'warning': cart?.stockLevelBehaviour === 1}"
+             *ngIf="cart?.selectedDocumentId === 0 && cart?.stockLevelBehaviour !== 2">
+
+            <span *ngIf="cart?.stockLevelBehaviour === 0">
+                <i class="ti-na"></i>
+                {{r?.translations?.stockLockMessage}}.
+
+                <ng-container *ngIf="configService?.permissions?.hasAccessToCreateInquiries; else stockLockMessageWithoutAccessToCreateInquires">
+                    {{r?.translations?.removePositions}}, {{r?.translations?.changeQuantity?.toLowerCase()}} {{r?.translations?.or?.toLowerCase()}}
+                    <strong class="link" (click)="selectDocument(1)">{{r?.translations?.placeInquiry?.toLowerCase()}}</strong>.
+                </ng-container>
+
+                <ng-template #stockLockMessageWithoutAccessToCreateInquires>
+                    {{r?.translations?.removePositions}} {{r?.translations?.or?.toLowerCase()}} {{r?.translations?.changeQuantity?.toLowerCase()}}.
+                </ng-template>
+
+            </span>
+
+
+            <span *ngIf="cart?.stockLevelBehaviour === 1">
+                <i class="ti-alert"></i>
+                {{r?.translations?.stockErrorMessage}}.
+            </span>
+
+        </div>
+
+        <div class="box-message"
+             *ngIf="cart?.selectedDocumentId === 0 && cart?.creditLimitBehaviour !== 2"
+             [ngClass]="{'danger': cart?.creditLimitBehaviour === 0,
+                     'warning': cart?.creditLimitBehaviour === 1}">
+
+            <span *ngIf="cart?.creditLimitBehaviour === 0">
+                <i class="ti-na"></i>
+                {{r?.translations?.creditLimitLock}}.
+            </span>
+
+            <span *ngIf="cart?.creditLimitBehaviour === 1">
+                <i class="ti-alert"></i>
+                {{r?.translations?.creditLimitMessage}}.
+            </span>
+        </div>
+
+        <ng-container *ngIf="(cart?.selectedDocumentId === 0 && !cart?.isCartHeaderCorrect && cart?.headerValidationSummary) || !cart?.areCartAttributesValid">
+            <div class="box-message danger"
+                 *ngIf="cart?.headerValidationSummary?.validationType === 1
+                    || (cart?.selectedDocumentId === 0 && cart?.wasOrderAttributesChecked && !cart?.areCartAttributesValid)
+                    || (cart?.selectedDocumentId === 1 && cart?.wasInquiryAttributesChecked && !cart?.areCartAttributesValid)">
+                <span>
+                    <i class="ti-alert"></i>{{r?.translations?.setCartHeaderParameters}}
+                </span>
+            </div>
+
+            <div class="box-message danger" *ngIf="cart?.headerValidationSummary?.validationType === 2">
+                <span>
+                    <i class="ti-na"></i>
+                    {{r?.translations?.incorrectCartHeaderLockMessage}}.
+                    <ng-container>
+                        {{r?.translations?.correctCartHeaderManually}} {{r?.translations?.or?.toLowerCase()}}
+                        <strong class="link" (click)="repairCartHeader()">{{r?.translations?.setDefaultValues?.toLowerCase()}}</strong>.
+                    </ng-container>
+                </span>
+            </div>
+        </ng-container>
+
+
+        <div class="box-message danger" *ngIf="cart?.selectedDocumentId === 0 && cart?.headerValidationSummary?.quoteValidationEnum === 1">
+            <span>
+                <i class="ti-na"></i>
+                {{r?.translations?.quoteNotificationIsExpired}}
+            </span>
+        </div>
+
+        <div class="box-message danger" *ngIf="cart?.selectedDocumentId === 0 && cart?.headerValidationSummary?.quoteValidationEnum === 2">
+            <span>
+                <i class="ti-na"></i>
+                {{r?.translations?.quoteAlreadyRealized}} -
+                <strong class="link" (click)="showConfirmModal()">{{r?.translations?.removeQuote | lowercase}}</strong> {{r?.translations?.fromCart | lowercase}}
+                {{r?.translations?.or | lowercase}}
+                <strong class="link" (click)="selectDocument(1)">{{r?.translations?.placeInquiry | lowercase}}</strong>.
+            </span>
+        </div>
+
+        <div class="outdatedProductsBlock" *ngIf="cart?.selectedDocumentId === 0 && cart?.outdatedProductsSummary">
+            <div class="box-message outdated">
+                <div>
+                    <span>
+                        <i class="ti-alert"></i>
+                        {{r?.translations?.outdatedCartProductsLockMessage}}. {{r?.translations?.details}}:
+                    </span>
+                </div>
+                <div class="legend-container">
+                    <ul class="legend-rows">
+                        <li class="legend-row" *ngIf="cart?.outdatedProductsSummary?.isAnyNotAllowed || cart?.outdatedProductsSummary?.haveAnyInvalidUnit">
+                            <span class="label outdatedProduct"></span>
+                            <span class="description">
+                                - {{r?.translations?.notAvailableProduct}} {{r?.translations?.or | lowercase}} {{r?.translations?.incorrectUnits | lowercase}}.
+                                <a class="link" (click)="showRemoveUnavailableItemsModal()">{{r?.translations?.seeAndRemoveAll}}</a>
+                            </span>
+                        </li>
+                        <li class="legend-row" *ngIf="cart?.outdatedProductsSummary?.haveAnyOutDatedPrice">
+                            <span class="label outdatedPrice"></span>
+                            <span class="description">
+                                - {{r?.translations?.outdatedPrices}}.
+                            </span>
+                            <a class="link" (click)="recalculatePrices()">{{r?.translations?.convertPrices}}</a>.
+                        </li>
+                        <li class="legend-row" *ngIf="cart?.outdatedProductsSummary?.haveAnyIncorrectQuantity">
+                            <span class="label incorrectQuantity"></span>
+                            <span class="description">
+                                - {{r?.translations?.incorrectQuantity}}.
+                            </span>
+                            <a class="link" (click)="repairQuantities()">{{r?.translations?.setDefaultValues}}</a>.
+                        </li>
+                        <li class="legend-row" *ngIf="cart?.outdatedProductsSummary?.haveAnyExceededStates">
+                            <span class="label exceededStates"></span>
+                            <span class="description">
+                                - {{r?.translations?.exceededStockStates}}. {{r?.translations?.removePositions}} {{r?.translations?.or | lowercase}} {{r?.translations?.changeQuantity | lowercase}}.
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="documents narrow-content tabs clear" *ngIf="configService?.permissions?.hasAccessToCreateInquiries">
+
+            <button [disabled]="cart?.selectedDocumentId === 0"
+                    (click)="selectDocument(0)">
+
+                <i class="ti-bag"></i>
+                <span>{{r?.translations?.sO}}</span>
+            </button>
+
+            <button [disabled]="cart?.selectedDocumentId === 1"
+                    (click)="selectDocument(1)">
+
+                <i class="ti-pin-alt"></i>
+                <span>{{r?.translations?.sI}}</span>
+            </button>
+
+        </div>
+
+        <app-products-table *ngIf="productTableConfig"
+                            [disabled]="!configService?.isOnline"
+                            [products]="cart.products"
+                            [summaries]="cart.cartProductsSummaries"
+                            [columns]="cart.columns"
+                            [config]="productTableConfig"
+                            [isStepper]="true"
+                            [pagination]="cart.pagination"
+                            [weight]="cart.weight"
+                            (changePage)="changePage($event);"
+                            (removeItem)="removeCartItem($event);"
+                            (changeQuantity)="changeItemQuantity($event)"
+                            (updateItemDescription)="updateItemDescription($event)">
+        </app-products-table>
+
+
+        <div class="cart-options" *ngIf="cart?.headerData">
+
+            <div class="narrow-content">
+
+                <div class="gr-larger f-left immediately-required-form">
+
+                    <div class="f-left delivery half">
+
+                        <label class="subsection-title" for="sourceNumber">{{r?.translations?.myNumber}}</label>
+                        <div class="header-field-value">
+                            <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isSourceNumberSaving"></app-loading>
+                            <input name="sourceNumber"
+                                   id="sourceNumber"
+                                   type="text"
+                                   [disabled]="!configService?.isOnline"
+                                   [maxlength]="configService?.config?.numberOfAllowedSignsOnCartOwnNumber || 40"
+                                   [(ngModel)]="cart.headerData.sourceNumber"
+                                   (input)="updateDetailTextField(0)" />
+                        </div>
+                    </div>
+
+                    <div class="order-part" *ngIf="cart?.selectedDocumentId === 0 && (!collapsedOptions || configService.isMobile)">
+
+                        <div *ngIf="configService?.applicationId === 0" class="f-left complection half">
+
+                            <h3 class="subsection-title">
+                                {{r?.translations?.completion}}<i class="required mark"></i>
+                            </h3>
+                            <div class="header-field-value">
+                                <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isRealizationSaving"></app-loading>
+                                <app-select name="completionEntirely"
+                                            [isValid]="!cart?.headerValidationSummary || cart?.headerValidationSummary?.isCompletionEntirelyValid"
+                                            required
+                                            [disabled]="configService?.config?.onlyEntirelyCompletion || !cart.headerPermissions.hasAccessToChangeCompletionEntirely || !configService?.isOnline"
+                                            [(ngModel)]="cart.headerData.completionEntirely"
+                                            (changeValue)="selectComplection();">
+                                    <app-option [value]="0">{{r?.translations?.partialCompletion}}</app-option>
+                                    <app-option [value]="1">{{r?.translations?.entireCompletion}}</app-option>
+                                </app-select>
+                            </div>
+                        </div>
+
+                        <div class="f-left delivery half" [ngClass]="{'clear': configService?.applicationId === 1}">
+
+                            <h3 class="subsection-title">{{r?.translations?.delivery}}</h3>
+
+                            <div class="box">
+
+                                <div class="delivery-method" *ngIf="cart.headerPermissions.hasAccessToShowDeliveryMethod">
+
+                                    <label class="pair-key">{{r?.translations?.shippingMethod}}</label>
+
+                                    <div class="header-field-value">
+                                        <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isDeliveryMethodSaving"></app-loading>
+                                        <app-select name="deliveryMethodId"
+                                                    [isValid]="!cart?.headerValidationSummary || cart?.headerValidationSummary?.isDeliveryMethodValid"
+                                                    [(ngModel)]="cart.headerData.deliveryMethod"
+                                                    [disabled]="!cart.headerPermissions.hasAccessToChangeDeliveryMethod || !configService?.isOnline"
+                                                    (changeValue)="selectDelivery()"
+                                                    (open)="cart.loadDeliveryMethodsIfRequired()">
+
+                                            <app-loading class="small" *ngIf="!cart.deliveryLoaded"></app-loading>
+
+                                            <app-option *ngFor="let item of cart.deliveryMethods"
+                                                        [value]="item.name">
+                                                {{item.translationName}}
+                                            </app-option>
+                                        </app-select>
+                                    </div>
+                                </div>
+
+                                <div [ngClass]="{'expected-date': cart.headerPermissions.hasAccessToShowDeliveryMethod}">
+
+                                    <label class="pair-key" for="expectedDate">
+                                        {{r?.translations?.expectedDate}}<i class="required mark"></i>
+                                    </label>
+
+                                    <div class="ff-date-fix header-field-value">
+                                        <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isRealizationDateSaving"></app-loading>
+                                        <input [ngClass]="{'invalid-field': cart?.headerValidationSummary && !cart?.headerValidationSummary?.isRealizationDateValid}"
+                                               name="receiptDate"
+                                               id="expectedDate"
+                                               required
+                                               #receiptDate
+                                               type="date"
+                                               [ngModel]="cart.headerData.receiptDate | date: 'yyyy-MM-dd'"
+                                               (ngModelChange)="datesInputGuardian($event, 'receiptDate')"
+                                               (change)="updateDetailDateField(3)"
+                                               [disabled]="!cart.headerPermissions.hasAccessToChangeRealizationTime || !configService?.isOnline" />
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="f-left half payment">
+
+                            <h3 class="subsection-title">{{r?.translations?.payment}}</h3>
+
+                            <div class="box">
+
+
+                                <div class="payment-form">
+
+                                    <label class="pair-key">{{r?.translations?.paymentForm}}<i class="required mark"></i></label>
+
+                                    <div class="header-field-value">
+                                        <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isPaymentFormSaving"></app-loading>
+                                        <app-select name="paymentFormId"
+                                                    [isValid]="!cart?.headerValidationSummary || cart?.headerValidationSummary?.isPaymentFormValid"
+                                                    required
+                                                    [(ngModel)]="cart.headerData.paymentFormId"
+                                                    [disabled]="!cart.headerPermissions.hasAccessToChangePaymentForm || !configService?.isOnline"
+                                                    (changeValue)="selectPayment()"
+                                                    (open)="cart.loadPaymentFormsIfRequired()">
+
+                                            <app-loading class="small" *ngIf="!cart.paymentsLoaded"></app-loading>
+
+                                            <app-option *ngFor="let item of cart.paymentForms"
+                                                        [value]="item.id">
+                                                {{item.name}}
+                                            </app-option>
+                                        </app-select>
+                                    </div>
+                                </div>
+
+                                <div class="due-date">
+                                    <label class="pair-key" for="dueDate">{{r?.translations?.dueDate}}<i class="required mark"></i></label>
+
+                                    <div class="ff-date-fix header-field-value">
+                                        <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isPaymentDateSaving"></app-loading>
+                                        <input [ngClass]="{'invalid-field': cart?.headerValidationSummary && !cart?.headerValidationSummary?.isPaymentDateValid}"
+                                               name="dueDate"
+                                               id="dueDate"
+                                               required
+                                               #dueDate
+                                               type="date"
+                                               [ngModel]="cart.headerData.dueDate | date: 'yyyy-MM-dd'"
+                                               (ngModelChange)="datesInputGuardian($event, 'dueDate')"
+                                               (change)="updateDetailDateField(7)"
+                                               [disabled]="!cart.headerPermissions.hasAccessToChangePaymentDate || !configService?.isOnline" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="f-left address-section half">
+
+                            <div class="address-section__header">
+                                <h3 class="address__heading">
+                                    {{r?.translations?.shippingAddress}}
+                                    <i class="required mark"></i>
+                                </h3>
+
+                                <app-address-form class="address__link"
+                                                  *ngIf="configService?.permissions?.hasAccessToAddTempShippingAddress
+                                                  || configService?.permissions?.hasAccessToAddPermShippingAddress"
+                                                  [formMode]="addressFormInputData.formMode"
+                                                  [isOpen]="addressFormInputData.isOpen"
+                                                  [editFormData]="addressFormInputData.editModelData"
+                                                  (open)="onOpenAddressForm()"
+                                                  (close)="onCloseAddressForm()"
+                                                  (save)="onSubmitShippingAddress($event)">
+                                </app-address-form>
+                            </div>
+
+                            <div class="header-field-value">
+                                <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isAddressSaving"></app-loading>
+                                <app-select name="shippingAddress"
+                                            [isValid]="!cart?.headerValidationSummary || cart?.headerValidationSummary?.isAddressValid"
+                                            required
+                                            [(ngModel)]="cart.headerData.addressId"
+                                            [disabled]="!configService?.isOnline"
+                                            (changeValue)="selectShippingAddress()"
+                                            (open)="cart.loadShippingAddressesIfRequired()"
+                                            (editLinkClicked)="onClickEditAddress(cart.headerData.addressId)">
+
+                                    <app-loading class="small" *ngIf="!cart.adressesLoaded"></app-loading>
+
+                                    <ng-container *ngIf="configService?.applicationId === 0; else shippingAddressAltum">
+
+                                        <app-option *ngFor="let item of cart.shippingAddressesXl"
+                                                    [value]="item.addressId"
+                                                    label="{{item.street}}, {{item.zipCode}} {{item.city}}"
+                                                    [hasEditLink]="item.isPossibleToEdit">
+                                            <div class="address">
+                                                <div class="address__main">
+                                                    <div>
+                                                        <span class="address__row">
+                                                            <strong>{{item.companyName}}<ng-container *ngIf="item.nameAndLastName">, {{item.nameAndLastName}}</ng-container>
+                                                            </strong>
+                                                        </span>
+                                                        <span class="address__row">{{item.street}}</span>
+                                                        <span class="address__row">{{item.zipCode}} {{item.city}}, {{item.country?.name}}</span>
+                                                    </div>
+
+                                                    <div>
+                                                        <div *ngIf="item.isPossibleToEdit" class="address__link inside-text-link" (click)="onClickEditAddress(item.addressId)">
+                                                            <span class="icon ti-pencil-alt"></span>
+                                                            <span>{{r?.translations?.edit}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="address__row address__row--contact">
+                                                    <span>{{item.phoneNumber}}</span>
+                                                    <span>{{item.email}}</span>
+                                                </div>
+
+                                            </div>
+
+                                        </app-option>
+
+                                    </ng-container>
+                                    <ng-template #shippingAddressAltum>
+                                        <app-option *ngFor="let item of cart.shippingAddresses" [value]="item.id">{{item.name}}</app-option>
+                                    </ng-template>
+
+
+                                </app-select>
+                                <app-status [status]="addressFormStatus?.status"
+                                            [ngSwitch]="addressFormStatus?.saveAddressStatus">
+
+                                    <div class="address__status address__status--success" *ngSwitchCase="0">
+                                        <i class="icon ti-check"></i>
+                                        <span>{{r?.translations?.newAddressAdded}}</span>
+                                    </div>
+
+                                    <div class="address__status address__status--success" *ngSwitchCase="1">
+                                        <i class="icon ti-check"></i>
+                                        <span>{{r?.translations?.addressUpdated}}</span>
+                                    </div>
+
+                                    <div class="address__status address__status--failed" *ngSwitchCase="2">
+                                        <i class="icon ti-alert"></i>
+                                        <span>{{r?.translations?.addingAddressFailed}}. {{r?.translations?.contactWithSeller}}.</span>
+                                    </div>  
+
+                                    <div class="address__status address__status--failed" *ngSwitchCase="3">
+                                        <i class="icon ti-alert"></i>
+                                        <span>{{r?.translations?.updatingAddressFailed}}. {{r?.translations?.contactWithSeller}}.</span>
+                                    </div>
+                                </app-status>
+                            </div>
+                        </div>
+
+
+                        <ng-container *ngIf="cart.headerPermissions.hasAccessToChangeWarehouse">
+                            <div class="f-left warehouses half">
+
+                                <h3 class="subsection-title">{{r?.translations?.warehouse}}<i class="required mark"></i></h3>
+                                <div class="header-field-value">
+                                    <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isWarehouseSaving"></app-loading>
+                                    <app-select name="warehouseId"
+                                                [isValid]="!cart?.headerValidationSummary || cart?.headerValidationSummary?.isWarehouseValid"
+                                                required
+                                                [(ngModel)]="cart.headerData.warehouseId"
+                                                [disabled]="!cart.headerPermissions.hasAccessToChangeWarehouse || !configService?.isOnline"
+                                                (changeValue)="selectWarehouse()"
+                                                (open)="cart.loadWarehousesIfRequired()">
+
+                                        <app-loading class="small" *ngIf="!cart.warehousesLoaded"></app-loading>
+
+                                        <app-option [value]="0" *ngIf="cart.warehousesLoaded">{{r?.translations?.allWarehouse}}</app-option>
+                                        <app-option *ngFor="let item of cart.warehouses" [value]="item.id">{{item.name}}</app-option>
+
+                                    </app-select>
+                                </div>
+                            </div>
+
+                        </ng-container>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="gr-smaller f-right">
+
+                    <div class="note inner-clear" role="form" [attr.aria-label]="r?.translations?.note">
+
+
+
+                        <button id="toggleNote"
+                                class="pure f-left"
+                                [disabled]="!configService.isOnline"
+                                aria-controls="noteForm"
+                                [attr.aria-expanded]="noteFormDisplay"
+                                [attr.aria-describedby]="cart.headerData.description !== undefined && cart.headerData.description !== '' && !noteFormDisplay
+                                                             ? 'appliedNote' : null"
+                                (click)="changeNoteDisplay()">
+
+                            <ng-container *ngIf="!noteFormDisplay">
+
+                                <span *ngIf="cart.headerData.description === null || cart.headerData.description === ''">
+                                    <i class="ti-notepad"></i> {{r?.translations?.addNote}}
+                                </span>
+                                <span *ngIf="cart.headerData.description !== null && cart.headerData.description !== ''">
+                                    <i class="ti-pencil"></i> {{r?.translations?.editNote}}
+                                </span>
+
+                            </ng-container>
+
+                            <span *ngIf="noteFormDisplay">
+                                <i class="ti-notepad"></i> {{r?.translations?.collapseNote}}
+                            </span>
+
+                        </button>
+
+
+
+                        <div id="noteForm" *ngIf="noteFormDisplay">
+                            <div class="header-field-value">
+                                <app-loading class="small" *ngIf="cart?.headerSavingSummary?.isDescriptionSaving"></app-loading>
+                                <textarea name="note"
+                                          class="clear"
+                                          [disabled]="!configService.isOnline"
+                                          [attr.aria-label]="r?.translations?.note"
+                                          aria-describedby="noteMaxLengthTip"
+                                          [maxlength]="2000"
+                                          [(ngModel)]="cart.headerData.description"
+                                          (input)="updateDetailTextField(1)">
+                            </textarea>
+                            </div>
+
+                            <small class="remaining-chars pair-key" id="noteMaxLengthTip">
+                                {{r?.translations?.charactersLeft | format: (2000 - cart?.headerData?.description?.length)}}.
+                            </small>
+
+                        </div>
+
+
+                        <div class="note-added clear"
+                             id="appliedNote"
+                             *ngIf="cart.headerData.description !== undefined && cart.headerData.description !== '' && !noteFormDisplay"
+                             role="region"
+                             [attr.aria-label]="r?.translations?.appliedNote">
+
+                            {{cart.headerData.description}}
+                        </div>
+
+                    </div>
+
+
+                    <div ngModelGroup="attributesForm"
+                         class="box attributes-form immediately-required-form"
+                         *ngIf="cart?.attributes && cart?.attributes?.length > 0">
+
+                        <div class="cart-attributes" *ngFor="let i of keys(cart.attributes)">
+
+                            <div [ngSwitch]="cart.attributes[i].type">
+
+                                <div class="app-floating-label-input full" *ngSwitchCase="'1'">
+
+                                    <label class="floating-label pair-key top">
+                                        {{cart.attributes[i].traslateName}}
+                                        <i class="required mark" *ngIf="cart.attributes[i].required"></i>
+                                    </label>
+
+
+                                    <app-select name="{{cart.attributes[i].name}}"
+                                                [(ngModel)]="cart.attributes[i].value"
+                                                [disabled]="!configService?.isOnline"
+                                                [ngClass]="{'invalid-cart': cart.attributes[i].required && !cart?.isValid}"
+                                                [required]="cart.attributes[i].required"
+                                                (changeValue)="updateHeaderAttribute(i)">
+
+                                        <app-option [value]="'1'">{{r?.translations?.trueString}}</app-option>
+                                        <app-option [value]="'0'">{{r?.translations?.falseString}}</app-option>
+
+                                    </app-select>
+
+
+                                </div>
+
+                                <div *ngSwitchCase="'2'">
+
+                                    <app-floating-label-input name="{{cart.attributes[i].name}}"
+                                                              [(ngModel)]="cart.attributes[i].value"
+                                                              class="full"
+                                                              [ngClass]="{'invalid-cart': cart.attributes[i].required && !cart?.isValid}"
+                                                              type="text"
+                                                              [maxlength]="100"
+                                                              [disabled]="!configService?.isOnline"
+                                                              [required]="cart.attributes[i].required"
+                                                              (inputChanged)="updateHeaderAttribute(i)">
+
+                                        {{cart.attributes[i].traslateName}}
+
+                                    </app-floating-label-input>
+
+                                </div>
+
+                                <div class="app-floating-label-input full" *ngSwitchCase="'3'">
+
+                                    <label class="floating-label pair-key top">
+                                        {{cart.attributes[i].traslateName}} <i class="required mark" *ngIf="cart.attributes[i].required"></i>
+                                    </label>
+
+                                    <app-stepper [name]="cart.attributes[i].name"
+                                                 [disabled]="!configService?.isOnline"
+                                                 [ngModel]="cart.attributes[i].value"
+                                                 [ngClass]="{'invalid-cart': cart.attributes[i].required && !cart?.isValid}"
+                                                 [required]="cart.attributes[i].required"
+                                                 [min]="0"
+                                                 (changeValue)="updateHeaderAttribute(i, $event)">
+                                    </app-stepper>
+                                </div>
+                            </div>
+                        </div>
+
+                        <small class="clear block legend"><i class="required mark"></i> {{r?.translations?.requiredFields}}</small>
+
+                    </div>
+
+                    <div *ngIf="(!collapsedOptions || configService.isMobile) && configService?.permissions?.hasAccessToPriceList && cart?.selectedDocumentId === 0" class="box summary">
+
+                        <div [ngClass]="{'many': cart?.cartProductsSummaries?.length > 1}" *ngFor="let summary of cart?.cartProductsSummaries">
+
+                            <span class="currency-label block" *ngIf="cart?.cartProductsSummaries?.length > 1">{{summary?.currency}}</span>
+
+                            <div class="inner-clear">
+                                <span class="f-left pair-key">{{r?.translations?.subtotalOrderValue}}:</span>
+                                <span class="f-right net">{{summary.netAmount}} {{summary.currency}}</span>
+                            </div>
+
+                            <div class="inner-clear">
+                                <span class="f-left pair-key">{{r?.translations?.totalOrderValue}}:</span>
+                                <span class="f-right">{{summary.grossAmount}} {{summary.currency}}</span>
+                            </div>
+
+                            <div class="inner-clear">
+                                <span class="f-left pair-key">{{r?.translations?.vatValue}}:</span>
+                                <span class="f-right">{{summary.vatValue}} {{summary.currency}}</span>
+                            </div>
+
+                        </div>
+
+                        <div class="delivery-cost" *ngIf="cart?.delivery">
+                            <span class="currency-label block"></span>
+
+                            <div class="inner-clear">
+                                <span class="f-left pair-key">{{r?.translations?.deliveryCost}} {{r?.translations?.netHeader.toLowerCase()}}:</span>
+                                <span class="f-right net">{{cart?.delivery?.netAmount}} {{cart?.delivery?.currency}}</span>
+                            </div>
+
+                            <div class="inner-clear">
+                                <span class="f-left pair-key">{{r?.translations?.deliveryCost}} {{r?.translations?.grossHeader.toLowerCase()}}:</span>
+                                <span class="f-right">{{cart?.delivery?.grossAmount}} {{cart?.delivery?.currency}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-bottom-bar expanded">
+
+            <div class="narrow-content" *ngIf="cart?.selectedDocumentId === 0">
+
+                <div class="to-pay box f-right gr-smaller"
+                     *ngIf="cart?.summaries && configService?.permissions?.hasAccessToPriceList">
+
+                    <div *ngIf="cart?.summaries && cart.summaries[0].grossAmount">
+                        <div class="inner-clear" *ngFor="let summary of cart?.summaries">
+                            <span class="f-left" *ngIf="summary.currency === cart.summaries[0].currency">{{r?.translations?.totalToPay}}:</span>
+                            <span class="f-right">{{summary.grossAmount}} {{summary.currency}}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <div class="narrow-content inner-clear">
+
+                    <button class="add-order gr-smaller f-right"
+                            [disabled]="savingData || !configService?.isOnline || !cart?.isValid"
+                            (click)="addDocument()">
+
+                        <ng-container *ngIf="savingData">
+                            {{r?.translations?.saving}}
+                        </ng-container>
+
+                        <ng-container *ngIf="!savingData">
+                            {{cart?.selectedDocumentId ? r?.translations?.placeInquiry : r?.translations?.placeOrder}}
+                        </ng-container>
+
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <app-modal class="confirm-remove-modal"
+               [isOpened]="removeConfirmModal.visibility"
+               [autoClose]="false"
+               (close)="closeModal()">
+
+        <p>{{r?.translations?.removeQuoteDialogMessage}} {{r?.translations?.fromCart | lowercase}}: <strong>{{removeConfirmModal?.cart?.cartName || removeConfirmModal?.cart?.cartId}}</strong></p>
+
+        <button (click)="cartsService.removeCart(removeConfirmModal.cart.cartId); closeModal();">{{r?.translations?.dialogYes}}</button>
+        <button class="pure" (click)="closeModal()">{{r?.translations?.dialogNo}}</button>
+
+    </app-modal>
+
+
+    <app-modal class="remove-unavailable-items-modal"
+               [isOpened]="removeUnavailableItemsModal.visibility"
+               [autoClose]="false"
+               (close)="closeRemoveUnavailableItemsModal()">
+
+        <div class="header">
+            <div class="header-icon">
+                <i class="ti-trash"></i>
+            </div>
+            <div class="header-text">{{r?.translations?.removeAllUnavailableArticles}}</div>
+            <div></div>
+        </div>
+
+        <div class="body">
+            <app-article-grid [items]="unavailableCartItems"
+                              [config]="unavailableCartItemsConfig">
+            </app-article-grid>
+        </div>
+        <div class="footer sticky-mobile-bottom">
+            <div class="summary">
+                {{r?.translations?.packageArticlesCount}}: {{unavailableCartItems?.length}}
+            </div>
+            <button class="remove-all" (click)="removeAllUnavailableCartItems()">
+                <i class="ti-trash"></i>{{r?.translations?.removeAll}}
+            </button>
+        </div>
+    </app-modal>
+</div>

@@ -1,0 +1,42 @@
+<div class="flex"
+     [ngClass]="{'disabled': disabled,
+                'app-floating-label-input': labelVisible || label
+     }"
+     role="group"
+     [attr.aria-label]="ariaControlLabel || label || r?.translations?.productsQuantity">
+
+    <label class="top" *ngIf="labelVisible || label">
+        {{label || ariaControlLabel || r?.translations?.productsQuantity}}
+    </label>
+
+    <input type="tel"
+           autocomplete="off"
+           #input
+           [attr.aria-label]="ariaInputLabel || label || ariaControlLabel || r?.translations?.productsQuantity"
+           name="{{name}}"
+           [disabled]="disabled"
+           [value]="value"
+           [min]="min"
+           [max]="max"
+           (focus)="selectAll()"
+           (blur)="fixDisplayedDecimalPlaces(); updateNativeControl()"
+           (input)="properChange($event.target.value)"
+           (keydown.delete)="handleDelete($event)"
+           (keydown.backspace)="handleDelete($event)"
+           (keydown.,)="handleSeparator($event)"
+           (keydown.dot)="handleSeparator($event)"
+           [required]="required" />
+
+    <button class="increase ti-plus secondary"
+            [attr.aria-label]="ariaIncreaseLabel || r?.translations?.increaseProducts"
+            type="button"
+            [disabled]="disabled || valueNumeric >= max"
+            (click)="increase()"></button>
+
+    <button class="decrease ti-minus secondary"
+            type="button"
+            [attr.aria-label]="ariaDecreaseLabel || r?.translations?.decreaseProducts"
+            [disabled]="disabled || valueNumeric <= min"
+            (click)="decrease()"></button>
+
+</div>

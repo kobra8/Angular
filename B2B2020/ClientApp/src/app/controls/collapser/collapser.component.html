@@ -1,0 +1,14 @@
+
+<button class="trigger-wrapper"
+        (click)="changeDisplay()"
+        *ngIf="whenCollapsing">
+
+    <ng-content select="trigger"></ng-content>
+</button>
+
+
+<div *ngIf="isOpen"
+     class="content-container">
+    <ng-content select="collapsing"></ng-content>
+</div>
+

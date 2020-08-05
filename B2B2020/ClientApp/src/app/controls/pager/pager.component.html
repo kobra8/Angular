@@ -1,0 +1,27 @@
+<div class="pagination" role="group" [attr.aria-label]="r?.translations?.pagination">
+
+    <button [disabled]="!isPrevPage"
+            [attr.aria-label]="r?.translations?.previousPage"
+            class="back-button secondary"
+            (click)="onPrev()">
+        <i class="ti-angle-left"></i>
+    </button>
+
+    <input type="tel"
+           #pageInput
+           min="1"
+           max="{{totalPages}}"
+           (focus)="selectAllInputChars()"
+           (input)="handleChange($event.target.value)"/>
+
+    <span class="page-number" [attr.aria-label]="r?.translations?.paginationPage">
+        {{r?.translations?.ofSomeCount | format: totalPages}}
+    </span>
+
+    <button [disabled]="!isNextPage"
+            [attr.aria-label]="r?.translations?.nextPage"
+            class="next-button secondary"
+            (click)="onNext();">
+        <i class="ti-angle-right"></i>
+    </button>
+</div>

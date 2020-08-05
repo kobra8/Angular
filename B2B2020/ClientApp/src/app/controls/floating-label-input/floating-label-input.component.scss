@@ -1,0 +1,75 @@
+@import 'configuration.scss';
+
+.app-floating-label-input {
+    input {
+        width: 100%;
+    }
+
+    .floating-label {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition-property: transform, top, font-size, opacity;
+        transition-duration: $little-transitions-time;
+    }
+}
+
+.single-autocomplete {
+    max-height: 350px !important;
+
+    .overlay {
+        position: absolute;
+    }
+}
+
+.mat-option-container {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid $border-color;
+
+    .image-container {
+        width: 50px;
+        height: 50px;
+
+        @media (max-width: $tablet-max) {
+            width: 45px;
+            height: 45px;
+        }
+
+        .no-photo {
+            font-size: 50px;
+
+            @media (max-width: $tablet-max) {
+                font-size: 45px;
+            }
+        }
+    }
+
+    .text {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        margin-left: 10px;
+        white-space: normal;
+
+        @media (max-width: $tablet-max) {
+            font-size: 0.9em;
+        }
+    }
+}
+
+.mat-option-not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 0.9em;
+    color: $content-fcolor;
+    white-space: normal;
+
+    .ti-na {
+        font-size: 1.3em;
+        margin-right: 5px;
+    }
+}

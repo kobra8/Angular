@@ -1,0 +1,22 @@
+@import 'configuration.scss';
+
+.app-option, .app-select .app-option {
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    white-space: nowrap;
+    padding: 0 10px;
+    transition: box-shadow $little-transitions-time;
+
+    &:not(:focus) {
+        @media (min-width: #{$tablet-max + 1px}) {
+            border-top: 0;
+        }
+    }
+
+    @media (max-width: $tablet-max) {
+        line-height: 60px;
+        height: 60px;
+    }
+}

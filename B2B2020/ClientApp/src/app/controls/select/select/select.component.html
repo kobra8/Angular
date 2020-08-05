@@ -1,0 +1,47 @@
+<button class="value flex align-items-center"
+        [ngClass]="{'invalid-field': !isValid}"
+        tabindex="0"
+        type="button"
+        #trigger
+        [id]="name + '-select'"
+        [attr.aria-controls]="name + '-options'"
+        aria-haspopup="listbox"
+        [attr.aria-expanded]="isOpened"
+        [attr.aria-disabled]="disabled">
+
+    <span class="covering-link" (click)="changeVisibility()"></span>
+
+    <ng-container *ngIf="showEditLink; else onlyLabel">
+        <div class="label-wrapper">
+            <span class="ti-pencil-alt inside-icon-link" (click)="onClickEditLink()"></span>
+            <span>
+                {{label || initialLabel}}
+            </span>
+        </div>
+    </ng-container>
+    <ng-template #onlyLabel>
+        <span>
+            {{label || initialLabel}}
+        </span>
+    </ng-template>
+    <i class="ti-angle-down" aria-hidden="true"></i>
+</button>
+
+<div class="outside" *ngIf="isOpened && !disabled" (click)="changeVisibility(false)" aria-hidden="true"></div>
+
+
+<div class="options flex"
+     #optionsContainer
+     [hidden]="!isOpened"
+     (click)="changeVisibility(false)">
+
+    <div class="centering-wrapper mauto pure"
+        [id]="name + '-options'"
+        role="listbox"
+        [attr.aria-activedescendant]="activeDescendantId"
+        [attr.aria-label]="ariaLabel">
+        <ng-content></ng-content>
+    </div>
+</div>
+
+
