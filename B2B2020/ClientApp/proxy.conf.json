@@ -1,34 +1,34 @@
 {
     "/api/*": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/imagehandler.ashx": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/printhandler.ashx": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/filehandler.ashx": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/ClientApp/**": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
@@ -36,42 +36,42 @@
 
 
     "/*.json": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/ngsw-worker.js": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/account/*": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/remindpassword/*": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/languages/*": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
 
     "/resources": {
-        "target": "http://localhost:9999/",
+        "target": "https://b2b2020.bruk-bet.pl/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

@@ -127,16 +127,20 @@
 
                         <app-checkbox name="rememberMe" ngModel>{{r?.translations?.rememberMe}}</app-checkbox>
 
-                        <app-checkbox *ngIf="accountService.isLoginConfirmationRequired"
+                        <app-checkbox class="confirmation-label" *ngIf="accountService.isLoginConfirmationRequired"
                                       name="LoginConfirmation"
                                       [required]="true"
                                       ngModel>
                             <span class="vmiddle" [innerHTML]="loginConfirmationHtml"></span>
                         </app-checkbox>
 
-                        <small class="validation-error danger"
-                               *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
-                            {{r?.translations?.checkOrRadioRequired}}
+                          <small class="validation-error danger"
+                        *ngIf="triedToSendInvalid && accountForm?.controls?.LoginConfirmation?.invalid">
+                        {{r?.translations?.checkOrRadioRequired}}
+                        </small>
+                        <!-- JD -->
+                        <small class="doc-link">
+                            <a href="ClientApp/assets/B2B_BrukBet_Polityka prywatnosci.pdf" target="_blank">Pobierz dokument</a>
                         </small>
 
                     </ng-container>
@@ -165,8 +169,8 @@
                         </small>
 
                     </ng-container>
-
-                    <button class="action primary-action"
+                    <!-- JD -->
+                    <button class="action primary-action login-btn" 
                             [ngSwitch]="viewType"
                             *ngIf="accountService?.isLoginConfirmationRequired !== undefined || viewType !== 0">
                         <ng-container *ngSwitchCase="0">{{r?.translations?.signIn}}</ng-container>
@@ -191,11 +195,14 @@
 <div class="app-slider inner-clear tns-outer">
 
     <div class="slide">
-        <img src="ClientApp/assets/images/slider/slide1.png" alt="{{r?.translations?.productName}}">
+        <!-- JD -->
+        <img class="login-slider" src="ClientApp/assets/images/slider/login_slide.jpg" alt="{{r?.translations?.b2BSalesPlatform}}">
 
         <div class="caption">
-            <p class="title">{{r?.translations?.productName}}</p>
-            <p class="desc">{{r?.translations?.b2BSalesPlatform}}</p>
+            <!-- JD -->
+            <!-- <p class="title">{{r?.translations?.productName}}</p> -->
+            <p class="title">{{r?.translations?.b2BSalesPlatform}}</p>
+            <!-- <p class="desc">{{r?.translations?.b2BSalesPlatform}}</p> -->
         </div>
     </div>
 

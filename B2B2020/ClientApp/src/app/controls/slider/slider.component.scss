@@ -13,6 +13,7 @@
     background-size: 27px 44px;
     background-position: center;
     background-repeat: no-repeat;
+    color: $sliders-title-font!important; // JD
 }
 
 .fake-swiper-button-next, .swiper-button-next, .swiper-container-rtl .swiper-button-prev, .swiper-container-rtl .fake-swiper-button-prev {
@@ -96,6 +97,7 @@
         bottom: 0;
         height: 100%;
         margin-top: 0;
+        margin-right: 8px; // JD
     }
 
     .swiper-pagination-bullets {

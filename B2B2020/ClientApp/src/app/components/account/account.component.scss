@@ -19,7 +19,11 @@
 
         .nav-container {
             grid-template-columns: $sidebars-width;
-            margin-left: $sidebars-width;
+            margin-left: $sidebars-width - 20px; // JD
+
+            @media (max-width: $desktop-max) { // JD
+                margin-left: 133px;
+            }
 
             @media (max-width: $tablet-max) {
                 grid-template-columns: 100%;
@@ -130,6 +134,16 @@
         .primary-action {
             min-height: 40px;
             margin-top: 25px;
+            // JD
+            &.login-btn{
+              font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+              color: #F5B718;
+              &:hover {
+                  color: $primary-color;
+                  background: #C0C0C0;
+                  border-color: #C0C0C0;
+                }
+            }
         }
 
         .validation-error {
@@ -153,15 +167,39 @@
         min-height: 650px;
 
         .caption {
-            color: #FFF;
+            top: 405px; // JD
+            color: #f5b718; // JD
             left: $sidebars-width*2 + 5px;
+
+            .title { // JD
+                background: #203864;
+                padding: 0 20px;
+            }
+            @media (max-width: $desktop-max) {
+                top: 416px;
+                left: 500px;
+            }
         }
 
+        img.login-slider { // JD
+            display: block;
+            margin: 0 auto;
+        }
 
         @media (max-width: $tablet-max) {
             display: none !important;
         }
     }
+
+    .confirmation-label { //JD
+        margin-bottom: 0!important;
+    }
+    .doc-link { // JD
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0 5px 15px 0;
+    }
+    
 }
 
 
