@@ -1,0 +1,84 @@
+<!-- JD -->
+<app-menu [groupsAsDrop]="true" [initialGroupId]="0"></app-menu>
+
+    <div class="contact-container">
+
+            <img src="ClientApp/assets/images/banner_contact.png">
+
+
+        <div class="flex flex-equalize space-between margin-fix my-data">
+
+
+            <div class="f-left box left">
+
+                <p class="label bold title no-margin">BRUK-BET<sup>®</sup> Sp. z o.o.</p>
+
+                <p>Nieciecza 199, 33-240 Żabno</p>
+
+                <p class="small"><b>NIP</b>: 517-020-05-80</p>
+                <p class="small"><b>REGON</b>: 180188969</p>
+                <p class="small"><b>KRS</b>: 0000270323</p>
+
+                <p class="small">Sąd Rejonowy w Krakowie XII Wydział Gospodarczy,<br>
+                    kapitał zakładowy 299 mln zł. w całości pokryty.</p>
+                    <p class="bold">e-mail:</p>
+                    <p><a class="e-mail" href="mailto:biuro@bruk-bet.pl">biuro@bruk-bet.pl</a></p>
+
+                    <p class="bold">Infolinia:</p>
+                    <p>
+                    <a class="tel" href="tel:801209047">801 209 047</a>
+                    lub <a class="tel" href="tel:146444444">14 644 44 44</a>
+                    </p>
+            </div>
+
+            <div class="f-left box center">
+
+                <p class="label"></p>
+
+                <p class="bold title">Dział Obsługi Klienta Bruk-Bet</p>
+                <p>Centralne Biuro Obsługi Klienta:</p>
+                <p><a class="tel" href="tel:146892930">14 689 29 30</a></p>
+                <p>Region Wschód:</p>
+                <p><a class="e-mail" href="mailto:dok1@bruk-bet.pl">dok1@bruk-bet.pl</a></p>
+                <p>Region Zachód:</p>
+                <p><a class="e-mail" href="mailto:dok2@bruk-bet.pl">dok2@bruk-bet.pl</a></p>
+                <div *ngIf="customerService?.supervisor?.supervisor">
+                    <p><b>{{r?.translations?.supervisor}}</b>: {{customerService?.supervisor?.supervisor}}</p>
+                    <p>
+                        <a *ngIf="customerService?.supervisor?.supervisorEmail"
+                        href="mailto:{{customerService?.supervisor?.supervisorEmail}}">
+                         <i class="ti-email"></i>
+                         {{customerService?.supervisor?.supervisorEmail}}
+                        </a>
+
+                        <a *ngIf="customerService?.supervisor?.supervisorTelephone"
+                           href="tel:{{customerService?.supervisor?.supervisorTelephone}}">
+                            <i class="ti-headphone-alt"></i>
+                            {{customerService?.supervisor?.supervisorTelephone}}
+                        </a>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="f-left box right">
+
+                <p class="label"></p>
+
+                <p class="bold title">Bruk-Bet Solar</p>
+                <p>ul. Mroźna 8, 33-102 Tarnów</p>
+                <p class="bold">Infolinia:</p>
+                <p><a class="tel" href="tel:146320820">14 632 08 20</a></p>
+                <p class="bold">Fax:</p>
+                <p><a class="tel" href="tel:146320821">14 632 08 21</a></p>
+                <p class="bold">e-mail:</p>
+                <p><a class="e-mail" href="mailto:solar@bruk-bet.pl">solar@bruk-bet.pl</a></p>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+

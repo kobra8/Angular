@@ -1,0 +1,17 @@
+<ng-container [ngSwitch]="extension">
+
+    <app-svg-image class="file-icon" *ngSwitchCase="'zip'" [svgId]="'file-archive'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'rar'" [svgId]="'file-archive'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'xls'" [svgId]="'file-excel'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'xlsx'" [svgId]="'file-excel'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'pdf'" [svgId]="'file-pdf'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'bmp'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'png'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'jpg'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'jpeg'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'jpe'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'jfif'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchCase="'gif'" [svgId]="'file-image'"></app-svg-image>
+    <app-svg-image class="file-icon" *ngSwitchDefault [svgId]="'file-alt'"></app-svg-image>
+
+</ng-container>

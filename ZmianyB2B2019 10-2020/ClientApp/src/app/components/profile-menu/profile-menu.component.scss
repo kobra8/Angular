@@ -1,0 +1,12 @@
+@import 'configuration.scss';
+
+.app-profile-menu {
+    display: block;
+    font-size: 18px;
+
+    .menu-item {
+        border-right: none;
+        border-bottom: 1px solid $border-color;
+        justify-content: flex-start;
+    }
+}

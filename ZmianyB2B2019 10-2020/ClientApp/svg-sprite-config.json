@@ -1,0 +1,16 @@
+{
+    "mode": {
+        "css": {
+            "dest": "",
+            "sprite": "src/global-styles/svg/svg-sprite.svg",
+            "bust": false,
+            "layout": "horizontal",
+            "shape": {
+                "dimension": {
+                    "maxWidth": 100,
+                    "maxHeight": 100
+                }
+            }
+        }
+    }
+}

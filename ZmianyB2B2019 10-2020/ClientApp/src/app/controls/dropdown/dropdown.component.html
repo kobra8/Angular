@@ -1,0 +1,25 @@
+
+<div role="menuitem"
+     tabindex="0"
+     class="button trigger-container"
+     aria-haspopup="true"
+     [attr.aria-expanded]="isOpen"
+     [attr.aria-label]="ariaLabel"
+     (click)="changeDisplay()">
+
+    <ng-content select="trigger"></ng-content>
+</div>
+
+
+<div class="dropdown-window"
+     *ngIf="isOpen"
+     role="menu"
+     [attr.aria-label]="ariaContentLabel || ariaLabel">
+
+    <ng-content select="content"></ng-content>
+
+    <button class="ti-close close" (click)="changeDisplay(false)" [attr.aria-label]="r?.translations?.collapseDropdown"></button>
+
+</div>
+
+<div class="outside" *ngIf="isOpen" (click)="changeDisplay(false)" aria-hidden="true"></div>

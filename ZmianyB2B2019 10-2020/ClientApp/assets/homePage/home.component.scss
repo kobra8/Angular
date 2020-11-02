@@ -1,0 +1,57 @@
+@import 'configuration.scss';
+
+.app-home {
+    .tns-item, .tns-outer, .tns-ovh, .tns-inner, .tns-slider {
+        height: auto !important;
+    }
+
+    .app-slider {
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: left;
+
+        .caption, [data-controls] {
+
+            @media (min-width: #{$tablet-max + 1}) {
+                color: #fff;
+            }
+        }
+
+        [data-controls="prev"] {
+            left: 0;
+        }
+
+        [data-controls="next"] {
+            right: 0;
+        }
+    }
+
+    .app-swiper.slider-nav .swiper-wrapper {
+
+        @media (max-width: $tablet-max) {
+            margin-bottom: 8px;
+        }
+    }
+
+    .swiper-pagination {
+        bottom: 20px;
+
+        @media (max-width: $tablet-max) {
+            bottom: 0;
+            width: 100%;
+        }
+    }
+
+    .swiper-pagination-bullet {
+
+        @media (max-width: $tablet-max) {
+            margin: 0 !important;
+            width: auto;
+            flex-grow: 1;
+        }
+    }
+
+    .full {
+        grid-column: 1 / -1;
+    }
+}
