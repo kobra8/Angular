@@ -222,8 +222,12 @@
         }
 
         trigger, trigger.menu-item {
-            color: $warning;
+            color:  $primary-color; //JD
             padding: 0 20px;
+
+            &:hover {
+                color: $linksHover; //JD
+            }
 
             @media (max-width: $tablet-max) {
                 padding: 0;
@@ -250,6 +254,9 @@
         .dropdown-window {
             padding-top: 25px;
             min-width: 350px;
+            & a:hover {
+                color: $linksHover; //JD
+            }
         }
 
         .content-container {

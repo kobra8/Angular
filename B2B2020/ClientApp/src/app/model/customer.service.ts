@@ -17,6 +17,9 @@ export class CustomerService {
 
     creditInfoChanged: Subject<b2b.HeaderCustomerInfo>;
 
+      // JD
+      supervisor: b2b.Supervisor;
+      customerLimitInfo: any;
 
     constructor(private httpClient: HttpClient, private configService: ConfigService) {
         this.creditInfo = <b2b.HeaderCustomerInfo>{};
@@ -32,6 +35,7 @@ export class CustomerService {
 
         const headerPromise = this.requestHeaderData().then((res) => {
             this.creditInfo = res.set1[0];
+            this.supervisor = res.set2[0]; // JD
             return this.creditInfo;
 
         }).catch(err => {

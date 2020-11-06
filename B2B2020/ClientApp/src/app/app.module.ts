@@ -30,6 +30,7 @@ import { CommonModalService } from './model/shared/common-modal.service';
 import { CommonAvailableCartsService } from './model/shared/common-available-carts.service';
 import { PrintHandlerService } from './model/shared/printhandler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 const routes: b2b.RouteWithKey[] = [
@@ -47,6 +48,7 @@ const routes: b2b.RouteWithKey[] = [
 
     { path: 'carts', key: 'cart', canActivate: [AccountService], loadChildren: () => import('./cart.module').then(m => m.CartModule) },
 
+    { path: 'contact', key: 'contact', component: ContactComponent, canActivate: [AccountService] },
     { path: 'login', key: 'login', component: AccountComponent, canActivate: [AccountService] },
     { path: 'remind', key: 'remindPassword', component: AccountComponent, canActivate: [AccountService] },
     {
@@ -92,7 +94,8 @@ export function registerSW() {
         ProductsComponent,
         ProductDetailsComponent,
         AccountComponent,
-        ProductFlagsComponent
+        ProductFlagsComponent,
+        ContactComponent,
     ],
     entryComponents: [SliderComponent, LazyImageComponent],
     imports: [

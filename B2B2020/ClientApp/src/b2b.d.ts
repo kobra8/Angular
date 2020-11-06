@@ -62,6 +62,7 @@ export module b2b {
         };
 
         set1: HeaderCustomerInfo[];
+        set2: Supervisor[]; // JD
     }
 
     /**
@@ -2738,7 +2739,9 @@ export module b2b {
         | 'newsDetails'
         | 'serviceJobs'
         | 'serviceJobDetails'
-        | 'store';
+        | 'store'
+        | 'contact' //JD
+        | 'businessterms'; // JD
 
 
     interface RouteWithKey extends Route {
