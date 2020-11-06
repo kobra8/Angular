@@ -1,0 +1,51 @@
+@mixin themify-style() {
+    font-family: 'themify';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+@mixin right-shadow($offset, $color) {
+
+    $lowerOffset: $offset*3/4;
+
+    box-shadow: #{$offset}px -#{$lowerOffset}px 0 0 $color,
+                #{$offset}px 0 0 0 $color,
+                #{$offset}px #{$lowerOffset}px 0 0 $color,
+                0 0 0 0 $color;
+}
+
+
+@function tint($color, $percentage) {
+    @return mix(white, $color, $percentage);
+}
+
+
+@function shade($color, $percentage) {
+    @return mix(black, $color, $percentage);
+}
+
+@mixin input-placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder { /* Firefox 18- */
+        @content;
+    }
+
+    &::-moz-placeholder { /* Firefox 19+ */
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+}

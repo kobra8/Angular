@@ -1,0 +1,355 @@
+@import 'configuration.scss';
+
+.app-menu {
+    display: block;
+    background: $bar-bg;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    font-size: 18px;
+    grid-column: 1 / -1;
+
+    @media (max-width: $tablet-max) {
+        top: -$bar-height;
+        position: absolute;
+        width: 100%;
+    }
+
+    .nav-container {
+        display: grid;
+        grid-template-columns: $sidebars-width repeat(auto-fit, minmax(245px, max-content));
+        min-height: $bar-height;
+
+        @media (max-width: $tablet-max) {
+            grid-template-columns: $bar-height calc(100% - #{2*$bar-height}) $bar-height;
+        }
+    }
+
+    i {
+        margin-right: 10px;
+    }
+
+
+    .menu-item {
+
+        @media (max-width: $tablet-max) {
+            flex-wrap: wrap;
+            padding: 0;
+        }
+
+        &:not(.active-top):not(.navBar-items) {
+            @media (max-width: $tablet-max) {
+                display: none;
+            }
+        }
+
+        &.navBar-items {
+            @media (max-width: $tablet-max) {
+                border-right: 1px solid $border-color;
+            }
+        }
+
+        i {
+            @media (max-width: $tablet-max) {
+                margin: 0;
+            }
+        }
+    }
+
+    .active-top:not(.back) {
+        margin-top: -14px;
+        border-top-color: $bar-active-border;
+        border-right: 1px solid $border-color;
+        border-left: 1px solid $border-color;
+        margin-bottom: -1px;
+        margin-left: -1px;
+
+        @media (max-width: $tablet-max) {
+            margin: 0;
+            border: 0;
+            margin-bottom: -1px;
+            font-size: 12px;
+        }
+    }
+
+
+
+    button {
+        border: none;
+    }
+
+    .back {
+        border-right: 0;
+        border-top: 0 !important;
+    }
+
+    .choose-cart {
+        margin: 0 10px;
+    }
+
+    .app-select {
+        color: $inputs-fcolor;
+
+        i {
+            margin: 0;
+        }
+    }
+
+    .label {
+        margin: 0 5px;
+        display: inline-block;
+    }
+
+    .navBar-items {
+        justify-content: left;
+
+        @media (max-width: $tablet-max) {
+            justify-content: center;
+        }
+    }
+
+    .as-sidebar-label, .opened trigger {
+        margin-top: -1px;
+
+        &, &:hover {
+            background: $bar-active-bg;
+            color: inherit;
+
+            @media (max-width: $tablet-max) {
+                background: none;
+            }
+        }
+    }
+
+    .covered {
+        display: flex !important;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+    }
+
+
+    form.menu-item {
+
+        &:hover {
+            background: inherit;
+        }
+
+        .value {
+            border: 0;
+        }
+    }
+
+
+
+    .items-drop {
+
+        .label {
+            top: 0;
+            color: inherit;
+        }
+
+        .dropdown-window {
+            padding: 0;
+            top: 100%;
+            right: 0;
+            left: 0;
+            overflow: visible;
+        }
+    }
+
+
+    .import-csv-form.menu-item {
+        color: inherit;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .import-csv-input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+    [name="cartId"] {
+        z-index: 25;
+    }
+
+
+    .more-drop .menu-item, .print, .attachments .menu-item, .new-complain {
+
+        @media (max-width: $tablet-max) {
+            display: flex !important;
+            font-size: 22px;
+        }
+
+        > .ti-plus {
+            margin-right: 7px;
+        }
+    }
+
+
+    input {
+        margin: 0 5px;
+
+        @-moz-document url-prefix() {
+            margin: 0;
+        }
+
+        @media (max-width: $tablet-max) {
+            padding: 0;
+            margin: 0;
+            height: 2.5em;
+            max-width: 95px;
+            font-size: 12px;
+        }
+    }
+
+    .app-dropdown {
+        @media (max-width: $tablet-max) {
+            position: static;
+        }
+
+        .close {
+            border-left: 1px solid $border-color;
+        }
+    }
+
+    .dropdown-window {
+        color: $content-fcolor;
+    }
+
+    .trigger-container {
+        position: relative;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    .more-drop {
+
+
+
+        .dropdown-window {
+            padding: 0;
+            padding-top: 57px;
+        }
+    }
+
+    .drop-item {
+        display: flex;
+        padding: 10px;
+        font-size: 18px;
+        align-items: center;
+        border-bottom: 1px solid $border-color;
+
+        &:first-child {
+            border-top: 1px solid $border-color;
+        }
+    }
+
+
+    .ff-date-fix {
+        @-moz-document url-prefix() {
+            margin: 0 5px;
+        }
+    }
+
+
+    .arg {
+        @media (max-width: $tablet-max) {
+            display: block;
+        }
+    }
+    //---
+    /*.app-dropdown.list {
+        .dropdown-window {
+            padding: 0;
+
+            .label {
+                display: block;
+                //line-height: $bar-height;
+                @media (max-width: $tablet-max) {
+                    margin-top: 6px;
+                    border-bottom: 1px solid $border-color;
+                }
+            }
+
+            .label ~ * {
+                display: block;
+                padding: 0 15px;
+            }
+        }
+    }*/
+}
+
+.app-menu.profile-bar {
+    background: $primary-color;
+    color: $fcolor-for-primary;
+    border-color: $primary-color;
+
+    .active-top:not(.back) {
+        border-left-color: $bar-active-border;
+        border-right-color: $bar-active-border;
+    }
+}
+
+.app-cart, .app-thank-you {
+    .app-menu {
+        background: $secondary-color;
+        color: $fcolor-for-secondary;
+        border-color: $secondary-color;
+
+        .active-top {
+            border-color: $cart-button-bg !important;
+            padding: 0 !important;
+        }
+
+        .menu-item:hover {
+            background: $cart-button-hover;
+        }
+    }
+}
+
+
+.import-csv-modal {
+    white-space: normal;
+
+    button {
+        vertical-align: middle;
+    }
+
+    .modal-window {
+        width: 1000px;
+        min-height: 0;
+    }
+
+    .modal-content {
+        text-align: left;
+    }
+
+    .emphasised-section {
+        margin-bottom: 0.5em;
+
+        &:not(:first-child) {
+            margin-top: 25px;
+        }
+    }
+
+    .emphasised-section, [class*="separator"] {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

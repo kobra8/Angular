@@ -62,7 +62,6 @@ export module b2b {
         };
 
         set1: HeaderCustomerInfo[];
-        set2: Supervisor[]; // JD
     }
 
     /**

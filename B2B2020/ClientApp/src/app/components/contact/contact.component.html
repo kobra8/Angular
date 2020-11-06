@@ -42,19 +42,19 @@
                 <p><a class="e-mail" href="mailto:dok1@bruk-bet.pl">dok1@bruk-bet.pl</a></p>
                 <p>Region Zachód:</p>
                 <p><a class="e-mail" href="mailto:dok2@bruk-bet.pl">dok2@bruk-bet.pl</a></p>
-                <div *ngIf="customerService?.supervisor?.supervisor">
-                    <p><b>{{r?.translations?.supervisor}}</b>: {{customerService?.supervisor?.supervisor}}</p>
+                <div *ngIf="configService?.config?.supervisor">
+                    <p><b>{{r?.translations?.supervisor}}</b>: {{configService?.config?.supervisor}}</p>
                     <p>
-                        <a *ngIf="customerService?.supervisor?.supervisorEmail"
-                        href="mailto:{{customerService?.supervisor?.supervisorEmail}}">
+                        <a *ngIf="configService?.config?.supervisorEmail"
+                        href="mailto:{{configService?.config?.supervisorEmail}}">
                          <i class="ti-email"></i>
-                         {{customerService?.supervisor?.supervisorEmail}}
+                         {{configService?.config?.supervisorEmail}}
                         </a>
 
-                        <a *ngIf="customerService?.supervisor?.supervisorTelephone"
-                           href="tel:{{customerService?.supervisor?.supervisorTelephone}}">
+                        <a *ngIf="configService?.config?.supervisorTelephone"
+                           href="tel:{{configService?.config?.supervisorTelephone}}">
                             <i class="ti-headphone-alt"></i>
-                            {{customerService?.supervisor?.supervisorTelephone}}
+                            {{configService?.config?.supervisorTelephone}}
                         </a>
                     </p>
                 </div>

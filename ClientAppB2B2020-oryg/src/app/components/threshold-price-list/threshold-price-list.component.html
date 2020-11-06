@@ -1,0 +1,61 @@
+<app-dropdown>
+
+    <trigger class="trigger">
+        <div class="trigger-text">
+            <i class="ti-shopping-cart-full"></i>
+            <span>{{r?.translations?.buyMorePayLess}}!</span>
+        </div>
+        <i class="ti-angle-down"></i>
+    </trigger>
+
+    <content>
+
+        <div class="header">
+            <div class="header-icon">
+                <i class="ti-shopping-cart-full"></i>
+            </div>
+            <div class="header-text">
+                <div class="main-text">{{r?.translations?.buyMorePayLess}}!</div>
+                <div class="emphasised">{{productName}}</div>
+                <div class="small">{{productCode}}</div>
+            </div>
+        </div>
+
+        <div class="body">
+            <div class="body-content">
+                <div class="grid-container" *ngIf="thresholdPriceLists?.constPriceThresholdPriceList?.length > 0">
+                    <div class="small"><strong>{{r?.translations?.quantityFrom}}</strong></div>
+                    <div class="small"><strong>{{r?.translations?.net}}</strong> / {{thresholdPriceLists.constPriceThresholdPriceList[0].unit}}</div>
+                    <div class="small"><strong>{{r?.translations?.gross}}</strong> / {{thresholdPriceLists.constPriceThresholdPriceList[0].unit}}</div>
+                    <ng-container *ngFor="let constPriceThreshold of thresholdPriceLists.constPriceThresholdPriceList">
+                        <div>{{constPriceThreshold.thresholdQuantity}} {{constPriceThreshold.unit}}</div>
+                        <div class="net">{{constPriceThreshold.netPrice | toPrice}}</div>
+                        <div>{{constPriceThreshold.grossPrice | toPrice}} {{constPriceThreshold.currency}}</div>
+                    </ng-container>
+                </div>
+
+                <div class="grid-container" *ngIf="thresholdPriceLists?.valuableThresholdPriceList?.length > 0">
+                    <div class="small"><strong>{{r?.translations?.quantityFrom}}</strong></div>
+                    <div class="small"><strong>{{r?.translations?.netDiscount | lowercase}}</strong></div>
+                    <div class="small"><strong>{{r?.translations?.grossDiscount | lowercase}}</strong></div>
+                    <ng-container *ngFor="let valuableThreshold of thresholdPriceLists.valuableThresholdPriceList">
+                        <div>{{valuableThreshold.thresholdQuantity}} {{valuableThreshold.unit}}</div>
+                        <div class="net">{{valuableThreshold.netValue | toPrice}}</div>
+                        <div>{{valuableThreshold.grossValue | toPrice}} {{valuableThreshold.currency}}</div>
+                    </ng-container>
+                </div>
+
+                <div class="grid-container" *ngIf="thresholdPriceLists?.percentageThresholdPriceList?.length > 0">
+                    <div class="small"><strong>{{r?.translations?.quantityFrom}}</strong></div>
+                    <div class="small"><strong>{{r?.translations?.discount | lowercase}}</strong></div>
+                    <div></div>
+                    <ng-container *ngFor="let percentageThreshold of thresholdPriceLists.percentageThresholdPriceList">
+                        <div>{{percentageThreshold.thresholdQuantity}} {{percentageThreshold.unit}}</div>
+                        <div class="net">{{percentageThreshold.value}}%</div>
+                        <div></div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </content>
+</app-dropdown>

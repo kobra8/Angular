@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ResourcesService } from 'src/app/model/resources.service';
-import { CustomerService } from 'src/app/model/customer.service';
+import { ConfigService } from 'src/app/model/config.service';
 
 // JD
 @Component({
@@ -15,7 +15,7 @@ export class ContactComponent {
     r: ResourcesService;
 
     constructor(
-        public customerService: CustomerService,
+        public configService: ConfigService,
         resourcesService: ResourcesService
 
     ) {

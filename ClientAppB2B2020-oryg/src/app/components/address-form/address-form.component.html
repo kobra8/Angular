@@ -1,0 +1,184 @@
+<app-dropdown [isOpen]="isOpen"
+              [outsideClose]="false"
+              (open)="onOpen()"
+              (close)="onClose()">
+
+    <trigger class="trigger text-link">
+        <i class="icon ti-pencil"></i>
+        <span>{{r?.translations?.addAddress}}</span>
+    </trigger>
+
+    <content>
+
+        <header class="header">
+            <h3 class="heading">
+                <ng-container *ngIf="formMode === 1; else addAddress">
+                    <strong>{{r?.translations?.editShippingAddress}}</strong>
+                </ng-container>
+                <ng-template #addAddress>
+                    <strong>{{r?.translations?.addShippingAddress}}</strong>
+                </ng-template>
+            </h3>
+
+            <section class="split-group">
+                <article class="split-group__equal">
+                    <app-radio name="address-type"
+                               [(ngModel)]="addressType"
+                               [value]="0"
+                               [disabled]="permAddressDisabled">
+                        {{r?.translations?.saveAddressPermanently}}
+                    </app-radio>
+                </article>
+
+                <article class="split-group__equal">
+                    <app-radio name="address-type"
+                               [(ngModel)]="addressType"
+                               [value]="1"
+                               [disabled]="tempAddressDisabled">
+                        {{r?.translations?.addAddressOnlyOnOrder}}
+
+                    </app-radio>
+                </article>
+            </section>
+        </header>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <section class="body">
+
+                <article class="form-group">
+                    <label for="company-name">{{r?.translations?.companyNameValue}}<i class="required mark"></i></label>
+                    <input name="company-name"
+                           id="company-name"
+                           class="form-group__input validation-field"
+                           formControlName="companyName"
+                           maxlength="50"
+                           type="text" />
+                    <span *ngIf="!form.get('companyName').valid && form.get('companyName').touched"
+                          class="help-block">
+                        <span *ngIf="form.get('companyName').errors['required']">
+                            {{r?.translations?.companyNameIsRequired}}
+                        </span>
+                    </span>
+                </article>
+
+                <article class="form-group">
+                    <label for="name-and-lastname">{{r?.translations?.nameAndLastName}}</label>
+                    <input name="name-and-lastname"
+                           id="name-and-lastname"
+                           class="form-group__input"
+                           formControlName="nameAndLastName"
+                           maxlength="50"
+                           type="text" />
+                </article>
+                
+                <article class="form-group">
+                    <label for="street">
+                        {{r?.translations?.street}} ({{r?.translations?.withHouseAndApartmentNumber}})<i class="required mark"></i></label>
+                    <input name="street"
+                           id="street"
+                           class="form-group__input validation-field"
+                           formControlName="street"
+                           maxlength="30"
+                           type="text" />
+                    <span *ngIf="!form.get('street').valid && form.get('street').touched"
+                          class="help-block">
+                        <span *ngIf="form.get('street').errors['required']">
+                            {{r?.translations?.streetIsRequired}}
+                        </span>
+                    </span>
+                </article>
+                <section class="split-group">
+                    <article class="form-group split-group__narrow">
+                        <label for="zip-code">{{r?.translations?.zipCode}}<i class="required mark"></i></label>
+                        <input name="zip-code"
+                               id="zip-code"
+                               class="form-group__input validation-field"
+                               formControlName="zipCode"
+                               maxlength="10"
+                               type="text" />
+                        <span *ngIf="!form.get('zipCode').valid && form.get('zipCode').touched"
+                              class="help-block">
+                            <span *ngIf="form.get('zipCode').errors['required']; else checkZipCode">
+                                {{r?.translations?.zipCodeIsRequired}}
+                            </span>
+                            <ng-template #checkZipCode>
+                                <ng-container *ngIf="form.get('zipCode').errors['incorrectZipCode']">
+                                    {{r?.translations?.incorrectZipCode}}
+                                </ng-container>
+                            </ng-template>
+                        </span>
+                    </article>
+                    <article class="form-group split-group__wide">
+                        <label for="city">{{r?.translations?.city}}<i class="required mark"></i></label>
+                        <input name="city"
+                               id="city"
+                               class="form-group__input validation-field"
+                               formControlName="city"
+                               maxlength="30"
+                               type="text" />
+                        <span *ngIf="!form.get('city').valid && form.get('city').touched"
+                              class="help-block">
+                            <span *ngIf="form.get('city').errors['required']">
+                                {{r?.translations?.cityIsRequired}}
+                            </span>
+                        </span>
+                    </article>
+                </section>
+                <article class="form-group">
+                    <label for="country">{{r?.translations?.country}}<i class="required mark"></i></label>
+                    <app-select name="country"
+                                id="country"
+                                class="form-group__input form-group__input--country"
+                                formControlName="countryId">
+                        <app-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</app-option>
+                        </app-select>
+</article>
+
+                <section class="split-group">
+                    <article class="form-group split-group__narrow">
+                        <label for="phone-number">{{r?.translations?.phoneNumber}}</label>
+                        <input name="phone-number"
+                               id="phone-number"
+                               class="form-group__input"
+                               formControlName="phoneNumber"
+                               type="number" />
+                    </article>
+
+                    <article class="form-group split-group__wide">
+                        <label for="email">{{r?.translations?.email}}</label>
+                        <input name="email"
+                               id="email"
+                               class="form-group__input validation-field"
+                               formControlName="email"
+                               maxlength="255"
+                               type="text" />
+                        <span *ngIf="!form.get('email').valid && form.get('email').touched"
+                              class="help-block">
+                            <span *ngIf="form.get('email').errors['incorrectEmail']">
+                                {{r?.translations?.incorrectEmail}}
+                            </span>
+                        </span>
+                    </article>
+                </section>
+            </section>
+
+            <footer class="footer">
+                <button class="submit-address"
+                        [disabled]="disableSubmitBtn && form.invalid"
+                        type="submit">
+
+                    <ng-container *ngIf="formMode === 1; else saveNewAddress">
+                        <i class="icon ti-save"></i>
+                        <span>{{r?.translations?.updateAddress}}</span>
+                    </ng-container>
+                    <ng-template #saveNewAddress>
+                        <i class="icon ti-check"></i>
+                        <span>{{r?.translations?.addNewAddress}}</span>
+                    </ng-template>
+
+                </button>
+            </footer>
+        </form>
+
+    </content>
+</app-dropdown>
