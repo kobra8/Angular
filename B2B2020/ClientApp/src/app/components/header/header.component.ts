@@ -19,6 +19,7 @@ import { StoresService } from '../../model/store/stores.service';
 import { CommonAvailableCartsService } from '../../model/shared/common-available-carts.service';
 import { b2bProducts } from 'src/integration/products/b2b-products';
 import { b2bShared } from 'src/integration/b2b-shared';
+import { CommonModalService } from 'src/app/model/shared/common-modal.service';
 
 
 @Component({
@@ -82,7 +83,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private productsService: ProductsService,
         public menuService: MenuService,
         private storesService: StoresService,
-        private commonAvailableCartsService: CommonAvailableCartsService
+        private commonAvailableCartsService: CommonAvailableCartsService,
+        private commonModalService: CommonModalService
     ) {
 
         this.carts = cartsService;
@@ -195,6 +197,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     }
                 });
             }
+            // JD - show commercial only after login
+            // this.commonModalService.showModalCommercial(true);
 
             return Promise.all([cartPromise, pendingMenuItemPromise, headerPromise]);
         });

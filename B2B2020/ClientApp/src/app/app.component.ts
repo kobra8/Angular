@@ -29,6 +29,8 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
     private addingToCartSub: Subscription;
     private addingToStoreSub: Subscription;
     private showModalSub: Subscription;
+    // JD
+    private showCommercialSub: Subscription;
 
     afterAddingToCartModal: {
         opened: boolean;
@@ -44,6 +46,9 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         isOpened: boolean;
         message?: string;
     };
+    //JD
+    showCommercial = false;
+    animateCommercialOut = false;
 
     noPermissions: boolean;
 
@@ -122,6 +127,12 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
         this.showModalSub = this.commonModalService.showModalSubject.subscribe((res) => {
             this.modalData.isOpened = true;
             this.modalData.message = res;
+        });
+
+        // JD
+        this.showCommercialSub = this.commonModalService.showCommercialEmited$.subscribe((res) => {
+            this.showCommercial = res;
+
         });
 
 
@@ -241,7 +252,14 @@ export class AppComponent implements OnInit, AfterContentChecked, OnDestroy {
     promptInstallAppBanner() {
         this.beforeInstallPromptEvent.prompt();
     }
-
+    // JD
+    hideCommercial() {
+        this.animateCommercialOut = true;
+        setTimeout(() => {
+            this.commonModalService.showModalCommercial(false);
+            this.animateCommercialOut = false;
+        }, 2000);
+    }
 
     ngOnDestroy(): void {
 

@@ -1462,6 +1462,12 @@ td {
     &.service-jobs::before {
         content: '\e69a';
     }
+
+    //JD
+    &.navBar-businessterms::before {
+        //background-position: 0 -260px;
+        content: '\e6c7';
+    }
 }
 
 mark, .highlight, .search-mark {
