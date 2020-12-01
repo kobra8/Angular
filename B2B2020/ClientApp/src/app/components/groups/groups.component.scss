@@ -22,16 +22,24 @@
         padding: 0 15px;
     }
 
+    // JD
     .change-group, .group-label {
-        line-height: 50px;
-        height: 50px;
-        white-space: nowrap;
+        // line-height: 50px;
+        line-height: 30px;
+        // height: 50px;
+        height: auto;
+        min-height: 50px;
+        //white-space: nowrap;
+        white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
         color: $content-fcolor;
         width: calc(100% - 50px);
         text-align: left;
+        &:hover {
+            background-color: #7FBA00;
+        }
     }
 
     .full .group-label {
@@ -73,5 +81,19 @@
         text-align: left;
         transition-duration: $little-transitions-time;
         transition-property: background-color, color, border-color;
+    }
+
+    // JD
+    .category-item > button.ti-angle-right {
+        background: #fff;
+        &.ti-angle-right:before {
+            display: inline-block;
+        }
+        &:hover {
+            color: #7FBA00;
+            &::before {
+                transform: scale(1.2);
+            }
+        }
     }
 }

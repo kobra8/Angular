@@ -128,16 +128,16 @@
                 </ng-container>
 
 
-                <p>
+                <!-- <p>
                     {{r?.translations?.vat}}
                 </p>
 
                 <p>
                     {{product.details.vatValue}}%
-                </p>
+                </p> -->
 
-
-                <ng-container *ngIf="product?.details?.manager !== ''">
+        <!-- JD -->
+                <!-- <ng-container *ngIf="product?.details?.manager !== ''">
                     <p>
                         {{r?.translations?.productManager}}
                     </p>
@@ -149,7 +149,7 @@
                         <span *ngIf="!product.details.managerMail">{{product.details.manager}}</span>
 
                     </p>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container *ngIf="product?.details?.bruttoWeight">
                     <p>
@@ -241,8 +241,14 @@
                         'with-threshold': thresholdPriceLists?.hasAnyThresholdPriceList}">
 
                     <span class="pair-key">{{r?.translations?.availability}}: </span>
-
-                    <ng-container *ngIf="product.details.status !== 1" [ngSwitch]="product.details.status">
+            <!-- JD -->
+                    <ng-container *ngIf="product.details.stockLevelNumber === 0">
+                        {{r?.translations?.articleStateUnavailable}}
+                    </ng-container>
+                    <ng-container *ngIf="product.details.stockLevelNumber > 0">
+                        {{r?.translations?.articleStateAvailable}}
+                    </ng-container>
+                    <!-- <ng-container *ngIf="product.details.status !== 1" [ngSwitch]="product.details.status">
                         <ng-container *ngSwitchCase="0">{{r?.translations?.articleStatePreview}}</ng-container>
                         <ng-container *ngSwitchCase="2">{{r?.translations?.articleStateAvaliableOnRequest}}</ng-container>
                         <ng-container *ngSwitchCase="3">{{r?.translations?.articleStateUnavailable}}</ng-container>
@@ -258,7 +264,7 @@
                         <ng-container *ngSwitchCase="6">{{r?.translations?.articleAvailabilityAvaliableTo14Days}}</ng-container>
                         <ng-container *ngSwitchCase="7">{{r?.translations?.articleAvailabilityAvaliableToOver14Days}}</ng-container>
 
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container *ngIf="product.details.status === 1 && product.details.availability === -1">
                         {{r?.translations?.articleStateAvailable}}
