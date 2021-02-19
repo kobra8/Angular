@@ -1,0 +1,120 @@
+{
+  "configVersion": 1,
+  "timestamp": 1602227394297,
+  "index": "/index",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [],
+      "patterns": [
+        "\\/index"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-fresh",
+      "patterns": [
+        "\\/account\\/isloggedin",
+        "\\/api\\/carts[^/]*",
+        "\\/account\\/isloginconfirmationrequired"
+      ],
+      "strategy": "freshness",
+      "maxSize": 5000,
+      "maxAge": 300000,
+      "version": 1
+    },
+    {
+      "name": "api-purchase-documents",
+      "patterns": [
+        "\\/api\\/orders[^/]*",
+        "\\/api\\/quotes[^/]*",
+        "\\/api\\/payments[^/]*"
+      ],
+      "strategy": "performance",
+      "maxSize": 5000,
+      "maxAge": 300000,
+      "version": 1
+    },
+    {
+      "name": "api-documents",
+      "patterns": [
+        "\\/api\\/inquiries[^/]*",
+        "\\/api\\/payments[^/]*",
+        "\\/api\\/delivery[^/]*",
+        "\\/api\\/complaints[^/]*",
+        "\\/api\\/items[^/]*",
+        "\\/api\\/promotions[^/]*",
+        "\\/api\\/news[^/]*",
+        "\\/api\\/serviceJob[^/]*"
+      ],
+      "strategy": "performance",
+      "maxSize": 5000,
+      "maxAge": 900000,
+      "version": 1
+    },
+    {
+      "name": "api-long-term",
+      "patterns": [
+        "\\/languages\\/getactive",
+        "\\/resources\\/getbylanguageid",
+        "\\/api\\/common\\/menuitems",
+        "\\/account\\/getcompanies",
+        "\\/account\\/getapplicationtype",
+        "\\/api\\/configuration\\/getforcustomer",
+        "\\/api\\/customer[^/]*",
+        "\\/api\\/files\\/getfilesbycustomer",
+        "\\/imagehandler\\.aspx",
+        "\\/filehandler\\.aspx"
+      ],
+      "strategy": "performance",
+      "maxSize": 5000,
+      "maxAge": 1209600000,
+      "version": 1
+    }
+  ],
+  "hashTable": {},
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/remindpassword\\/passwordreminder$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/account\\/login$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/swagger\\/login$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/swaggerapidocumentation\\/index$"
+    }
+  ]
+}
